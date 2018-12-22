@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+   <extension point="org.eclipse.core.expressions.propertyTesters">
+		<propertyTester
+			id="org.eclipse.jdt.experimental.ui.preferences.JavaPreferencesPropertyTester"
+			type="java.lang.Object"
+			namespace="org.eclipse.jdt.codemining"
+			properties="hasPreference"
+			class="abap.codemining.preferences.AbapPreferencesPropertyTester">
+		</propertyTester>
+  </extension>
+
+  <!-- ABAP code mining providers contributed by org.eclipse.jdt.ui -->
+  <extension
+         point="org.eclipse.ui.workbench.texteditor.codeMiningProviders">
+      <codeMiningProvider
+         class="abap.codemining.editor.AbapElementCodeMiningProvider"
+         id="org.eclipse.jdt.ui.codemining.general"
+         label="%AbapElementCodeMiningProvider.label">
+	     <enabledWhen>
+	        <and>
+	           	<or>
+	           	   <!-- TODO: change to property="org.eclipse.jdt.ui.hasPreference" -->
+	           	   <test property="org.eclipse.jdt.codemining.hasPreference" value="dummy" forcePluginActivation="true"/>
+	           	</or>
+           	</and>
+         </enabledWhen>
+      </codeMiningProvider>
+   </extension>
+  
+    
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            name="%codeMiningPageName"
+            category="org.eclipse.jdt.ui.preferences.AbapEditorPreferencePage"
+            class="abap.codemining.preferences.AbapEditorCodeMiningPreferencePage"
+            id="org.eclipse.jdt.experimental.ui.preferences.AbapEditorCodeMiningPreferencePage">
+            <keywordReference id="org.eclipse.jdt.experimental.ui.codemining"/>
+      </page>   
+    </extension>
+   <extension
+         point="org.eclipse.ui.keywords">
+      <keyword
+            id="org.eclipse.jdt.experimental.ui.codemining"
+            label="code mining">
+      </keyword>
+   </extension>   
+
+</plugin>
