@@ -35,5 +35,5 @@ Require-Bundle: org.eclipse.jdt.junit;bundle-version="3.11.0",
  com.sap.adt.tools.core;bundle-version="2.68.2",
  com.sap.adt.destinations.model;bundle-version="2.68.2"
 Bundle-ActivationPolicy: lazy
-Bundle-Activator: abap.codemining.general.AbapCodeMiningPlugin
+Bundle-Activator: abap.codemining.plugin.AbapCodeMiningPlugin
 Automatic-Module-Name: abap.codemining

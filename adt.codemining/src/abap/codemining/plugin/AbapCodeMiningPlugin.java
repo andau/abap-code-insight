@@ -1,4 +1,4 @@
-package abap.codemining.general;
+package abap.codemining.plugin;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;

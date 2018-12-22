@@ -71,9 +71,4 @@ public class AbapClassSectionParser {
 		return new AbapMethodHeader(methodName, abapMethodHeaderString, visibility);
 	}
 
-	private void extractParams(String contentLine, String direction) {
-		contentLine = contentLine.substring(direction.length());
-
-	}
-
 }

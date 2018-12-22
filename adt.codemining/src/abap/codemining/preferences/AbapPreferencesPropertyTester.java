@@ -11,7 +11,6 @@
 package abap.codemining.preferences;
 
 import org.eclipse.core.expressions.PropertyTester;
-import org.eclipse.jdt.ui.PreferenceConstants;
 
 /**
  * Property tester which checks that a given preference is true from the Java
@@ -23,11 +22,11 @@ public class AbapPreferencesPropertyTester extends PropertyTester {
 
 	@Override
 	public boolean test(Object receiver, String property, Object[] args, Object expectedValue) {
-		return true; 
+		return true;
 	}
 
 	public static boolean isEnabled(String preferenceName) {
-		return true; 
+		return true;
 	}
 
 }

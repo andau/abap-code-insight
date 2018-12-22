@@ -1,103 +1,41 @@
-/**
- *  Copyright (c) 2018 Angelo ZERR.
- *  All rights reserved. This program and the accompanying materials
- *  are made available under the terms of the Eclipse Public License v1.0
- *  which accompanies this distribution, and is available at
- *  http://www.eclipse.org/legal/epl-v10.html
- *
- *  Contributors:
- *     Angelo Zerr <angelo.zerr@gmail.com> - [CodeMining] Provide Java References/Implementation CodeMinings - Bug 529127
- */
 package abap.codemining.preferences;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.jdt.internal.ui.preferences.PropertyAndPreferencePage;
-import org.eclipse.jdt.ui.PreferenceConstants;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.ui.preferences.IWorkbenchPreferenceContainer;
+import org.eclipse.jface.preference.BooleanFieldEditor;
+import org.eclipse.jface.preference.FieldEditorPreferencePage;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPreferencePage;
 
-/**
- * Code mining preference page.
- * <p>
- * Note: Must be public since it is referenced from plugin.xml
- * </p>
- *
- * @since 3.15
- */
-public class AbapEditorCodeMiningPreferencePage extends PropertyAndPreferencePage {
+import abap.codemining.plugin.AbapCodeMiningPlugin;
 
-	private AbapEditorCodeMiningConfigurationBlock fConfigurationBlock;
+public class AbapEditorCodeMiningPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
+
+	final static Color HEADER_COLOR = new Color(Display.getCurrent(), 0, 0, 255);
+	PreferencesUiHelper preferencesUiHelper;
 
 	public AbapEditorCodeMiningPreferencePage() {
-		setPreferenceStore(MyPreferenceConstants.getPreferenceStore());
+		super(GRID);
+		preferencesUiHelper = new PreferencesUiHelper();
 	}
 
 	@Override
-	public void createControl(Composite parent) {
-		IWorkbenchPreferenceContainer container= (IWorkbenchPreferenceContainer) getContainer();
-		fConfigurationBlock= new AbapEditorCodeMiningConfigurationBlock(getNewStatusChangedListener(), container);
+	public void createFieldEditors() {
 
-		super.createControl(parent);
-	}
-	
-	@Override
-	protected Control createPreferenceContent(Composite composite) {
-		return fConfigurationBlock.createContents(composite);
+		preferencesUiHelper.addHeaderLabelWithSpaceBefore(getFieldEditorParent(), "Method information");
+		createMethodInformationChapter();
+
 	}
 
-	@Override
-	protected boolean hasProjectSpecificOptions(IProject project) {
-		return false;
+	private void createMethodInformationChapter() {
+		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_METHOD_VISIBILITY,
+				"Show visibility (public, protected, ...) of methods", getFieldEditorParent()));
 	}
 
 	@Override
-	protected String getPreferencePageID() {
-		return "org.eclipse.jdt.experimental.ui.preferences.JavaEditorCodeMiningPreferencePage"; //$NON-NLS-1$
+	public void init(IWorkbench workbench) {
+		setPreferenceStore(AbapCodeMiningPlugin.getDefault().getPreferenceStore());
+		setDescription("General settings for ABAP Continuous Integration");
 	}
 
-	@Override
-	protected String getPropertyPageID() {
-		return null;
-	}
-
-	@Override
-	public void dispose() {
-		if (fConfigurationBlock != null) {
-			fConfigurationBlock.dispose();
-		}
-		super.dispose();
-	}
-
-	/*
-	 * @see org.eclipse.jface.preference.IPreferencePage#performDefaults()
-	 */
-	@Override
-	protected void performDefaults() {
-		super.performDefaults();
-		if (fConfigurationBlock != null) {
-			fConfigurationBlock.performDefaults();
-		}
-	}
-
-	/*
-	 * @see org.eclipse.jface.preference.IPreferencePage#performOk()
-	 */
-	@Override
-	public boolean performOk() {
-		if (fConfigurationBlock != null && !fConfigurationBlock.performOk()) {
-			return false;
-		}
-		return super.performOk();
-	}
-
-	/*
-	 * @see org.eclipse.jface.preference.IPreferencePage#performApply()
-	 */
-	@Override
-	public void performApply() {
-		if (fConfigurationBlock != null) {
-			fConfigurationBlock.performApply();
-		}
-	}
 }

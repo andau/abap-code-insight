@@ -13,8 +13,6 @@ import abap.codemining.section.AbapSectionExtractor;
 
 public class AbapMethodDefinitionExtractor {
 
-	private static final String PREFIX_METHOD_BODY = "method ";
-
 	boolean publicSector = false;
 
 	public AbapMethodInformation getMethodInformation(IDocument doc) {
@@ -47,6 +45,7 @@ public class AbapMethodDefinitionExtractor {
 
 		int linenumber = 0;
 		while (scanner.hasNextLine()) {
+			linenumber++;
 
 			AbapMethodBody abapMethodBody = abapmethodBodyExtractor.extract(scanner.nextLine(), linenumber);
 
@@ -54,7 +53,6 @@ public class AbapMethodDefinitionExtractor {
 				abapMethodBodies.add(abapMethodBody);
 			}
 
-			linenumber++;
 		}
 
 		scanner.close();

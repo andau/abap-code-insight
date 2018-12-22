@@ -30,8 +30,6 @@ import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.texteditor.ITextEditor;
 
 import abap.codemining.general.AbapClassCodeMining;
-import abap.codemining.preferences.AbapPreferencesPropertyTester;
-import abap.codemining.preferences.MyPreferenceConstants;
 
 /**
  * Java code mining provider to show code minings by using {@link IJavaElement}:
@@ -46,35 +44,7 @@ import abap.codemining.preferences.MyPreferenceConstants;
  */
 public class AbapElementCodeMiningProvider extends AbstractCodeMiningProvider {
 
-	private ITextViewer fViewer;
-
-	private ITypeRoot fUnit;
-
-	private final boolean showReferences;
-
-	private final boolean showReferencesOnClass;
-
-	private final boolean showReferencesOnMethod;
-
-	private final boolean showReferencesAtLeastOne;
-
-	private final boolean showImplementations;
-
-	private final boolean showImplementationsAtLeastOne;
-
 	public AbapElementCodeMiningProvider() {
-		showReferences = AbapPreferencesPropertyTester
-				.isEnabled(MyPreferenceConstants.EDITOR_JAVA_CODEMINING_SHOW_REFERENCES);
-		showReferencesOnClass = AbapPreferencesPropertyTester
-				.isEnabled(MyPreferenceConstants.EDITOR_JAVA_CODEMINING_SHOW_CLASS_REFERENCES);
-		showReferencesOnMethod = AbapPreferencesPropertyTester
-				.isEnabled(MyPreferenceConstants.EDITOR_JAVA_CODEMINING_SHOW_METHOD_REFERENCES);
-		showReferencesAtLeastOne = AbapPreferencesPropertyTester
-				.isEnabled(MyPreferenceConstants.EDITOR_JAVA_CODEMINING_SHOW_REFERENCES_AT_LEAST_ONE);
-		showImplementations = AbapPreferencesPropertyTester
-				.isEnabled(MyPreferenceConstants.EDITOR_JAVA_CODEMINING_SHOW_IMPLEMENTATIONS);
-		showImplementationsAtLeastOne = AbapPreferencesPropertyTester
-				.isEnabled(MyPreferenceConstants.EDITOR_JAVA_CODEMINING_SHOW_IMPLEMENTATIONS_AT_LEAST_ONE);
 	}
 
 	@Override
@@ -92,8 +62,6 @@ public class AbapElementCodeMiningProvider extends AbstractCodeMiningProvider {
 			// if (unit == null) {
 			// return Collections.emptyList();
 			// }
-			fViewer = viewer;
-			fUnit = unit;
 			try {
 				IJavaElement[] children = unit != null ? unit.getChildren() : new IJavaElement[] {};
 				List<ICodeMining> minings = new ArrayList<>();

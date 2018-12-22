@@ -35,7 +35,7 @@
          point="org.eclipse.ui.preferencePages">
       <page
             name="%codeMiningPageName"
-            category="org.eclipse.jdt.ui.preferences.AbapEditorPreferencePage"
+            category="com.sap.adt.tools.core.ui.preferencePages.ABAP"
             class="abap.codemining.preferences.AbapEditorCodeMiningPreferencePage"
             id="org.eclipse.jdt.experimental.ui.preferences.AbapEditorCodeMiningPreferencePage">
             <keywordReference id="org.eclipse.jdt.experimental.ui.codemining"/>
