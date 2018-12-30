@@ -10,7 +10,6 @@
  */
 package abap.codemining.editor;
 
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -103,12 +102,7 @@ public class AbapElementCodeMiningProvider extends AbstractCodeMiningProvider {
 
 			AbapClassCodeMining abapClassCodeMining = new AbapClassCodeMining();
 
-			try {
-				abapClassCodeMining.evaluateCodeMinings(minings, textEditor, viewer, this, doc);
-			} catch (URISyntaxException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			abapClassCodeMining.evaluateCodeMinings(minings, textEditor, viewer, this, doc);
 		}
 	}
 }

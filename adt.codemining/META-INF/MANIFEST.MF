@@ -33,7 +33,13 @@ Require-Bundle: org.eclipse.jdt.junit;bundle-version="3.11.0",
  com.sap.adt.communication;bundle-version="2.68.2",
  com.sap.adt.compatibility;bundle-version="2.68.2",
  com.sap.adt.tools.core;bundle-version="2.68.2",
- com.sap.adt.destinations.model;bundle-version="2.68.2"
+ com.sap.adt.destinations.model;bundle-version="2.68.2",
+ com.sap.adt.ris.whereused;bundle-version="2.102.0",
+ com.sap.adt.ris.whereused.ui;bundle-version="2.102.0",
+ com.sap.adt.ris.search;bundle-version="2.102.0",
+ com.sap.adt.ris.metadata;bundle-version="2.102.0",
+ com.sap.adt.ris.model;bundle-version="2.102.0",
+ com.sap.adt.ris.search.ui;bundle-version="2.102.0"
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: abap.codemining.plugin.AbapCodeMiningPlugin
 Automatic-Module-Name: abap.codemining
