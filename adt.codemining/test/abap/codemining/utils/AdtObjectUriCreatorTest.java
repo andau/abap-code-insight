@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -16,9 +17,13 @@ public class AdtObjectUriCreatorTest {
 	private static final String ADT_OBJECT_TEST_URI = "adtObjectTestUri";
 	private final IAdtObjectReference adtObject = Mockito.mock(IAdtObjectReference.class);
 
+	@Before
+	public void before() {
+		Mockito.when(adtObject.getUri()).thenReturn(URI.create(ADT_OBJECT_TEST_URI));
+	}
+
 	@Test
 	public void testUriCreator() throws URISyntaxException {
-		Mockito.when(adtObject.getUri()).thenReturn(new URI(ADT_OBJECT_TEST_URI));
 		AdtObjectUriCreator cut = new AdtObjectUriCreator(adtObject);
 		URI uriForLine = cut.createUriForLine(TEST_LINENUMBER);
 

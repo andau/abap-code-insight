@@ -24,20 +24,6 @@ public class AbapMethodDefinitionExtractorTest {
 	}
 
 	@Test
-	public void testEmptyDocument() {
-		Set<AbapMethodHeader> methodHeaders = abapMethodDefinitionExtractor.getMethodHeaders(new String());
-		assertEquals(0, methodHeaders.size());
-	}
-
-	@Test
-	public void testOneSimpleMethod() {
-		Set<AbapMethodHeader> methodHeaders = abapMethodDefinitionExtractor
-				.getMethodHeaders(sampleDocumentContents.getOneSimpleMethodContent().toLowerCase());
-		assertEquals(1, methodHeaders.size());
-		assertEquals("samplemethod1", methodHeaders.iterator().next().getMethodname());
-	}
-
-	@Test
 	public void testGetMethodBodies() {
 		Set<AbapMethodBody> methodBodies = abapMethodDefinitionExtractor
 				.getMethodBodies(sampleDocumentContents.getOneSimpleMethodContent().toLowerCase());

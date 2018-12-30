@@ -15,20 +15,24 @@ import abap.codemining.utils.TextEditorUtil;
 public class EditorFacade {
 
 	private final ITextEditor textEditor;
+	private final EditorPartProjectAdapter adapter;
+	private final TextEditorUtil textEditorUtil;
 
 	public EditorFacade(ITextEditor textEditor) {
 		this.textEditor = textEditor;
+		adapter = new EditorPartProjectAdapter(textEditor);
+		textEditorUtil = new TextEditorUtil(textEditor);
+	}
+
+	public IProject getProject() {
+		return adapter.getProject();
 	}
 
 	public IAbapProject getAbapProject() {
-		EditorPartProjectAdapter adapter = new EditorPartProjectAdapter(textEditor);
-		IProject project = adapter.getProject();
-		IAbapProject abapProject = project.getAdapter(IAbapProject.class);
-		return abapProject;
+		return getProject().getAdapter(IAbapProject.class);
 	}
 
 	public IAdtObjectReference getAdtObject() {
-		TextEditorUtil textEditorUtil = new TextEditorUtil(textEditor);
 		IFile file = textEditorUtil.getFile();
 		return Adapters.adapt((Object) file, IAdtObjectReference.class);
 	}

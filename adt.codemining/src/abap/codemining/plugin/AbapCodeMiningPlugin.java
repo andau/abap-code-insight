@@ -1,6 +1,7 @@
 package abap.codemining.plugin;
 
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.text.codemining.CodeMiningReconciler;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -15,10 +16,13 @@ public class AbapCodeMiningPlugin extends AbstractUIPlugin {
 	// The shared instance
 	private static AbapCodeMiningPlugin plugin;
 
+	private static CodeMiningReconciler codeMiningReconciler;
+
 	/**
 	 * The constructor
 	 */
 	public AbapCodeMiningPlugin() {
+		codeMiningReconciler = new CodeMiningReconciler();
 	}
 
 	/*
@@ -64,4 +68,11 @@ public class AbapCodeMiningPlugin extends AbstractUIPlugin {
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return imageDescriptorFromPlugin(PLUGIN_ID, path);
 	}
+
+	public static CodeMiningReconciler getCodeMiningReconciler() {
+		// TODO Auto-generated method stub
+		return codeMiningReconciler;
+
+	}
+
 }

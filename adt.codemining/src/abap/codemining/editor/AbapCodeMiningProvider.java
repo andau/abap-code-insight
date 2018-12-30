@@ -16,32 +16,22 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jdt.core.IJavaElement;
-import org.eclipse.jdt.core.ITypeRoot;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jdt.internal.ui.javaeditor.EditorUtility;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.codemining.AbstractCodeMiningProvider;
+import org.eclipse.jface.text.codemining.CodeMiningReconciler;
 import org.eclipse.jface.text.codemining.ICodeMining;
-import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.texteditor.ITextEditor;
 
 import abap.codemining.general.AbapEditorCodeMining;
+import abap.codemining.plugin.AbapCodeMiningPluginHelper;
 
-/**
- * Java code mining provider to show code minings by using {@link IJavaElement}:
- *
- * <ul>
- * <li>Show references</li>
- * <li>Show implementations</li>
- * </ul>
- *
- * @since 3.15
- *
- */
-public class AbapElementCodeMiningProvider extends AbstractCodeMiningProvider {
+public class AbapCodeMiningProvider extends AbstractCodeMiningProvider {
 
-	public AbapElementCodeMiningProvider() {
+	AbapCodeMiningPluginHelper abapCodeMiningPluginHelper;
+
+	public AbapCodeMiningProvider() {
+		abapCodeMiningPluginHelper = new AbapCodeMiningPluginHelper();
 	}
 
 	@Override
@@ -51,40 +41,29 @@ public class AbapElementCodeMiningProvider extends AbstractCodeMiningProvider {
 			monitor.isCanceled();
 			ITextEditor textEditor = super.getAdapter(ITextEditor.class);
 
-			if (textEditor.getEditorInput() instanceof IFileEditorInput) {
-				((IFileEditorInput) textEditor.getEditorInput()).getFile();
-			}
+			addViewerToReconciler(viewer);
 
-			ITypeRoot unit = EditorUtility.getEditorInputJavaElement(textEditor, true);
-			// if (unit == null) {
-			// return Collections.emptyList();
-			// }
 			try {
-				IJavaElement[] children = unit != null ? unit.getChildren() : new IJavaElement[] {};
 				List<ICodeMining> minings = new ArrayList<>();
-				collectMinings(unit, textEditor, children, minings, viewer, monitor);
+				collectMinings(textEditor, minings);
 				monitor.isCanceled();
 				return minings;
+
 			} catch (JavaModelException e) {
 				// TODO: what should we done when there are some errors?
 			}
+
 			return Collections.emptyList();
 		});
 	}
 
-	/**
-	 * Collect java code minings
-	 *
-	 * @param unit       the compilation unit
-	 * @param textEditor the Java editor
-	 * @param elements   the java elements to track
-	 * @param minings    the current list of minings to update
-	 * @param viewer     the viewer
-	 * @param monitor    the monitor
-	 * @throws JavaModelException
-	 */
-	private void collectMinings(ITypeRoot unit, ITextEditor textEditor, IJavaElement[] elements,
-			List<ICodeMining> minings, ITextViewer viewer, IProgressMonitor monitor) throws JavaModelException {
+	private void addViewerToReconciler(ITextViewer viewer) {
+		CodeMiningReconciler codeMiningReconciler = abapCodeMiningPluginHelper.getCodeMiningReconciler();
+		codeMiningReconciler.install(viewer);
+
+	}
+
+	private void collectMinings(ITextEditor textEditor, List<ICodeMining> minings) throws JavaModelException {
 
 		if (textEditor.getTitle().contains("ZCL")) {
 

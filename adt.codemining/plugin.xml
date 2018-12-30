@@ -16,7 +16,7 @@
   <extension
          point="org.eclipse.ui.workbench.texteditor.codeMiningProviders">
       <codeMiningProvider
-         class="abap.codemining.editor.AbapElementCodeMiningProvider"
+         class="abap.codemining.editor.AbapCodeMiningProvider"
          id="org.eclipse.jdt.ui.codemining.general"
          label="%AbapElementCodeMiningProvider.label">
 	     <enabledWhen>

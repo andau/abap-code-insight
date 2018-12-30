@@ -5,7 +5,7 @@ package abap.codemining.preferences;
  */
 public class PreferenceConstants {
 
-	public static final String SHOW_METHOD_VISIBILITY = null;
+	public static final String SHOW_METHOD_VISIBILITY = "showMethodVisibility";
 
 	private PreferenceConstants() {
 	}

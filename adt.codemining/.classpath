@@ -19,6 +19,8 @@
 			<accessrule kind="accessible" pattern="com/sap/adt/ris/search/usagereferences/AdtRisUsageReferencesSearchServiceFactory"/>
 			<accessrule kind="accessible" pattern="com/sap/adt/ris/model/usagereferences/IUsageReferenceResult"/>
 			<accessrule kind="accessible" pattern="com/sap/adt/ris/model/usagereferences/IUsageReferenceRequest"/>
+			<accessrule kind="accessible" pattern="com/sap/adt/ris/model/usagereferences/IUsageReferencedObjects"/>
+			<accessrule kind="accessible" pattern="com/sap/adt/ris/model/usagereferences/IUsageReferencedObject"/>
 		</accessrules>
 	</classpathentry>
 	<classpathentry kind="src" output="target/classes" path="src">
