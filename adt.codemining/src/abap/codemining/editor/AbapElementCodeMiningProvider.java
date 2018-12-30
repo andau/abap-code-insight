@@ -17,18 +17,16 @@ import java.util.concurrent.CompletableFuture;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.IJavaElement;
-import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.ITypeRoot;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.ui.javaeditor.EditorUtility;
-import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.codemining.AbstractCodeMiningProvider;
 import org.eclipse.jface.text.codemining.ICodeMining;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.texteditor.ITextEditor;
 
-import abap.codemining.general.AbapClassCodeMining;
+import abap.codemining.general.AbapEditorCodeMining;
 
 /**
  * Java code mining provider to show code minings by using {@link IJavaElement}:
@@ -87,22 +85,11 @@ public class AbapElementCodeMiningProvider extends AbstractCodeMiningProvider {
 	 */
 	private void collectMinings(ITypeRoot unit, ITextEditor textEditor, IJavaElement[] elements,
 			List<ICodeMining> minings, ITextViewer viewer, IProgressMonitor monitor) throws JavaModelException {
-		for (IJavaElement element : elements) {
-			if (monitor.isCanceled()) {
-				return;
-			}
-			if (element.getElementType() == IJavaElement.TYPE) {
-				collectMinings(unit, textEditor, ((IType) element).getChildren(), minings, viewer, monitor);
-			} else if (element.getElementType() != IJavaElement.METHOD) {
-				continue;
-			}
-		}
-		IDocument doc = textEditor.getDocumentProvider().getDocument(textEditor.getEditorInput());
+
 		if (textEditor.getTitle().contains("ZCL")) {
 
-			AbapClassCodeMining abapClassCodeMining = new AbapClassCodeMining();
-
-			abapClassCodeMining.evaluateCodeMinings(minings, textEditor, viewer, this, doc);
+			AbapEditorCodeMining abapClassCodeMining = new AbapEditorCodeMining(textEditor);
+			abapClassCodeMining.evaluateCodeMinings(minings, this);
 		}
 	}
 }

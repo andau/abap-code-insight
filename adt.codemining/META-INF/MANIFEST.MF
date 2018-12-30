@@ -39,7 +39,9 @@ Require-Bundle: org.eclipse.jdt.junit;bundle-version="3.11.0",
  com.sap.adt.ris.search;bundle-version="2.102.0",
  com.sap.adt.ris.metadata;bundle-version="2.102.0",
  com.sap.adt.ris.model;bundle-version="2.102.0",
- com.sap.adt.ris.search.ui;bundle-version="2.102.0"
+ com.sap.adt.ris.search.ui;bundle-version="2.102.0",
+ com.sap.adt.destinations;bundle-version="2.102.0",
+ com.sap.adt.logging;bundle-version="2.102.0"
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: abap.codemining.plugin.AbapCodeMiningPlugin
 Automatic-Module-Name: abap.codemining

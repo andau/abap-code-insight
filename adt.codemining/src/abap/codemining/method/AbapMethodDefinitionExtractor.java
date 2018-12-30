@@ -19,9 +19,8 @@ public class AbapMethodDefinitionExtractor {
 
 		String content = setContentToLower(doc);
 
-		Set<AbapMethodHeader> methodHeaders = getMethodHeaders(content);
 		Set<AbapMethodBody> methodBodies = getMethodBodies(content);
-		return new AbapMethodInformation(methodHeaders, methodBodies);
+		return new AbapMethodInformation(null, methodBodies);
 	}
 
 	Set<AbapMethodHeader> getMethodHeaders(String content) {
