@@ -49,7 +49,7 @@ public class AbapEditorCodeMining {
 				URI uri = createUriForMethodBody(adtObject, methodBody);
 				String miningLabel = buildMiningLabel(abapProject, uri, doc.get());
 
-				minings.add(abapCodeMiningCreator.create(methodBody.getLinenumber(), doc, provider, miningLabel));
+				minings.add(abapCodeMiningCreator.create(methodBody.getLinenumber()-1, doc, provider, miningLabel));
 
 			} catch (BadLocationException | URISyntaxException | OutOfSessionsException | ServiceNotAvailableException
 					| IOException e) {

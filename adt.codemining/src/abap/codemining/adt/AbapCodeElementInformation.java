@@ -1,27 +1,28 @@
 package abap.codemining.adt;
 
-import java.net.URI;
+public class AbapCodeElementInformation {
+	private String visibility; 
+	private String level; 
+	private String name; 
 
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
-
-import com.sap.adt.tools.abapsource.internal.sources.codeelementinformation.ICodeElement;
-import com.sap.adt.tools.abapsource.sources.codeelementinformation.ICodeElementInformationBackendService;
-
-public class AbapCodeElementInformation implements ICodeElementInformation {
-
-	ICodeElementInformationBackendService codeElementInformationService;
-
-	public AbapCodeElementInformation(ICodeElementInformationBackendService codeElementInformationService) {
-		this.codeElementInformationService = codeElementInformationService;
+	public AbapCodeElementInformation(String visibility, String level, String name) 
+	{
+		this.visibility = visibility;
+		this.level = level; 
+		this.name = name; 
 	}
 
-	@Override
-	public String getVisibility(URI uri, String arg1) {
-		IProgressMonitor monitor = new NullProgressMonitor();
-		ICodeElement codeElement = (ICodeElement) codeElementInformationService.getCodeElementInformation(uri, arg1,
-				monitor);
-		return codeElement.getProperty("visibility").getValue();
+	public String getVisibility() {
+		return visibility; 
+	}
+
+	public String getLevel() {
+		return level; 
+	}
+	
+	public String getName() 
+	{
+		return name; 
 	}
 
 }

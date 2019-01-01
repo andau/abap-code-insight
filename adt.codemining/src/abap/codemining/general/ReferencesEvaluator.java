@@ -9,9 +9,12 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import com.sap.adt.ris.model.usagereferences.IUsageReferenceRequest;
 import com.sap.adt.ris.model.usagereferences.IUsageReferenceResult;
 import com.sap.adt.ris.model.usagereferences.IUsageReferencedObjects;
+import com.sap.adt.ris.model.usagereferences.IUsageReferencesFactory;
 import com.sap.adt.ris.search.usagereferences.AdtRisUsageReferencesSearchServiceFactory;
 import com.sap.adt.ris.search.usagereferences.IAdtRisUsageReferencesSearchService;
 import com.sap.adt.tools.core.model.util.ServiceNotAvailableException;
+import com.sap.adt.ris.model.usagereferences.impl.UsageReferenceRequestImpl; 
+import com.sap.adt.ris.model.usagereferences.impl.UsageReferencesFactoryImpl; 
 
 public class ReferencesEvaluator {
 
@@ -27,7 +30,7 @@ public class ReferencesEvaluator {
 	}
 
 	public int getReferencesResult(URI uri) throws ServiceNotAvailableException, IOException {
-		IUsageReferenceRequest var2 = null;
+		IUsageReferenceRequest var2 = IUsageReferencesFactory.eINSTANCE.createUsageReferenceRequest();
 		IUsageReferenceResult usageReferenceResult = usageReferencesSearchService.search(uri, var2,
 				new NullProgressMonitor());
 		IUsageReferencedObjects referencedObjects = usageReferenceResult.getReferencedObjects();

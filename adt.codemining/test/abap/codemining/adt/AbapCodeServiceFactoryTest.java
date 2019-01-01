@@ -11,7 +11,7 @@ public class AbapCodeServiceFactoryTest {
 	@Test
 	public void testCreateAbapCodeElementInformation() throws OutOfSessionsException {
 		AbapCodeServiceFactory cut = new AbapCodeServiceFactory();
-		AbapCodeElementInformation abapCodeElementInformation = cut.createAbapCodeElementInformation("test");
+		AbapCodeElementInformationService abapCodeElementInformation = cut.createAbapCodeElementInformation("test");
 		assertNotNull(abapCodeElementInformation);
 	}
 

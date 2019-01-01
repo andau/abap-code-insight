@@ -27,6 +27,7 @@ public class AbapMethodDefinitionExtractor {
 
 		int linenumber = 0;
 		while (scanner.hasNextLine()) {
+
 			linenumber++;
 
 			AbapMethodBody abapMethodBody = abapmethodBodyExtractor.extract(scanner.nextLine(), linenumber);
@@ -34,6 +35,7 @@ public class AbapMethodDefinitionExtractor {
 			if (abapMethodBody != null) {
 				abapMethodBodies.add(abapMethodBody);
 			}
+
 
 		}
 

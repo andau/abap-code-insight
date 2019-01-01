@@ -9,8 +9,9 @@ import com.sap.adt.communication.exceptions.OutOfSessionsException;
 import com.sap.adt.tools.core.model.util.ServiceNotAvailableException;
 import com.sap.adt.tools.core.project.IAbapProject;
 
+import abap.codemining.adt.AbapCodeElementInformation;
 import abap.codemining.adt.AbapCodeServiceFactory;
-import abap.codemining.adt.ICodeElementInformation;
+import abap.codemining.adt.ICodeElementInformationService;
 import abap.codemining.utils.StringUtils;
 
 public class MiningLabelBuilder {
@@ -20,8 +21,7 @@ public class MiningLabelBuilder {
 
 	public MiningLabelBuilder() {
 		this.abapCodeServiceFactory = new AbapCodeServiceFactory();
-		this.referencesEvaluator = new ReferencesEvaluator();
-
+	
 	}
 
 	public String build(IAbapProject abapProject, URI uri, String doc)
@@ -30,17 +30,17 @@ public class MiningLabelBuilder {
 			initReferencesEvaluator(abapProject.getProject());
 		}
 
-		ICodeElementInformation abapCodeElementInformation = abapCodeServiceFactory
+		ICodeElementInformationService abapCodeElementInformationService = abapCodeServiceFactory
 				.createAbapCodeElementInformation(abapProject.getDestinationId());
-		String visibility = abapCodeElementInformation.getVisibility(uri, doc);
+		AbapCodeElementInformation abapCodeElementInformation = abapCodeElementInformationService.getInfo(uri, doc);
 
 		String references = computeReferences(abapProject.getProject(), uri);
-		return references + StringUtils.SPACE + "references;" + StringUtils.SPACE + visibility;
+		return references + StringUtils.SPACE + "references;" + StringUtils.SPACE + abapCodeElementInformation.getVisibility() + StringUtils.SPACE + abapCodeElementInformation.getLevel();
 
 	}
 
 	private String computeReferences(IProject project, URI uri) throws ServiceNotAvailableException, IOException {
-
+			
 		return Integer.toString(referencesEvaluator.getReferencesResult(uri));
 
 	}

@@ -7,12 +7,12 @@ import com.sap.adt.tools.abapsource.sources.codeelementinformation.ICodeElementI
 
 public class AbapCodeServiceFactory {
 
-	public AbapCodeElementInformation createAbapCodeElementInformation(String destination)
+	public AbapCodeElementInformationService createAbapCodeElementInformation(String destination)
 			throws OutOfSessionsException {
 		IAdtSourceServicesFactory adtSourceServicesFactory = AdtSourceServicesFactory.createInstance();
 		ICodeElementInformationBackendService codeElementInformationService = adtSourceServicesFactory
 				.createCodeElementInformationService(destination);
-		return new AbapCodeElementInformation(codeElementInformationService);
+		return new AbapCodeElementInformationService(codeElementInformationService);
 	}
 
 }
