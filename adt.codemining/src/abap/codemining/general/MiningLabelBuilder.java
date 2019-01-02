@@ -35,7 +35,10 @@ public class MiningLabelBuilder {
 		AbapCodeElementInformation abapCodeElementInformation = abapCodeElementInformationService.getInfo(uri, doc);
 
 		String references = computeReferences(abapProject.getProject(), uri);
-		return references + StringUtils.SPACE + "references;" + StringUtils.SPACE + abapCodeElementInformation.getVisibility() + StringUtils.SPACE + abapCodeElementInformation.getLevel();
+		
+		String level = abapCodeElementInformation.getLevel().equals("instance") ? StringUtils.EMPTY : abapCodeElementInformation.getLevel() + StringUtils.SPACE; 
+		return references + StringUtils.SPACE + "references;" + StringUtils.SPACE + abapCodeElementInformation.getVisibility() + StringUtils.SPACE + level 
+		 + abapCodeElementInformation.getReturnValue().getLabel() + StringUtils.SPACE + abapCodeElementInformation.getName();
 
 	}
 

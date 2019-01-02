@@ -62,7 +62,7 @@ public class AbapEditorCodeMining {
 	private URI createUriForMethodBody(IAdtObjectReference adtObject, AbapMethodBody methodBody)
 			throws URISyntaxException {
 		AdtObjectUriCreator adtObjectUriCreator = new AdtObjectUriCreator(adtObject);
-		return adtObjectUriCreator.createUriForLine(methodBody.getLinenumber());
+		return adtObjectUriCreator.createUriForLine(methodBody.getLinenumber(), methodBody.getStartindex());
 
 	}
 

@@ -18,8 +18,12 @@ import com.sap.adt.tools.core.project.IAbapProject;
 import abap.codemining.adt.AbapCodeElementInformation;
 import abap.codemining.adt.AbapCodeElementInformationService;
 import abap.codemining.adt.AbapCodeServiceFactory;
+import abap.codemining.method.MethodParam;
+import abap.codemining.method.MethodParamType;
 
 public class MiningLabelBuilderTest {
+
+	private static final String RETURNING_PARAMETER_NAME = "R_PARAM_NAME";
 
 	MiningLabelBuilder cut;
 
@@ -35,6 +39,8 @@ public class MiningLabelBuilderTest {
 
 	private AbapCodeElementInformation abapCodeElementInformation = Mockito.mock(AbapCodeElementInformation.class);
 
+	private MethodParam methodParam = new MethodParam(RETURNING_PARAMETER_NAME, "TYPE REF TO ZCL_TYPE", MethodParamType.RETURNING);
+
 	@Before
 	public void before() throws OutOfSessionsException, BadLocationException {
 		cut = new MiningLabelBuilder();
@@ -43,7 +49,9 @@ public class MiningLabelBuilderTest {
 				.thenReturn(abapCodeElementInformationService);
 		Mockito.when(abapCodeElementInformationService.getInfo(Mockito.any(), Mockito.any())).thenReturn(abapCodeElementInformation);
 		Mockito.when(abapCodeElementInformation.getVisibility()).thenReturn("public"); 
-		Mockito.when(abapCodeElementInformation.getVisibility()).thenReturn("static"); 
+		Mockito.when(abapCodeElementInformation.getLevel()).thenReturn("static"); 
+		Mockito.when(abapCodeElementInformation.getReturnValue()).thenReturn(methodParam); 
+		Mockito.when(abapCodeElementInformation.getName()).thenReturn("method_name"); 
 
 		Whitebox.setInternalState(cut, "abapCodeServiceFactory", abapCodeServiceFactory);
 		Whitebox.setInternalState(cut, "referencesEvaluator", referencesEvaluator);
@@ -51,10 +59,21 @@ public class MiningLabelBuilderTest {
 	}
 
 	@Test
-	public void test() throws OutOfSessionsException, ServiceNotAvailableException, IOException {
+	public void testStaticLabel() throws OutOfSessionsException, ServiceNotAvailableException, IOException {
 		String miningLabel = cut.build(abapProject, uri, doc);
 
-		String expectedMiningLabel = "0 references; public static";
+		String expectedMiningLabel = "0 references; public static " + RETURNING_PARAMETER_NAME.toLowerCase() +  " type ref to ZCL_TYPE method_name";
+		assertEquals(expectedMiningLabel, miningLabel);
+
+	}
+
+	@Test
+	public void testInstanceLabel() throws OutOfSessionsException, ServiceNotAvailableException, IOException {
+		Mockito.when(abapCodeElementInformation.getLevel()).thenReturn("instance"); 
+
+		String miningLabel = cut.build(abapProject, uri, doc);
+
+		String expectedMiningLabel = "0 references; public " + RETURNING_PARAMETER_NAME.toLowerCase() +  " type ref to ZCL_TYPE method_name";
 		assertEquals(expectedMiningLabel, miningLabel);
 
 	}

@@ -2,7 +2,7 @@
 <feature
       id="adt-codemining-feature"
       label="%featureName"
-      version="0.0.1"
+      version="0.0.2"
       provider-name="%featureProvider">
 
    <description>
@@ -16,5 +16,12 @@
    <license url="%licenseURL">
       %license
    </license>
+
+   <plugin
+         id="abap.codemining"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
 </feature>

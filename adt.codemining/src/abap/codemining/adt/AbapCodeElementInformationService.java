@@ -11,10 +11,14 @@ import com.sap.adt.tools.abapsource.internal.sources.codeelementinformation.ICod
 import com.sap.adt.tools.abapsource.sources.codeelementinformation.ICodeElementInformationBackendService;
 import com.sap.adt.tools.core.IAdtObjectReference;
 
+import abap.codemining.method.MethodParam;
+import abap.codemining.method.MethodParamType;
 import abap.codemining.utils.StringUtils;
 
 public class AbapCodeElementInformationService implements ICodeElementInformationService {
 
+	private static final String METHOD_PARAMETER_TYPE_RETURNING = "returning";
+	private static final String METHOD_PARAM_TYPE_VOID = "void";
 	ICodeElementInformationBackendService codeElementInformationService;
 
 	public AbapCodeElementInformationService(ICodeElementInformationBackendService codeElementInformationService) {
@@ -29,25 +33,24 @@ public class AbapCodeElementInformationService implements ICodeElementInformatio
 		String visibility = codeElement.getProperty("visibility") != null ? codeElement.getProperty("visibility").getValue() : StringUtils.EMPTY; 
 		String level = codeElement.getProperty("level") != null ?  codeElement.getProperty("level").getValue() : StringUtils.EMPTY;
 		String name =  codeElement.getName().toLowerCase(); 
-		//findReturningParameter(codeElement.getChildren()); 
-		return new AbapCodeElementInformation(visibility, level, name);
+		MethodParam returningParameter =  findReturningParameter(codeElement.getCodeElementChildren()); 
+		return new AbapCodeElementInformation(visibility, level, name, returningParameter);
 	}
 
-	private String findReturningParameter(List<? extends IAdtObjectReference> references) {
-		for(IAdtObjectReference reference : references)
+	private MethodParam findReturningParameter(List<? extends ICodeElement> references) {
+		for(ICodeElement reference : references)
 		{
 		
-				List<? extends IAdtObjectReference> childReferences = reference.getChildren(); 
-			    for(IAdtObjectReference childReference : childReferences)
-			    {
-			    	if (childReference.getName().equals("returning")) 
+				ICodeElementProperty elementProperty = reference.getProperty("paramType"); 
+				ICodeElementProperty abapTypeProperty = reference.getProperty("abapType"); 
+			    	if (elementProperty != null && elementProperty.getValue().equals(METHOD_PARAMETER_TYPE_RETURNING)) 
 			    	{
-			    		return reference.getName(); 
+			    		return new MethodParam(reference.getName(), abapTypeProperty.getValue(), MethodParamType.RETURNING); 
 			    	}
-			    }
+			    
 		
 		}
-		return StringUtils.EMPTY; 
+		return new MethodParam(StringUtils.EMPTY, METHOD_PARAM_TYPE_VOID, MethodParamType.RETURNING); 
 	}
 	
 	//CLAS/OOP 
