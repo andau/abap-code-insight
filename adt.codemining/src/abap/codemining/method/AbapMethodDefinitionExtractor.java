@@ -6,6 +6,8 @@ import java.util.Set;
 
 import org.eclipse.jface.text.IDocument;
 
+import abap.codemining.element.IAbapElement;
+
 public class AbapMethodDefinitionExtractor {
 
 	boolean publicSector = false;
@@ -14,34 +16,33 @@ public class AbapMethodDefinitionExtractor {
 
 		String content = setContentToLower(doc);
 
-		Set<AbapMethodBody> methodBodies = getMethodBodies(content);
-		return new AbapMethodInformation(methodBodies);
+		Set<IAbapElement> abapElements = getMethodBodies(content);
+		return new AbapMethodInformation(abapElements);
 	}
 
-	Set<AbapMethodBody> getMethodBodies(String content) {
-		Set<AbapMethodBody> abapMethodBodies = new HashSet<>();
+	Set<IAbapElement> getMethodBodies(String content) {
+		Set<IAbapElement> abapElements = new HashSet<>();
 
 		Scanner scanner = new Scanner(content);
 
-		AbapMethodBodyExtractor abapmethodBodyExtractor = new AbapMethodBodyExtractor();
+		AbapElementExtractor abapmethodBodyExtractor = new AbapElementExtractor();
 
 		int linenumber = 0;
 		while (scanner.hasNextLine()) {
 
 			linenumber++;
 
-			AbapMethodBody abapMethodBody = abapmethodBodyExtractor.extract(scanner.nextLine(), linenumber);
+			IAbapElement abapElement = abapmethodBodyExtractor.extractMethodBody(scanner.nextLine(), linenumber);
 
-			if (abapMethodBody != null) {
-				abapMethodBodies.add(abapMethodBody);
+			if (abapElement != null) {
+				abapElements.add(abapElement);
 			}
-
 
 		}
 
 		scanner.close();
 
-		return abapMethodBodies;
+		return abapElements;
 	}
 
 	private String setContentToLower(IDocument doc) {

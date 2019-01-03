@@ -9,6 +9,7 @@ import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.codemining.ICodeMining;
 import org.eclipse.jface.text.codemining.ICodeMiningProvider;
+import org.eclipse.search.ui.ISearchQuery;
 import org.eclipse.ui.texteditor.ITextEditor;
 
 import com.sap.adt.communication.exceptions.OutOfSessionsException;
@@ -17,7 +18,7 @@ import com.sap.adt.tools.core.model.util.ServiceNotAvailableException;
 import com.sap.adt.tools.core.project.IAbapProject;
 
 import abap.codemining.editor.EditorFacade;
-import abap.codemining.method.AbapMethodBody;
+import abap.codemining.element.IAbapElement;
 import abap.codemining.method.AbapMethodDefinitionExtractor;
 import abap.codemining.method.AbapMethodInformation;
 import abap.codemining.utils.AdtObjectUriCreator;
@@ -43,13 +44,16 @@ public class AbapEditorCodeMining {
 		IAbapProject abapProject = textEditorFacade.getAbapProject();
 		IAdtObjectReference adtObject = textEditorFacade.getAdtObject();
 
-		for (AbapMethodBody methodBody : methodInformation.getAbapMethodBodies()) {
+		for (IAbapElement abapElement : methodInformation.getAbapElements()) {
 			try {
 
-				URI uri = createUriForMethodBody(adtObject, methodBody);
+				URI uri = createUriForMethodBody(adtObject, abapElement);
 				String miningLabel = buildMiningLabel(abapProject, uri, doc.get());
+				ISearchQuery usageReferencesQuery = abapCodeMiningCreator
+						.createUsageReferencQuery(abapProject.getProject(), uri);
 
-				minings.add(abapCodeMiningCreator.create(methodBody.getLinenumber()-1, doc, provider, miningLabel));
+				minings.add(abapCodeMiningCreator.create(abapElement.getLinenumber() - 1, doc, provider, miningLabel,
+						usageReferencesQuery));
 
 			} catch (BadLocationException | URISyntaxException | OutOfSessionsException | ServiceNotAvailableException
 					| IOException e) {
@@ -59,10 +63,10 @@ public class AbapEditorCodeMining {
 		}
 	}
 
-	private URI createUriForMethodBody(IAdtObjectReference adtObject, AbapMethodBody methodBody)
+	private URI createUriForMethodBody(IAdtObjectReference adtObject, IAbapElement abapElement)
 			throws URISyntaxException {
 		AdtObjectUriCreator adtObjectUriCreator = new AdtObjectUriCreator(adtObject);
-		return adtObjectUriCreator.createUriForLine(methodBody.getLinenumber(), methodBody.getStartindex());
+		return adtObjectUriCreator.createUriForLine(abapElement.getLinenumber(), abapElement.getStartindex());
 
 	}
 

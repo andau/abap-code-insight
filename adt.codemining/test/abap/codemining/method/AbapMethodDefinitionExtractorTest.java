@@ -11,6 +11,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import abap.codemining.element.IAbapElement;
+
 public class AbapMethodDefinitionExtractorTest {
 
 	AbapMethodDefinitionExtractor abapMethodDefinitionExtractor;
@@ -25,10 +27,10 @@ public class AbapMethodDefinitionExtractorTest {
 
 	@Test
 	public void testGetMethodBodies() {
-		Set<AbapMethodBody> methodBodies = abapMethodDefinitionExtractor
+		Set<IAbapElement> abapElements = abapMethodDefinitionExtractor
 				.getMethodBodies(sampleDocumentContents.getOneSimpleMethodContent().toLowerCase());
-		assertEquals(2, methodBodies.size());
-		assertTrue(methodBodies.stream().anyMatch(item -> item.getMethodname().equals("samplemethod2")));
+		assertEquals(2, abapElements.size());
+		assertTrue(abapElements.stream().anyMatch(item -> item.getElementname().equals("samplemethod2")));
 	}
 
 }

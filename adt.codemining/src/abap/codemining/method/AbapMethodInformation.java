@@ -2,14 +2,16 @@ package abap.codemining.method;
 
 import java.util.Set;
 
-public class AbapMethodInformation {
-	private final Set<AbapMethodBody> abapMethodBodies;
+import abap.codemining.element.IAbapElement;
 
-	public AbapMethodInformation(Set<AbapMethodBody> abapMethodBodies) {
-		this.abapMethodBodies = abapMethodBodies;
+public class AbapMethodInformation {
+	private final Set<IAbapElement> abapMethodBodies;
+
+	public AbapMethodInformation(Set<IAbapElement> abapElements) {
+		this.abapMethodBodies = abapElements;
 	}
 
-	public Set<AbapMethodBody> getAbapMethodBodies() {
+	public Set<IAbapElement> getAbapElements() {
 		return abapMethodBodies;
 	}
 }

@@ -90,7 +90,7 @@ public class AbapEditorCodeMiningTest {
 		assertEquals(1, minings.size());
 
 		Mockito.verify(abapCodeMiningCreator).create(Mockito.eq(0), Mockito.any(), Mockito.any(),
-				Mockito.eq(TEST_LABEL));
+				Mockito.eq(TEST_LABEL), Mockito.any());
 	}
 
 }
