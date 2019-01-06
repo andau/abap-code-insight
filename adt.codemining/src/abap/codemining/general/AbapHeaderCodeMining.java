@@ -11,11 +11,11 @@ import org.eclipse.jface.text.codemining.ICodeMiningProvider;
 import org.eclipse.jface.text.codemining.LineHeaderCodeMining;
 import org.eclipse.swt.events.MouseEvent;
 
-public class AbapMethodHeaderCodeMining extends LineHeaderCodeMining {
+public class AbapHeaderCodeMining extends LineHeaderCodeMining {
 
-	private final String label;
+	private String label;
 
-	public AbapMethodHeaderCodeMining(int beforeLineNumber, IDocument document, ICodeMiningProvider provider,
+	public AbapHeaderCodeMining(int beforeLineNumber, IDocument document, ICodeMiningProvider provider,
 			String label, Consumer<MouseEvent> action) throws BadLocationException {
 		super(beforeLineNumber, document, provider, action);
 		this.label = label;

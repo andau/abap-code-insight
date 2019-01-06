@@ -17,7 +17,10 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 	public void initializeDefaultPreferences() {
 
 		final IPreferenceStore store = abapCodeMiningPluginHelper.getPreferenceStore();
-		store.setDefault(PreferenceConstants.SHOW_METHOD_VISIBILITY, true);
+		store.setDefault(PreferenceConstants.SHOW_CLASS_HEADER_REFERENCE_COUNT, true);
+		store.setDefault(PreferenceConstants.SHOW_METHOD_BODY_REFERENCE_COUNT, true);
+		store.setDefault(PreferenceConstants.SHOW_METHOD_BODY_SIGNATURE, true);
+		store.setDefault(PreferenceConstants.SHOW_METHOD_BODY_REFERENCE_COUNT, true);
 	}
 
 }

@@ -54,10 +54,16 @@ public class AbapEditorCodeMining {
 				ISearchQuery usageReferencesQuery = abapCodeMiningCreator
 						.createUsageReferencQuery(abapProject.getProject(), uri);
 
-				minings.add(abapCodeMiningCreator.create(abapElement.getLinenumber() - 1, doc, provider, referencesLabel,
+				if (abapElement.showRef()) 
+				{
+				minings.add(abapCodeMiningCreator.createRef(abapElement.getLinenumber() - 1, doc, provider, referencesLabel,
 						usageReferencesQuery));
-				minings.add(abapCodeMiningCreator.create(abapElement.getLinenumber() - 1, doc, provider, miningLabel,
-						usageReferencesQuery));
+				}
+				
+				if (abapElement.showSignature()) 
+				{
+				minings.add(abapCodeMiningCreator.create(abapElement.getLinenumber() - 1, doc, provider, miningLabel));
+				}
 
 			} catch (BadLocationException | URISyntaxException | OutOfSessionsException | ServiceNotAvailableException
 					| IOException e) {

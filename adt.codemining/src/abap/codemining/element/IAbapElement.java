@@ -8,4 +8,8 @@ public interface IAbapElement {
 
 	String getElementname();
 
+	boolean showRef();
+
+	boolean showSignature();
+
 }

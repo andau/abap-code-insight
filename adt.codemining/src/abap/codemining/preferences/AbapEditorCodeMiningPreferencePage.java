@@ -22,14 +22,30 @@ public class AbapEditorCodeMiningPreferencePage extends FieldEditorPreferencePag
 	@Override
 	public void createFieldEditors() {
 
-		preferencesUiHelper.addHeaderLabelWithSpaceBefore(getFieldEditorParent(), "Method information");
-		createMethodInformationChapter();
+		preferencesUiHelper.addHeaderLabelWithSpaceBefore(getFieldEditorParent(), "Class header");
+		createClassHeaderSection();
+
+		preferencesUiHelper.addHeaderLabelWithSpaceBefore(getFieldEditorParent(), "Class body");
+		createClassBodySection();
 
 	}
 
-	private void createMethodInformationChapter() {
-		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_METHOD_VISIBILITY,
-				"Show visibility (public, protected, ...) of methods", getFieldEditorParent()));
+	private void createClassHeaderSection() {
+		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_CLASS_HEADER_REFERENCE_COUNT,
+				"Show reference count on class headers", getFieldEditorParent()));
+
+}
+	private void createClassBodySection() {
+
+		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_CLASS_BODY_REFERENCE_COUNT,
+				"Show reference count on class bodies", getFieldEditorParent()));
+
+		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_METHOD_BODY_REFERENCE_COUNT,
+				"Show reference count on method bodies", getFieldEditorParent()));
+
+		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_METHOD_BODY_SIGNATURE,
+				"Show signature on method bodies", getFieldEditorParent()));
+
 	}
 
 	@Override

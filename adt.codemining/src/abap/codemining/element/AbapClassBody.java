@@ -6,4 +6,14 @@ public class AbapClassBody extends AbapElement {
 		super(methodname, linenumber, startindex);
 	}
 
+	@Override
+	public boolean showRef() {
+		return true;
+	}
+
+	@Override
+	public boolean showSignature() {
+		return false;
+	}
+
 }

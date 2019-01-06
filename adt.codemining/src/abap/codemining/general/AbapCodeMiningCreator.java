@@ -18,10 +18,13 @@ import com.sap.adt.tools.core.model.util.ServiceNotAvailableException;
 
 public class AbapCodeMiningCreator {
 
-	public ICodeMining create(int linenumber, IDocument document, ICodeMiningProvider provider, String miningLabel,
+	public ICodeMining createRef(int linenumber, IDocument document, ICodeMiningProvider provider, String miningLabel,
 			ISearchQuery usageReferencesQuery) throws BadLocationException {
-		return new AbapMethodHeaderCodeMining(linenumber, document, provider, miningLabel,
+		return new AbapHeaderCodeMining(linenumber, document, provider, miningLabel,
 				e -> NewSearchUI.runQueryInBackground(usageReferencesQuery));
+	}
+	public ICodeMining create(int linenumber, IDocument document, ICodeMiningProvider provider, String label) throws BadLocationException {
+		return new AbapHeaderCodeMining(linenumber, document, provider, label, null);
 	}
 
 	public ISearchQuery createUsageReferencQuery(IProject project, URI uri) throws ServiceNotAvailableException {
