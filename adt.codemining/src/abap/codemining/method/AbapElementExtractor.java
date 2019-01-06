@@ -11,6 +11,8 @@ public class AbapElementExtractor {
 	private static final String METHOD_BODY_REGEX = "\\s*" + "method" + "\\s+" + "([\\w|~]+)" + "\\s*" + "\\." + "\\s*";
 	private static final String METHOD_CLASS_REGEX = "\\s*" + "class" + "\\s+" + "([\\w|~]+)" + "\\s*"
 			+ "implementation" + "\\s*" + "\\." + "\\s*";
+	private static final String METHOD_CLASS_DEF_REGEX = "\\s*" + "class" + "\\s+" + "([\\w|~]+)" + "\\s*"
+			+ "definition";
 
 	public AbapMethodBody extractMethodBody(String line, int linenumber) {
 		ElementMatchInformation elementMatchInformation = findMatch(METHOD_BODY_REGEX, line, linenumber);
@@ -32,6 +34,17 @@ public class AbapElementExtractor {
 		return null;
 	}
 
+	public AbapClassBody extractClassDef(String line, int linenumber) {
+		ElementMatchInformation elementMatchInformation = findMatch(METHOD_CLASS_DEF_REGEX, line, linenumber);
+		if (elementMatchInformation != null) {
+			return new AbapClassBody(elementMatchInformation.getClassname(), linenumber,
+					elementMatchInformation.getStartindex());
+		}
+
+		return null;
+	}
+
+	
 	private ElementMatchInformation findMatch(String regex, String line, int linenumber) {
 		if (line.matches(regex)) {
 

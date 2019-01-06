@@ -49,9 +49,13 @@ public class AbapEditorCodeMining {
 
 				URI uri = createUriForMethodBody(adtObject, abapElement);
 				String miningLabel = buildMiningLabel(abapProject, uri, doc.get());
+				String referencesLabel = buildMiningReferencesLabel(abapProject, uri, doc.get());
+				
 				ISearchQuery usageReferencesQuery = abapCodeMiningCreator
 						.createUsageReferencQuery(abapProject.getProject(), uri);
 
+				minings.add(abapCodeMiningCreator.create(abapElement.getLinenumber() - 1, doc, provider, referencesLabel,
+						usageReferencesQuery));
 				minings.add(abapCodeMiningCreator.create(abapElement.getLinenumber() - 1, doc, provider, miningLabel,
 						usageReferencesQuery));
 
@@ -70,6 +74,13 @@ public class AbapEditorCodeMining {
 
 	}
 
+	private String buildMiningReferencesLabel(IAbapProject abapProject, URI uri, String doc)
+			throws OutOfSessionsException, ServiceNotAvailableException, IOException {
+
+		return miningLabelBuilder.buildReferencesLabel(abapProject, uri, doc);
+
+	}
+	
 	private String buildMiningLabel(IAbapProject abapProject, URI uri, String doc)
 			throws OutOfSessionsException, ServiceNotAvailableException, IOException {
 

@@ -2,7 +2,7 @@
 <feature
       id="adt-codemining-feature"
       label="%featureName"
-      version="0.0.2"
+      version="0.0.4"
       provider-name="%featureProvider">
 
    <description>

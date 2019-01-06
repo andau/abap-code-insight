@@ -34,7 +34,7 @@ public class ReferencesEvaluator {
 		IUsageReferenceResult usageReferenceResult = usageReferencesSearchService.search(uri, var2,
 				new NullProgressMonitor());
 		IUsageReferencedObjects referencedObjects = usageReferenceResult.getReferencedObjects();
-		return referencedObjects.getReferencedObject().size();
+		return (int)referencedObjects.getReferencedObject().stream().filter(item -> item.getUsageInformation() != null).count(); 
 	}
 
 }

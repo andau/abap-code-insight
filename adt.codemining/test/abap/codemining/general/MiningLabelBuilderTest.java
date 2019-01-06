@@ -62,7 +62,7 @@ public class MiningLabelBuilderTest {
 	public void testStaticLabel() throws OutOfSessionsException, ServiceNotAvailableException, IOException {
 		String miningLabel = cut.build(abapProject, uri, doc);
 
-		String expectedMiningLabel = "0 references; public static " + RETURNING_PARAMETER_NAME.toLowerCase() +  " type ref to ZCL_TYPE method_name";
+		String expectedMiningLabel = "public static " + RETURNING_PARAMETER_NAME.toLowerCase() +  ":ZCL_TYPE method_name ()";
 		assertEquals(expectedMiningLabel, miningLabel);
 
 	}
@@ -73,7 +73,7 @@ public class MiningLabelBuilderTest {
 
 		String miningLabel = cut.build(abapProject, uri, doc);
 
-		String expectedMiningLabel = "0 references; public " + RETURNING_PARAMETER_NAME.toLowerCase() +  " type ref to ZCL_TYPE method_name";
+		String expectedMiningLabel = "public " + RETURNING_PARAMETER_NAME.toLowerCase() +  ":ZCL_TYPE method_name ()";
 		assertEquals(expectedMiningLabel, miningLabel);
 
 	}

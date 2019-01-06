@@ -32,7 +32,21 @@ public class AbapMethodDefinitionExtractor {
 
 			linenumber++;
 
-			IAbapElement abapElement = abapmethodBodyExtractor.extractMethodBody(scanner.nextLine(), linenumber);
+			String line = scanner.nextLine(); 
+			
+			IAbapElement abapElement = abapmethodBodyExtractor.extractMethodBody(line, linenumber);
+
+			if (abapElement != null) {
+				abapElements.add(abapElement);
+			}
+
+			abapElement = abapmethodBodyExtractor.extractClassBody(line, linenumber);
+
+			if (abapElement != null) {
+				abapElements.add(abapElement);
+			}
+
+			abapElement = abapmethodBodyExtractor.extractClassDef(line, linenumber);
 
 			if (abapElement != null) {
 				abapElements.add(abapElement);

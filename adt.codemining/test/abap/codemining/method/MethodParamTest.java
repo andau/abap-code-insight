@@ -24,8 +24,8 @@ public class MethodParamTest {
 		MethodParam cut = new MethodParam(PARAMETER_NAME, parameterValue , MethodParamType.RETURNING); 
 		assertEquals(PARAMETER_NAME, cut.getParamName());
 		assertEquals(parameterValue, cut.getParamType()); 
-		assertEquals(MethodParamType.RETURNING, cut.getType()); 
-		assertEquals(PARAMETER_NAME.toLowerCase() + StringUtils.SPACE + TYPE_REF_TO.toLowerCase() + StringUtils.SPACE + CLASS_TYPE, cut.getLabel()); 
+		assertEquals(MethodParamType.RETURNING, cut.getMethodParamType()); 
+		assertEquals(PARAMETER_NAME.toLowerCase() +":"+ CLASS_TYPE, cut.getLabel()); 
 	}
 
 	@Test
@@ -34,8 +34,8 @@ public class MethodParamTest {
 		MethodParam cut = new MethodParam(PARAMETER_NAME, parameterValue , MethodParamType.RETURNING); 
 		assertEquals(PARAMETER_NAME, cut.getParamName());
 		assertEquals(parameterValue, cut.getParamType()); 
-		assertEquals(MethodParamType.RETURNING, cut.getType()); 
-		assertEquals(PARAMETER_NAME.toLowerCase() + StringUtils.SPACE + TYPE.toLowerCase() + StringUtils.SPACE + SIMPLE_TYPE.toLowerCase(), cut.getLabel()); 
+		assertEquals(MethodParamType.RETURNING, cut.getMethodParamType()); 
+		assertEquals(PARAMETER_NAME.toLowerCase() + ":"  + SIMPLE_TYPE, cut.getLabel()); 
 	}
 
 }

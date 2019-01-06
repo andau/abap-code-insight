@@ -80,14 +80,14 @@ public class AbapEditorCodeMiningTest {
 	}
 
 	@Test
-	public void testOneMinings() throws BadLocationException {
+	public void testSimpleMining() throws BadLocationException {
 
 		Mockito.when(doc.get()).thenReturn("method testmethod.");
 
 		List<ICodeMining> minings = new ArrayList<>();
 		cut.evaluateCodeMinings(minings, provider);
 
-		assertEquals(1, minings.size());
+		assertEquals(2, minings.size());
 
 		Mockito.verify(abapCodeMiningCreator).create(Mockito.eq(0), Mockito.any(), Mockito.any(),
 				Mockito.eq(TEST_LABEL), Mockito.any());

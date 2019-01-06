@@ -58,8 +58,8 @@ public class AbapCodeMiningProvider extends AbstractCodeMiningProvider {
 	}
 
 	private void addViewerToReconciler(ITextViewer viewer) {
-		CodeMiningReconciler codeMiningReconciler = abapCodeMiningPluginHelper.getCodeMiningReconciler();
-		codeMiningReconciler.install(viewer);
+		//CodeMiningReconciler codeMiningReconciler = abapCodeMiningPluginHelper.getCodeMiningReconciler();
+		//codeMiningReconciler.install(viewer);
 
 	}
 
