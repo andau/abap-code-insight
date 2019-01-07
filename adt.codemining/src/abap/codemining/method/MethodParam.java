@@ -18,7 +18,7 @@ public class MethodParam {
 		return paramName;
 	}
 
-	public String getParamType() {
+	public String getParamObjectType() {
 		return paramType;
 	}
 

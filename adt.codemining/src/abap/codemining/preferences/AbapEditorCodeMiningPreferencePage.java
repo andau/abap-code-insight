@@ -28,13 +28,22 @@ public class AbapEditorCodeMiningPreferencePage extends FieldEditorPreferencePag
 		preferencesUiHelper.addHeaderLabelWithSpaceBefore(getFieldEditorParent(), "Class body");
 		createClassBodySection();
 
+		preferencesUiHelper.addHeaderLabelWithSpaceBefore(getFieldEditorParent(), "Update");
+		createUpdateSection();
+
+	}
+
+	private void createUpdateSection() {
+		addField(new BooleanFieldEditor(PreferenceConstants.UPDATE_CHANGED_EDITORS, "Update minings on editors change",
+				getFieldEditorParent()));
 	}
 
 	private void createClassHeaderSection() {
 		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_CLASS_HEADER_REFERENCE_COUNT,
 				"Show reference count on class headers", getFieldEditorParent()));
 
-}
+	}
+
 	private void createClassBodySection() {
 
 		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_CLASS_BODY_REFERENCE_COUNT,

@@ -13,7 +13,7 @@
 			<accessrule kind="accessible" pattern="com/sap/adt/tools/core/IAdtObjectReference"/>
 			<accessrule kind="accessible" pattern="com/sap/adt/tools/abapsource/internal/sources/codeelementinformation/ICodeElement"/>
 			<accessrule kind="accessible" pattern="org/eclipse/jdt/internal/ui/javaeditor/EditorUtility"/>
-			<accessrule kind="accessible" pattern="com/sap/adt/tools/abapsource/internal/sources/codeelementinformation/ICodeElement/ICodeElementProperty"/>
+			<accessrule kind="accessible" pattern="com/sap/adt/tools/abapsource/internal/sources/codeelementinformation/ICodeElement/*"/>
 			<accessrule kind="accessible" pattern="com/sap/adt/tools/core/model/util/ServiceNotAvailableException"/>
 			<accessrule kind="accessible" pattern="com/sap/adt/ris/search/usagereferences/IAdtRisUsageReferencesSearchService"/>
 			<accessrule kind="accessible" pattern="com/sap/adt/ris/search/usagereferences/AdtRisUsageReferencesSearchServiceFactory"/>

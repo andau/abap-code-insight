@@ -17,7 +17,7 @@ public class AbapCodeMiningPlugin extends AbstractUIPlugin {
 	private static CodeMiningReconciler codeMiningReconciler;
 
 	public AbapCodeMiningPlugin() {
-		//codeMiningReconciler = new CodeMiningReconciler();
+		codeMiningReconciler = new CodeMiningReconciler();
 	}
 
 	@Override
@@ -41,7 +41,6 @@ public class AbapCodeMiningPlugin extends AbstractUIPlugin {
 	}
 
 	public static CodeMiningReconciler getCodeMiningReconciler() {
-		// TODO Auto-generated method stub
 		return codeMiningReconciler;
 
 	}

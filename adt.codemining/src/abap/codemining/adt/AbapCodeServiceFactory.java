@@ -5,14 +5,16 @@ import com.sap.adt.tools.abapsource.sources.AdtSourceServicesFactory;
 import com.sap.adt.tools.abapsource.sources.IAdtSourceServicesFactory;
 import com.sap.adt.tools.abapsource.sources.codeelementinformation.ICodeElementInformationBackendService;
 
+import abap.codemining.adt.method.AbapMethodInformationService;
+
 public class AbapCodeServiceFactory {
 
-	public AbapCodeElementInformationService createAbapCodeElementInformation(String destination)
+	public AbapMethodInformationService createAbapCodeElementInformation(String destination)
 			throws OutOfSessionsException {
 		IAdtSourceServicesFactory adtSourceServicesFactory = AdtSourceServicesFactory.createInstance();
 		ICodeElementInformationBackendService codeElementInformationService = adtSourceServicesFactory
 				.createCodeElementInformationService(destination);
-		return new AbapCodeElementInformationService(codeElementInformationService);
+		return new AbapMethodInformationService(codeElementInformationService);
 	}
 
 }

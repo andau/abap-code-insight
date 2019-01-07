@@ -39,8 +39,8 @@ public class ReferencesEvaluatorTest {
 		Mockito.when(referenceObjects.getReferencedObject()).thenReturn(referencedObject);
 		ReferencesEvaluator cut = new ReferencesEvaluator();
 		Whitebox.setInternalState(cut, "usageReferencesSearchService", usageReferencesSearchService);
-		int referenceResult = cut.getReferencesResult(uri);
-		assertEquals(0, referenceResult);
+		String referenceResult = cut.getReferencesResult(uri);
+		assertEquals("0 references", referenceResult);
 	}
 
 }

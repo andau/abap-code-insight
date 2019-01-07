@@ -1,4 +1,4 @@
-package abap.codemining.method;
+package abap.codemining.element;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -11,23 +11,27 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import abap.codemining.element.IAbapElement;
+import abap.codemining.element.domain.IAbapElement;
+import abap.codemining.feature.FeatureFacade;
 
-public class AbapMethodDefinitionExtractorTest {
+public class AbapElementParserTest {
 
-	AbapMethodDefinitionExtractor abapMethodDefinitionExtractor;
+	AbapElementParser cut;
 	IDocument document = Mockito.mock(IDocument.class);
 	private SampleDocumentContent sampleDocumentContents;
 
+	FeatureFacade featureFacade = Mockito.mock(FeatureFacade.class);
+
 	@Before
 	public void before() {
-		abapMethodDefinitionExtractor = new AbapMethodDefinitionExtractor();
+		cut = new AbapElementParser(featureFacade);
 		sampleDocumentContents = new SampleDocumentContent();
+
 	}
 
 	@Test
 	public void testGetMethodBodies() {
-		Set<IAbapElement> abapElements = abapMethodDefinitionExtractor
+		Set<IAbapElement> abapElements = cut
 				.getMethodBodies(sampleDocumentContents.getOneSimpleMethodContent().toLowerCase());
 		assertEquals(2, abapElements.size());
 		assertTrue(abapElements.stream().anyMatch(item -> item.getElementname().equals("samplemethod2")));

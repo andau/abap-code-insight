@@ -4,10 +4,12 @@ public class ElementMatchInformation {
 
 	private final String methodname;
 	private final int startindex;
+	private final int linenumber;
 
-	public ElementMatchInformation(String methodname, int startindex) {
+	public ElementMatchInformation(String methodname, int startindex, int linenumber) {
 		this.methodname = methodname;
 		this.startindex = startindex;
+		this.linenumber = linenumber;
 	}
 
 	public String getClassname() {
@@ -16,6 +18,10 @@ public class ElementMatchInformation {
 
 	public int getStartindex() {
 		return startindex;
+	}
+
+	public int getLinenumber() {
+		return linenumber;
 	}
 
 }

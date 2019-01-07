@@ -23,15 +23,19 @@ import org.eclipse.jface.text.codemining.CodeMiningReconciler;
 import org.eclipse.jface.text.codemining.ICodeMining;
 import org.eclipse.ui.texteditor.ITextEditor;
 
+import abap.codemining.feature.FeatureFacade;
 import abap.codemining.general.AbapEditorCodeMining;
 import abap.codemining.plugin.AbapCodeMiningPluginHelper;
 
 public class AbapCodeMiningProvider extends AbstractCodeMiningProvider {
 
 	AbapCodeMiningPluginHelper abapCodeMiningPluginHelper;
+	private FeatureFacade featureFacade;
 
 	public AbapCodeMiningProvider() {
 		abapCodeMiningPluginHelper = new AbapCodeMiningPluginHelper();
+		featureFacade = new FeatureFacade();
+		registerPreferencePropertyChangeListener();
 	}
 
 	@Override
@@ -57,17 +61,26 @@ public class AbapCodeMiningProvider extends AbstractCodeMiningProvider {
 		});
 	}
 
-	private void addViewerToReconciler(ITextViewer viewer) {
-		//CodeMiningReconciler codeMiningReconciler = abapCodeMiningPluginHelper.getCodeMiningReconciler();
-		//codeMiningReconciler.install(viewer);
+	private void registerPreferencePropertyChangeListener() {
 
+		abapCodeMiningPluginHelper.getPreferenceStore().addPropertyChangeListener(event -> {
+			featureFacade = new FeatureFacade();
+		});
+
+	}
+
+	private void addViewerToReconciler(ITextViewer viewer) {
+		if (featureFacade.getReconcilerFeature().isUpdateEnabled()) {
+			CodeMiningReconciler codeMiningReconciler = abapCodeMiningPluginHelper.getCodeMiningReconciler();
+			codeMiningReconciler.install(viewer);
+		}
 	}
 
 	private void collectMinings(ITextEditor textEditor, List<ICodeMining> minings) throws JavaModelException {
 
 		if (textEditor.getTitle().contains("ZCL")) {
 
-			AbapEditorCodeMining abapClassCodeMining = new AbapEditorCodeMining(textEditor);
+			AbapEditorCodeMining abapClassCodeMining = new AbapEditorCodeMining(textEditor, featureFacade);
 			abapClassCodeMining.evaluateCodeMinings(minings, this);
 		}
 	}

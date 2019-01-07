@@ -12,34 +12,35 @@ import org.eclipse.jface.text.codemining.ICodeMiningProvider;
 import org.eclipse.search.ui.ISearchQuery;
 import org.eclipse.ui.texteditor.ITextEditor;
 
-import com.sap.adt.communication.exceptions.OutOfSessionsException;
 import com.sap.adt.tools.core.IAdtObjectReference;
 import com.sap.adt.tools.core.model.util.ServiceNotAvailableException;
 import com.sap.adt.tools.core.project.IAbapProject;
 
 import abap.codemining.editor.EditorFacade;
-import abap.codemining.element.IAbapElement;
-import abap.codemining.method.AbapMethodDefinitionExtractor;
-import abap.codemining.method.AbapMethodInformation;
+import abap.codemining.element.AbapElementInformation;
+import abap.codemining.element.AbapElementParser;
+import abap.codemining.element.domain.IAbapElement;
+import abap.codemining.feature.FeatureFacade;
+import abap.codemining.label.MiningLabelBuildingException;
 import abap.codemining.utils.AdtObjectUriCreator;
 
 public class AbapEditorCodeMining {
 
 	private final EditorFacade textEditorFacade;
 	private final AbapCodeMiningCreator abapCodeMiningCreator;
-	private final MiningLabelBuilder miningLabelBuilder;
+	private final AbapElementParser abapElementParser;
 
-	public AbapEditorCodeMining(ITextEditor textEditor) {
+	public AbapEditorCodeMining(ITextEditor textEditor, FeatureFacade featureFacade) {
 		textEditorFacade = new EditorFacade(textEditor);
-		this.abapCodeMiningCreator = new AbapCodeMiningCreator();
-		miningLabelBuilder = new MiningLabelBuilder();
+		abapElementParser = new AbapElementParser(featureFacade);
+
+		abapCodeMiningCreator = new AbapCodeMiningCreator();
 	}
 
 	public void evaluateCodeMinings(List<ICodeMining> minings, ICodeMiningProvider provider) {
 
 		IDocument doc = textEditorFacade.getDocument();
-		AbapMethodDefinitionExtractor abapMethodDefinitionExtractor = new AbapMethodDefinitionExtractor();
-		AbapMethodInformation methodInformation = abapMethodDefinitionExtractor.getMethodInformation(doc);
+		AbapElementInformation methodInformation = abapElementParser.getMethodInformation(doc);
 
 		IAbapProject abapProject = textEditorFacade.getAbapProject();
 		IAdtObjectReference adtObject = textEditorFacade.getAdtObject();
@@ -48,49 +49,51 @@ public class AbapEditorCodeMining {
 			try {
 
 				URI uri = createUriForMethodBody(adtObject, abapElement);
-				String miningLabel = buildMiningLabel(abapProject, uri, doc.get());
-				String referencesLabel = buildMiningReferencesLabel(abapProject, uri, doc.get());
-				
-				ISearchQuery usageReferencesQuery = abapCodeMiningCreator
-						.createUsageReferencQuery(abapProject.getProject(), uri);
 
-				if (abapElement.showRef()) 
-				{
-				minings.add(abapCodeMiningCreator.createRef(abapElement.getLinenumber() - 1, doc, provider, referencesLabel,
-						usageReferencesQuery));
-				}
-				
-				if (abapElement.showSignature()) 
-				{
-				minings.add(abapCodeMiningCreator.create(abapElement.getLinenumber() - 1, doc, provider, miningLabel));
-				}
+				addReferenceMiningIfActivated(minings, provider, doc, abapProject, abapElement, uri);
+				addSignatureMiningIfActivated(minings, provider, doc, abapProject, abapElement, uri);
 
-			} catch (BadLocationException | URISyntaxException | OutOfSessionsException | ServiceNotAvailableException
-					| IOException e) {
+			} catch (BadLocationException | URISyntaxException | ServiceNotAvailableException | IOException
+					| MiningLabelBuildingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
 
+	private void addSignatureMiningIfActivated(List<ICodeMining> minings, ICodeMiningProvider provider, IDocument doc,
+			IAbapProject abapProject, IAbapElement abapElement, URI uri)
+			throws MiningLabelBuildingException, BadLocationException {
+
+		if (abapElement.getMiningLabelBuilder().showSignature()) {
+			String signatureLabel = abapElement.getMiningLabelBuilder().buildSignatureLabel(abapProject, uri,
+					doc.get());
+			minings.add(abapCodeMiningCreator.create(abapElement.getLinenumber() - 1, doc, provider, signatureLabel));
+		}
+
+	}
+
+	private void addReferenceMiningIfActivated(List<ICodeMining> minings, ICodeMiningProvider provider, IDocument doc,
+			IAbapProject abapProject, IAbapElement abapElement, URI uri)
+			throws ServiceNotAvailableException, IOException, BadLocationException {
+
+		if (abapElement.getMiningLabelBuilder().showRef()) {
+
+			String referencesLabel = abapElement.getMiningLabelBuilder().buildReferencesLabel(abapProject, uri,
+					doc.get());
+			ISearchQuery usageReferencesQuery = abapCodeMiningCreator.createUsageReferencQuery(abapProject.getProject(),
+					uri);
+
+			minings.add(abapCodeMiningCreator.createRef(abapElement.getLinenumber() - 1, doc, provider, referencesLabel,
+					usageReferencesQuery));
+		}
+
+	}
+
 	private URI createUriForMethodBody(IAdtObjectReference adtObject, IAbapElement abapElement)
 			throws URISyntaxException {
 		AdtObjectUriCreator adtObjectUriCreator = new AdtObjectUriCreator(adtObject);
 		return adtObjectUriCreator.createUriForLine(abapElement.getLinenumber(), abapElement.getStartindex());
-
-	}
-
-	private String buildMiningReferencesLabel(IAbapProject abapProject, URI uri, String doc)
-			throws OutOfSessionsException, ServiceNotAvailableException, IOException {
-
-		return miningLabelBuilder.buildReferencesLabel(abapProject, uri, doc);
-
-	}
-	
-	private String buildMiningLabel(IAbapProject abapProject, URI uri, String doc)
-			throws OutOfSessionsException, ServiceNotAvailableException, IOException {
-
-		return miningLabelBuilder.build(abapProject, uri, doc);
 
 	}
 

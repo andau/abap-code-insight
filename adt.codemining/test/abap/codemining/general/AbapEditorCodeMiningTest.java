@@ -2,7 +2,6 @@ package abap.codemining.general;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +17,15 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.powermock.reflect.Whitebox;
 
-import com.sap.adt.communication.exceptions.OutOfSessionsException;
 import com.sap.adt.tools.core.IAdtObjectReference;
-import com.sap.adt.tools.core.model.util.ServiceNotAvailableException;
 import com.sap.adt.tools.core.project.IAbapProject;
 
 import abap.codemining.editor.EditorFacade;
+import abap.codemining.feature.ClassMiningFeature;
+import abap.codemining.feature.FeatureFacade;
+import abap.codemining.feature.MethodBodyMiningFeature;
+import abap.codemining.label.MethodMiningLabelBuilder;
+import abap.codemining.label.MiningLabelBuildingException;
 import abap.codemining.utils.StringUtils;
 
 public class AbapEditorCodeMiningTest {
@@ -34,7 +36,7 @@ public class AbapEditorCodeMiningTest {
 	private final ITextEditor textEditor = Mockito.mock(ITextEditor.class);
 
 	private final AbapCodeMiningCreator abapCodeMiningCreator = Mockito.mock(AbapCodeMiningCreator.class);
-	private final MiningLabelBuilder miningLabelBuilder = Mockito.mock(MiningLabelBuilder.class);
+	private final MethodMiningLabelBuilder miningLabelBuilder = Mockito.mock(MethodMiningLabelBuilder.class);
 
 	private final IAbapProject abapProject = Mockito.mock(IAbapProject.class);
 	private final IProject project = Mockito.mock(IProject.class);
@@ -43,12 +45,14 @@ public class AbapEditorCodeMiningTest {
 	private final EditorFacade textEditorFacade = Mockito.mock(EditorFacade.class);
 	private final IAdtObjectReference adtObject = Mockito.mock(IAdtObjectReference.class);
 	private final ICodeMiningProvider provider = Mockito.mock(ICodeMiningProvider.class);
+	FeatureFacade featureFacade = Mockito.mock(FeatureFacade.class);
 
 	AbapEditorCodeMining cut;
+	private final ClassMiningFeature classHeaderMiningFeature = Mockito.mock(ClassMiningFeature.class);
+	private final MethodBodyMiningFeature methodBodyMiningFeature = Mockito.mock(MethodBodyMiningFeature.class);
 
 	@Before
-	public void before()
-			throws OutOfSessionsException, BadLocationException, ServiceNotAvailableException, IOException {
+	public void before() throws MiningLabelBuildingException {
 
 		Mockito.when(textEditorFacade.getAbapProject()).thenReturn(abapProject);
 		Mockito.when(textEditorFacade.getAdtObject()).thenReturn(adtObject);
@@ -58,13 +62,20 @@ public class AbapEditorCodeMiningTest {
 
 		Mockito.when(abapProject.getDestinationId()).thenReturn(TEST_DESTINATION_DATA_ID);
 
-		Mockito.when(miningLabelBuilder.build(Mockito.eq(abapProject), Mockito.any(), Mockito.any()))
+		Mockito.when(miningLabelBuilder.buildSignatureLabel(Mockito.eq(abapProject), Mockito.any(), Mockito.any()))
 				.thenReturn(TEST_LABEL);
 
-		cut = new AbapEditorCodeMining(textEditor);
+		Mockito.when(featureFacade.getClassHeaderMiningFeature()).thenReturn(classHeaderMiningFeature);
+		Mockito.when(featureFacade.getMethodBodyMiningFeature()).thenReturn(methodBodyMiningFeature);
+
+		Mockito.when(classHeaderMiningFeature.isReferenceCountActive()).thenReturn(false);
+		Mockito.when(methodBodyMiningFeature.isReferenceCountActive()).thenReturn(false);
+		Mockito.when(methodBodyMiningFeature.isSignatureActive()).thenReturn(true);
+
+		cut = new AbapEditorCodeMining(textEditor, featureFacade);
 		Whitebox.setInternalState(cut, "textEditorFacade", textEditorFacade);
 		Whitebox.setInternalState(cut, "abapCodeMiningCreator", abapCodeMiningCreator);
-		Whitebox.setInternalState(cut, "miningLabelBuilder", miningLabelBuilder);
+		// Whitebox.setInternalState(cut, "miningLabelBuilder", miningLabelBuilder);
 
 	}
 
