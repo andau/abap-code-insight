@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="adt-codemining-feature"
+      id="abap.codemining-feature"
       label="%featureName"
-      version="0.0.4"
+      version="0.1.0"
       provider-name="%featureProvider">
 
    <description>
