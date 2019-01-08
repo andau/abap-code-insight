@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.codemining.ICodeMining;
 import org.eclipse.jface.text.codemining.ICodeMiningProvider;
 import org.eclipse.search.ui.ISearchQuery;
@@ -29,8 +30,10 @@ public class AbapEditorCodeMining {
 	private final EditorFacade textEditorFacade;
 	private final AbapCodeMiningCreator abapCodeMiningCreator;
 	private final AbapElementParser abapElementParser;
+	private ITextViewer viewer;
 
-	public AbapEditorCodeMining(ITextEditor textEditor, FeatureFacade featureFacade) {
+	public AbapEditorCodeMining(ITextEditor textEditor, ITextViewer viewer, FeatureFacade featureFacade) {
+		this.viewer = viewer; 
 		textEditorFacade = new EditorFacade(textEditor);
 		abapElementParser = new AbapElementParser(featureFacade);
 
@@ -39,7 +42,7 @@ public class AbapEditorCodeMining {
 
 	public void evaluateCodeMinings(List<ICodeMining> minings, ICodeMiningProvider provider) {
 
-		IDocument doc = textEditorFacade.getDocument();
+		IDocument doc = viewer.getDocument();
 		AbapElementInformation methodInformation = abapElementParser.getMethodInformation(doc);
 
 		IAbapProject abapProject = textEditorFacade.getAbapProject();

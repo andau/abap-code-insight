@@ -21,6 +21,7 @@ import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.codemining.AbstractCodeMiningProvider;
 import org.eclipse.jface.text.codemining.CodeMiningReconciler;
 import org.eclipse.jface.text.codemining.ICodeMining;
+import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.texteditor.ITextEditor;
 
 import abap.codemining.feature.FeatureFacade;
@@ -44,15 +45,16 @@ public class AbapCodeMiningProvider extends AbstractCodeMiningProvider {
 		return CompletableFuture.supplyAsync(() -> {
 			monitor.isCanceled();
 			ITextEditor textEditor = super.getAdapter(ITextEditor.class);
-
-			addViewerToReconciler(viewer);
+			
+			CodeMiningReconciler codeMiningReconciler = new CodeMiningReconciler(); 
+			codeMiningReconciler.install(viewer);
 
 			try {
+				
 				List<ICodeMining> minings = new ArrayList<>();
-				collectMinings(textEditor, minings);
-				monitor.isCanceled();
+				collectMinings(textEditor,viewer, minings);
 				return minings;
-
+				
 			} catch (JavaModelException e) {
 				// TODO: what should we done when there are some errors?
 			}
@@ -76,11 +78,11 @@ public class AbapCodeMiningProvider extends AbstractCodeMiningProvider {
 		}
 	}
 
-	private void collectMinings(ITextEditor textEditor, List<ICodeMining> minings) throws JavaModelException {
+	private void collectMinings(ITextEditor textEditor, ITextViewer viewer, List<ICodeMining> minings) throws JavaModelException {
 
 		if (textEditor.getTitle().contains("ZCL")) {
 
-			AbapEditorCodeMining abapClassCodeMining = new AbapEditorCodeMining(textEditor, featureFacade);
+			AbapEditorCodeMining abapClassCodeMining = new AbapEditorCodeMining(textEditor, viewer, featureFacade);
 			abapClassCodeMining.evaluateCodeMinings(minings, this);
 		}
 	}
