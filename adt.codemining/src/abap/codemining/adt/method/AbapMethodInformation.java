@@ -28,7 +28,20 @@ public class AbapMethodInformation implements IAbapCodeElementInformation {
 
 	}
 
-	public String getVisibility() {
+	@Override
+	public String getSignatureLabel() {
+		String returnLabel = getReturnValue() == null ? "void" : getReturnValue().getLabel();
+		String impParameterLabel = buildParameterLabel(getImpParameters());
+		String expParameterLabel = buildParameterLabel(getExpParameters());
+		String expParameterSpace = expParameterLabel.equals(StringUtils.EMPTY) ? StringUtils.EMPTY : StringUtils.SPACE;
+
+		String levelLabel = getLevel().equals("instance") ? StringUtils.EMPTY : getLevel() + StringUtils.SPACE;
+
+		return getVisibility() + StringUtils.SPACE + levelLabel + returnLabel + StringUtils.SPACE + getName()
+				+ "(" + impParameterLabel + expParameterSpace + expParameterLabel + ")";
+	}
+
+	private String getVisibility() {
 		return visibility;
 	}
 
@@ -50,19 +63,6 @@ public class AbapMethodInformation implements IAbapCodeElementInformation {
 
 	private Collection<MethodParam> getExpParameters() {
 		return expParameters;
-	}
-
-	@Override
-	public String getSignatureLabel() {
-		String returnLabel = getReturnValue() == null ? "void" : getReturnValue().getLabel();
-		String impParameterLabel = buildParameterLabel(getImpParameters());
-		String expParameterLabel = buildParameterLabel(getExpParameters());
-		String expParameterSpace = expParameterLabel.equals(StringUtils.EMPTY) ? StringUtils.EMPTY : StringUtils.SPACE;
-
-		String levelLabel = getLevel().equals("instance") ? StringUtils.EMPTY : getLevel() + StringUtils.SPACE;
-
-		return getVisibility() + StringUtils.SPACE + levelLabel + returnLabel + StringUtils.SPACE + getName()
-				+ StringUtils.SPACE + "(" + impParameterLabel + expParameterSpace + expParameterLabel + ")";
 	}
 
 	private String buildParameterLabel(Collection<MethodParam> parameters) {

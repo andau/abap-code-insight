@@ -6,5 +6,8 @@
    <feature url="features/abap.codemining-feature_0.1.0.jar" id="abap.codemining-feature" version="0.1.0">
       <category name="abap_codemining"/>
    </feature>
+   <feature url="features/abap.codemining-feature_0.1.1.jar" id="abap.codemining-feature" version="0.1.1">
+      <category name="abap_codemining"/>
+   </feature>
    <category-def name="abap_codemining" label="ABAP Codemining"/>
 </site>
