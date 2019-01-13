@@ -19,7 +19,8 @@ import com.sap.adt.tools.core.project.IAbapProject;
 
 import abap.codemining.editor.EditorFacade;
 import abap.codemining.element.AbapElementInformation;
-import abap.codemining.element.AbapElementParser;
+import abap.codemining.element.IAbapElementParser;
+import abap.codemining.element.AbapClassElementParser;
 import abap.codemining.element.domain.IAbapElement;
 import abap.codemining.feature.FeatureFacade;
 import abap.codemining.label.MiningLabelBuildingException;
@@ -29,13 +30,13 @@ public class AbapEditorCodeMining {
 
 	private final EditorFacade textEditorFacade;
 	private final AbapCodeMiningCreator abapCodeMiningCreator;
-	private final AbapElementParser abapElementParser;
+	private final IAbapElementParser abapElementParser;
 	private ITextViewer viewer;
 
-	public AbapEditorCodeMining(ITextEditor textEditor, ITextViewer viewer, FeatureFacade featureFacade) {
+	public AbapEditorCodeMining(ITextEditor textEditor, ITextViewer viewer, IAbapElementParser abapElementParser) {
 		this.viewer = viewer; 
 		textEditorFacade = new EditorFacade(textEditor);
-		abapElementParser = new AbapElementParser(featureFacade);
+		this.abapElementParser =abapElementParser;
 
 		abapCodeMiningCreator = new AbapCodeMiningCreator();
 	}
@@ -43,7 +44,7 @@ public class AbapEditorCodeMining {
 	public void evaluateCodeMinings(List<ICodeMining> minings, ICodeMiningProvider provider) {
 
 		IDocument doc = viewer.getDocument();
-		AbapElementInformation methodInformation = abapElementParser.getMethodInformation(doc);
+		AbapElementInformation methodInformation = abapElementParser.getElementInformation(doc);
 
 		IAbapProject abapProject = textEditorFacade.getAbapProject();
 		IAdtObjectReference adtObject = textEditorFacade.getAdtObject();

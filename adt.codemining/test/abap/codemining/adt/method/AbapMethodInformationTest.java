@@ -31,7 +31,7 @@ public class AbapMethodInformationTest {
 	@Test
 	public void testGetMethods() {
 		String testLabel = TEST_VISIBILITY + StringUtils.SPACE + TEST_LEVEL + StringUtils.SPACE + "void"
-				+ StringUtils.SPACE + TEST_NAME + StringUtils.SPACE + "()";
+				+ StringUtils.SPACE + TEST_NAME  + "()";
 		assertEquals(testLabel, cut.getSignatureLabel());
 	}
 

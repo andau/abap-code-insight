@@ -21,6 +21,7 @@ import com.sap.adt.tools.core.IAdtObjectReference;
 import com.sap.adt.tools.core.project.IAbapProject;
 
 import abap.codemining.editor.EditorFacade;
+import abap.codemining.element.AbapClassElementParser;
 import abap.codemining.feature.ClassMiningFeature;
 import abap.codemining.feature.FeatureFacade;
 import abap.codemining.feature.MethodBodyMiningFeature;
@@ -72,7 +73,7 @@ public class AbapEditorCodeMiningTest {
 		Mockito.when(methodBodyMiningFeature.isReferenceCountActive()).thenReturn(false);
 		Mockito.when(methodBodyMiningFeature.isSignatureActive()).thenReturn(true);
 
-		cut = new AbapEditorCodeMining(textEditor, null, featureFacade);
+		cut = new AbapEditorCodeMining(textEditor, null, new AbapClassElementParser(featureFacade));
 		Whitebox.setInternalState(cut, "textEditorFacade", textEditorFacade);
 		Whitebox.setInternalState(cut, "abapCodeMiningCreator", abapCodeMiningCreator);
 		// Whitebox.setInternalState(cut, "miningLabelBuilder", miningLabelBuilder);

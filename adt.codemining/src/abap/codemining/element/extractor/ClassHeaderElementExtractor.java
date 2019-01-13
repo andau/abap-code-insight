@@ -10,7 +10,7 @@ import abap.codemining.method.ElementMatchInformation;
 public class ClassHeaderElementExtractor extends AbapElementExtractor implements IAbapElementExtractor {
 
 	private static final String METHOD_CLASS_HEADER_REGEX = "\\s*" + "class" + "\\s+" + "([\\w|~]+)" + "\\s*"
-			+ "definition";
+			+ "definition" + "\\s*";
 
 	private final ClassMiningFeature classHeaderMiningFeature;
 

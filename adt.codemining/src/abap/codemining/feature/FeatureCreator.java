@@ -39,4 +39,10 @@ public class FeatureCreator {
 		return new ReconcilerFeature(prefs.getBoolean(PreferenceConstants.UPDATE_CHANGED_EDITORS));
 	}
 
+	public CdsMiningFeature createCdsMiningFeature() {
+	initPrefs(); 
+	//TODO preferences 
+	return new CdsMiningFeature(true); 
+	}
+
 }

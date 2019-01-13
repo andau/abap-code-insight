@@ -15,24 +15,24 @@ import abap.codemining.element.extractor.IAbapElementExtractor;
 import abap.codemining.element.extractor.MethodBodyElementExtractor;
 import abap.codemining.feature.FeatureFacade;
 
-public class AbapElementParser {
+public class AbapClassElementParser implements IAbapElementParser {
 
 	boolean publicSector = false;
 	FeatureFacade featureFacade;
 
-	public AbapElementParser(FeatureFacade featureFacade) {
+	public AbapClassElementParser(FeatureFacade featureFacade) {
 		this.featureFacade = featureFacade;
 	}
 
-	public AbapElementInformation getMethodInformation(IDocument doc) {
+	public AbapElementInformation getElementInformation(IDocument doc) {
 
 		String content = setContentToLower(doc);
 
-		Set<IAbapElement> abapElements = getMethodBodies(content);
+		Set<IAbapElement> abapElements = getClassElements(content);
 		return new AbapElementInformation(abapElements);
 	}
 
-	Set<IAbapElement> getMethodBodies(String content) {
+	Set<IAbapElement> getClassElements(String content) {
 		Set<IAbapElement> abapElements = new HashSet<>();
 
 		Scanner scanner = new Scanner(content);

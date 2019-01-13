@@ -16,7 +16,7 @@ import abap.codemining.feature.FeatureFacade;
 
 public class AbapElementParserTest {
 
-	AbapElementParser cut;
+	AbapClassElementParser cut;
 	IDocument document = Mockito.mock(IDocument.class);
 	private SampleDocumentContent sampleDocumentContents;
 
@@ -24,7 +24,7 @@ public class AbapElementParserTest {
 
 	@Before
 	public void before() {
-		cut = new AbapElementParser(featureFacade);
+		cut = new AbapClassElementParser(featureFacade);
 		sampleDocumentContents = new SampleDocumentContent();
 
 	}
@@ -32,7 +32,7 @@ public class AbapElementParserTest {
 	@Test
 	public void testGetMethodBodies() {
 		Set<IAbapElement> abapElements = cut
-				.getMethodBodies(sampleDocumentContents.getOneSimpleMethodContent().toLowerCase());
+				.getClassElements(sampleDocumentContents.getOneSimpleMethodContent().toLowerCase());
 		assertEquals(2, abapElements.size());
 		assertTrue(abapElements.stream().anyMatch(item -> item.getElementname().equals("samplemethod2")));
 	}

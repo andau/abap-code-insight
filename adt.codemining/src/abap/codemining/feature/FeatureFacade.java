@@ -9,6 +9,8 @@ public class FeatureFacade {
 
 	private ReconcilerFeature reconcilerFeature;
 
+	private CdsMiningFeature cdsMiningFeature;
+
 	public FeatureFacade() {
 		featureCreator = new FeatureCreator();
 	}
@@ -46,6 +48,13 @@ public class FeatureFacade {
 		}
 
 		return reconcilerFeature;
+	}
+
+	public CdsMiningFeature getCdsMiningFeature() {
+		if (cdsMiningFeature == null)  {
+			cdsMiningFeature = featureCreator.createCdsMiningFeature(); 
+		}
+		return cdsMiningFeature; 
 	}
 
 }
