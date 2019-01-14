@@ -21,7 +21,6 @@ import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.codemining.AbstractCodeMiningProvider;
 import org.eclipse.jface.text.codemining.CodeMiningReconciler;
 import org.eclipse.jface.text.codemining.ICodeMining;
-import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.texteditor.ITextEditor;
 
 import com.sap.adt.tools.core.IAdtObjectReference;

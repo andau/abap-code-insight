@@ -41,8 +41,7 @@ public class FeatureCreator {
 
 	public CdsMiningFeature createCdsMiningFeature() {
 	initPrefs(); 
-	//TODO preferences 
-	return new CdsMiningFeature(true); 
+	return new CdsMiningFeature(prefs.getBoolean(PreferenceConstants.SHOW_CDS_HEADER_REFERENCE_COUNT)); 
 	}
 
 }

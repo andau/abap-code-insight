@@ -28,6 +28,9 @@ public class AbapEditorCodeMiningPreferencePage extends FieldEditorPreferencePag
 		preferencesUiHelper.addHeaderLabelWithSpaceBefore(getFieldEditorParent(), "Class body");
 		createClassBodySection();
 
+		preferencesUiHelper.addHeaderLabelWithSpaceBefore(getFieldEditorParent(), "Core Data Views (CDS)");
+		createCdsHeaderSection();
+
 		preferencesUiHelper.addHeaderLabelWithSpaceBefore(getFieldEditorParent(), "Update");
 		createUpdateSection();
 
@@ -57,10 +60,16 @@ public class AbapEditorCodeMiningPreferencePage extends FieldEditorPreferencePag
 
 	}
 
+	private void createCdsHeaderSection() {
+		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_CDS_HEADER_REFERENCE_COUNT, 
+				"Show reference count on cds definition", getFieldEditorParent()));
+	}
+
 	@Override
 	public void init(IWorkbench workbench) {
 		setPreferenceStore(AbapCodeMiningPlugin.getDefault().getPreferenceStore());
 		setDescription("General settings for ABAP Continuous Integration");
 	}
+
 
 }

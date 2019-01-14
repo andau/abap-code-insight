@@ -28,6 +28,7 @@ public class PreferenceInitializerTest {
 		Mockito.verify(preferenceStore).setDefault(PreferenceConstants.SHOW_CLASS_HEADER_REFERENCE_COUNT, true);
 		Mockito.verify(preferenceStore).setDefault(PreferenceConstants.SHOW_METHOD_BODY_REFERENCE_COUNT, true);
 		Mockito.verify(preferenceStore).setDefault(PreferenceConstants.SHOW_METHOD_BODY_SIGNATURE, true);
+		Mockito.verify(preferenceStore).setDefault(PreferenceConstants.SHOW_CDS_HEADER_REFERENCE_COUNT, true);
 	}
 
 }
