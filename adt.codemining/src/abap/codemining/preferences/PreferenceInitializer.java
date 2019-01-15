@@ -19,11 +19,14 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 		final IPreferenceStore store = abapCodeMiningPluginHelper.getPreferenceStore();
 		store.setDefault(PreferenceConstants.SHOW_CLASS_HEADER_REFERENCE_COUNT, true);
 		store.setDefault(PreferenceConstants.SHOW_CLASS_BODY_REFERENCE_COUNT, true);
+		store.setDefault(PreferenceConstants.SHOW_INTERFACE_HEADER_REFERENCE_COUNT, true);
 
 		store.setDefault(PreferenceConstants.SHOW_METHOD_BODY_SIGNATURE, true);
 		store.setDefault(PreferenceConstants.SHOW_METHOD_BODY_REFERENCE_COUNT, true);
-	
+
 		store.setDefault(PreferenceConstants.SHOW_CDS_HEADER_REFERENCE_COUNT, true);
+		store.setDefault(PreferenceConstants.SHOW_FM_HEADER_REFERENCE_COUNT, true);
+		store.setDefault(PreferenceConstants.SHOW_REPORT_HEADER_REFERENCE_COUNT, true);
 
 	}
 

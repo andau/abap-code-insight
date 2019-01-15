@@ -7,13 +7,13 @@ import abap.codemining.label.ReferenceOnlyMiningLabelBuilder;
 import abap.codemining.label.IMiningLabelBuilder;
 import abap.codemining.method.ElementMatchInformation;
 
-public class CdsViewElementExtractor extends AbapElementExtractor implements IAbapElementExtractor {
+public class FunctionModuleElementExtractor extends AbapElementExtractor implements IAbapElementExtractor {
 
-	private static final String CDS_HEADER_REGEX = "\\s*" + "define view" + "\\s+" + "([\\w|~]+)" + ".*";
+	private static final String FM_HEADER_REGEX = "\\s*" + "function" + "\\s+" + "([\\w|~]+)" + ".*";
 
 	private final ReferenceMiningFeature cdsMiningFeature;
 
-	public CdsViewElementExtractor(ReferenceMiningFeature cdsMiningFeature) {
+	public FunctionModuleElementExtractor(ReferenceMiningFeature cdsMiningFeature) {
 		this.cdsMiningFeature = cdsMiningFeature;
 	}
 
@@ -30,6 +30,6 @@ public class CdsViewElementExtractor extends AbapElementExtractor implements IAb
 
 	@Override
 	protected String getRegex() {
-		return CDS_HEADER_REGEX;
+		return FM_HEADER_REGEX;
 	}
 }

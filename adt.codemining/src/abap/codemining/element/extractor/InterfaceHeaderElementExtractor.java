@@ -2,18 +2,18 @@ package abap.codemining.element.extractor;
 
 import abap.codemining.element.domain.AbapClassBody;
 import abap.codemining.element.domain.IAbapElement;
-import abap.codemining.feature.MethodBodyMiningFeature;
+import abap.codemining.feature.ReferenceMiningFeature;
+import abap.codemining.label.ReferenceOnlyMiningLabelBuilder;
 import abap.codemining.label.IMiningLabelBuilder;
-import abap.codemining.label.MethodMiningLabelBuilder;
 import abap.codemining.method.ElementMatchInformation;
 
-public class MethodBodyElementExtractor extends AbapElementExtractor implements IAbapElementExtractor {
+public class InterfaceHeaderElementExtractor extends AbapElementExtractor implements IAbapElementExtractor {
+	private static final String INTERFACE_HEADER_REGEX = "\\s*" + "interface" + "\\s+" + "([\\w|~]+)" + ".*";
 
-	private static final String METHOD_BODY_REGEX = "\\s*" + "method" + "\\s+" + "([\\w|~]+)" + "\\s*" + "\\." + ".*";
-	private final MethodBodyMiningFeature methodBodyMiningFeature;
+	private final ReferenceMiningFeature interfaceMiningFeature;
 
-	public MethodBodyElementExtractor(MethodBodyMiningFeature methodBodyMiningFeature) {
-		this.methodBodyMiningFeature = methodBodyMiningFeature;
+	public InterfaceHeaderElementExtractor(ReferenceMiningFeature interfaceMiningFeature) {
+		this.interfaceMiningFeature = interfaceMiningFeature;
 	}
 
 	@Override
@@ -24,11 +24,11 @@ public class MethodBodyElementExtractor extends AbapElementExtractor implements 
 
 	@Override
 	protected IMiningLabelBuilder getMiningLabelBuilder() {
-		return new MethodMiningLabelBuilder(methodBodyMiningFeature);
+		return new ReferenceOnlyMiningLabelBuilder(interfaceMiningFeature);
 	}
 
 	@Override
 	protected String getRegex() {
-		return METHOD_BODY_REGEX;
+		return INTERFACE_HEADER_REGEX;
 	}
 }

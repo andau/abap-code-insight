@@ -31,9 +31,9 @@ public class AbapElementParserTest {
 
 	@Test
 	public void testGetMethodBodies() {
-		Set<IAbapElement> abapElements = cut
+		final Set<IAbapElement> abapElements = cut
 				.getClassElements(sampleDocumentContents.getOneSimpleMethodContent().toLowerCase());
-		assertEquals(2, abapElements.size());
+		assertEquals(3, abapElements.size());
 		assertTrue(abapElements.stream().anyMatch(item -> item.getElementname().equals("samplemethod2")));
 	}
 

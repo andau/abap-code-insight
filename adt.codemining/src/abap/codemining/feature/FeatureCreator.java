@@ -39,9 +39,24 @@ public class FeatureCreator {
 		return new ReconcilerFeature(prefs.getBoolean(PreferenceConstants.UPDATE_CHANGED_EDITORS));
 	}
 
-	public CdsMiningFeature createCdsMiningFeature() {
-	initPrefs(); 
-	return new CdsMiningFeature(prefs.getBoolean(PreferenceConstants.SHOW_CDS_HEADER_REFERENCE_COUNT)); 
+	public ReferenceMiningFeature createCdsMiningFeature() {
+		initPrefs();
+		return new ReferenceMiningFeature(prefs.getBoolean(PreferenceConstants.SHOW_CDS_HEADER_REFERENCE_COUNT));
+	}
+
+	public ReferenceMiningFeature createFmMiningFeature() {
+		initPrefs();
+		return new ReferenceMiningFeature(prefs.getBoolean(PreferenceConstants.SHOW_FM_HEADER_REFERENCE_COUNT));
+	}
+
+	public ReferenceMiningFeature createReportMiningFeature() {
+		initPrefs();
+		return new ReferenceMiningFeature(prefs.getBoolean(PreferenceConstants.SHOW_REPORT_HEADER_REFERENCE_COUNT));
+	}
+
+	public ReferenceMiningFeature createInterfaceMiningFeature() {
+		initPrefs();
+		return new ReferenceMiningFeature(prefs.getBoolean(PreferenceConstants.SHOW_INTERFACE_HEADER_REFERENCE_COUNT));
 	}
 
 }

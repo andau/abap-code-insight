@@ -9,7 +9,13 @@ public class FeatureFacade {
 
 	private ReconcilerFeature reconcilerFeature;
 
-	private CdsMiningFeature cdsMiningFeature;
+	private ReferenceMiningFeature cdsMiningFeature;
+
+	private ReferenceMiningFeature fmMiningFeature;
+
+	private ReferenceMiningFeature reportMiningFeature;
+
+	private ReferenceMiningFeature interfaceMiningFeature;
 
 	public FeatureFacade() {
 		featureCreator = new FeatureCreator();
@@ -50,11 +56,32 @@ public class FeatureFacade {
 		return reconcilerFeature;
 	}
 
-	public CdsMiningFeature getCdsMiningFeature() {
-		if (cdsMiningFeature == null)  {
-			cdsMiningFeature = featureCreator.createCdsMiningFeature(); 
+	public ReferenceMiningFeature getCdsMiningFeature() {
+		if (cdsMiningFeature == null) {
+			cdsMiningFeature = featureCreator.createCdsMiningFeature();
 		}
-		return cdsMiningFeature; 
+		return cdsMiningFeature;
+	}
+
+	public ReferenceMiningFeature getFunctionModuleMiningFeature() {
+		if (fmMiningFeature == null) {
+			fmMiningFeature = featureCreator.createFmMiningFeature();
+		}
+		return fmMiningFeature;
+	}
+
+	public ReferenceMiningFeature getReportMiningFeature() {
+		if (reportMiningFeature == null) {
+			reportMiningFeature = featureCreator.createReportMiningFeature();
+		}
+		return reportMiningFeature;
+	}
+
+	public ReferenceMiningFeature getInterfaceMiningFeature() {
+		if (interfaceMiningFeature == null) {
+			interfaceMiningFeature = featureCreator.createInterfaceMiningFeature();
+		}
+		return interfaceMiningFeature;
 	}
 
 }

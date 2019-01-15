@@ -4,19 +4,19 @@ import java.net.URI;
 
 import com.sap.adt.tools.core.project.IAbapProject;
 
-import abap.codemining.feature.CdsMiningFeature;
+import abap.codemining.feature.ReferenceMiningFeature;
 
-public class CdsMiningLabelBuilder extends ReferenceMiningLabelBuilder implements IMiningLabelBuilder {
+public class ReferenceOnlyMiningLabelBuilder extends ReferenceMiningLabelBuilder implements IMiningLabelBuilder {
 
-	private CdsMiningFeature cdsMiningFeature;
+	private final ReferenceMiningFeature referenceMiningFeature;
 
-	public CdsMiningLabelBuilder(CdsMiningFeature cdsMiningFeature) {
-		this.cdsMiningFeature = cdsMiningFeature; 
+	public ReferenceOnlyMiningLabelBuilder(ReferenceMiningFeature referenceMiningFeature) {
+		this.referenceMiningFeature = referenceMiningFeature;
 	}
 
 	@Override
 	public boolean showRef() {
-		return cdsMiningFeature.isReferenceCountActive();
+		return referenceMiningFeature.isReferenceCountActive();
 	}
 
 	@Override
@@ -31,6 +31,5 @@ public class CdsMiningLabelBuilder extends ReferenceMiningLabelBuilder implement
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 }

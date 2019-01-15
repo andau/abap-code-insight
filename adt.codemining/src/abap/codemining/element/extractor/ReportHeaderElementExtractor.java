@@ -7,14 +7,14 @@ import abap.codemining.label.ReferenceOnlyMiningLabelBuilder;
 import abap.codemining.label.IMiningLabelBuilder;
 import abap.codemining.method.ElementMatchInformation;
 
-public class CdsViewElementExtractor extends AbapElementExtractor implements IAbapElementExtractor {
+public class ReportHeaderElementExtractor extends AbapElementExtractor implements IAbapElementExtractor {
 
-	private static final String CDS_HEADER_REGEX = "\\s*" + "define view" + "\\s+" + "([\\w|~]+)" + ".*";
+	private static final String REPORT_HEADER_REGEX = "\\s*" + "report" + "\\s+" + "([\\w|~]+).*";
 
-	private final ReferenceMiningFeature cdsMiningFeature;
+	private final ReferenceMiningFeature reportMiningFeature;
 
-	public CdsViewElementExtractor(ReferenceMiningFeature cdsMiningFeature) {
-		this.cdsMiningFeature = cdsMiningFeature;
+	public ReportHeaderElementExtractor(ReferenceMiningFeature reportMiningFeature) {
+		this.reportMiningFeature = reportMiningFeature;
 	}
 
 	@Override
@@ -25,11 +25,11 @@ public class CdsViewElementExtractor extends AbapElementExtractor implements IAb
 
 	@Override
 	protected IMiningLabelBuilder getMiningLabelBuilder() {
-		return new ReferenceOnlyMiningLabelBuilder(cdsMiningFeature);
+		return new ReferenceOnlyMiningLabelBuilder(reportMiningFeature);
 	}
 
 	@Override
 	protected String getRegex() {
-		return CDS_HEADER_REGEX;
+		return REPORT_HEADER_REGEX;
 	}
 }

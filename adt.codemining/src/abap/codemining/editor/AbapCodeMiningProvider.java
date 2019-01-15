@@ -27,6 +27,11 @@ import com.sap.adt.tools.core.IAdtObjectReference;
 
 import abap.codemining.element.AbapClassElementParser;
 import abap.codemining.element.CdsViewElementParser;
+import abap.codemining.element.FunctionModuleElementParser;
+import abap.codemining.element.IAbapElementParser;
+import abap.codemining.element.NotSupportedElementParser;
+import abap.codemining.element.parser.AbapInterfaceElementParser;
+import abap.codemining.element.parser.ReportElementParser;
 import abap.codemining.feature.FeatureFacade;
 import abap.codemining.general.AbapEditorCodeMining;
 import abap.codemining.plugin.AbapCodeMiningPluginHelper;
@@ -48,18 +53,18 @@ public class AbapCodeMiningProvider extends AbstractCodeMiningProvider {
 			IProgressMonitor monitor) {
 		return CompletableFuture.supplyAsync(() -> {
 			monitor.isCanceled();
-			ITextEditor textEditor = super.getAdapter(ITextEditor.class);
+			final ITextEditor textEditor = super.getAdapter(ITextEditor.class);
 
-			CodeMiningReconciler codeMiningReconciler = new CodeMiningReconciler();
+			final CodeMiningReconciler codeMiningReconciler = new CodeMiningReconciler();
 			codeMiningReconciler.install(viewer);
 
 			try {
 
-				List<ICodeMining> minings = new ArrayList<>();
+				final List<ICodeMining> minings = new ArrayList<>();
 				collectMinings(textEditor, viewer, minings);
 				return minings;
 
-			} catch (JavaModelException e) {
+			} catch (final JavaModelException e) {
 				// TODO: what should we done when there are some errors?
 			}
 
@@ -75,33 +80,41 @@ public class AbapCodeMiningProvider extends AbstractCodeMiningProvider {
 
 	}
 
-	private void addViewerToReconciler(ITextViewer viewer) {
-		if (featureFacade.getReconcilerFeature().isUpdateEnabled()) {
-			CodeMiningReconciler codeMiningReconciler = abapCodeMiningPluginHelper.getCodeMiningReconciler();
-			codeMiningReconciler.install(viewer);
-		}
-	}
-
 	private void collectMinings(ITextEditor textEditor, ITextViewer viewer, List<ICodeMining> minings)
 			throws JavaModelException {
 
-		textEditorFacade = new EditorFacade(textEditor); 
-		IAdtObjectReference adtObject = textEditorFacade.getAdtObject();
+		textEditorFacade = new EditorFacade(textEditor);
+		final IAdtObjectReference adtObject = textEditorFacade.getAdtObject();
 
 		if (textEditorFacade.getAbapProject() != null) {
 
-			IAdtObjectReference adtObjectReference = textEditorFacade.getAdtObject();
+			IAbapElementParser abapElementParser;
+
+			final IAdtObjectReference adtObjectReference = textEditorFacade.getAdtObject();
 			switch (adtObjectReference.getType()) {
 			case "CLAS/I":
-				AbapEditorCodeMining abapClassCodeMining = new AbapEditorCodeMining(textEditor, viewer, new AbapClassElementParser(featureFacade));
-				abapClassCodeMining.evaluateCodeMinings(minings, this);
+				abapElementParser = new AbapClassElementParser(featureFacade);
 				break;
-			case "DDLS/DF": 
-				AbapEditorCodeMining cdsClassCodeMining = new AbapEditorCodeMining(textEditor, viewer, new CdsViewElementParser(featureFacade));
-				cdsClassCodeMining.evaluateCodeMinings(minings, this);
+			case "INTF/OI":
+				abapElementParser = new AbapInterfaceElementParser(featureFacade);
+				break;
+			case "DDLS/DF":
+				abapElementParser = new CdsViewElementParser(featureFacade);
+				break;
+			case "FUGR/FF":
+				abapElementParser = new FunctionModuleElementParser(featureFacade);
+				break;
+			case "PROG/P":
+				abapElementParser = new ReportElementParser(featureFacade);
+				break;
 			default:
+				abapElementParser = new NotSupportedElementParser(featureFacade);
 				break;
 			}
+
+			final AbapEditorCodeMining abapClassCodeMining = new AbapEditorCodeMining(textEditor, viewer,
+					abapElementParser);
+			abapClassCodeMining.evaluateCodeMinings(minings, this);
 
 		}
 	}

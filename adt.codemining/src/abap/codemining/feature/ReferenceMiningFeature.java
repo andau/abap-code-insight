@@ -1,10 +1,10 @@
 package abap.codemining.feature;
 
-public class CdsMiningFeature implements IReferenceMiningFeature {
+public class ReferenceMiningFeature implements IReferenceMiningFeature {
 
 	private final boolean showReferenceCount;
 
-	public CdsMiningFeature(boolean showReferenceCount) {
+	public ReferenceMiningFeature(boolean showReferenceCount) {
 		this.showReferenceCount = showReferenceCount;
 	}
 

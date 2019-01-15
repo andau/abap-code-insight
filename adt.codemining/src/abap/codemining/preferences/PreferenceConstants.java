@@ -11,6 +11,9 @@ public class PreferenceConstants {
 	public static final String SHOW_CLASS_BODY_REFERENCE_COUNT = "showClassBodyReferenceCount";
 	public static final String UPDATE_CHANGED_EDITORS = "updateChangedEditors";
 	public static final String SHOW_CDS_HEADER_REFERENCE_COUNT = "showCdsHeaderReferenceCount";
+	public static final String SHOW_FM_HEADER_REFERENCE_COUNT = "showFmHeaderReferenceCount";
+	public static final String SHOW_REPORT_HEADER_REFERENCE_COUNT = "showReportHeaderReferenceCount";
+	public static String SHOW_INTERFACE_HEADER_REFERENCE_COUNT = "showInterfaceHeaderReferenceCount";
 
 	private PreferenceConstants() {
 	}

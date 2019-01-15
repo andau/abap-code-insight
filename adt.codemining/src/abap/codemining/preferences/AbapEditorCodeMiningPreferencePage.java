@@ -28,8 +28,17 @@ public class AbapEditorCodeMiningPreferencePage extends FieldEditorPreferencePag
 		preferencesUiHelper.addHeaderLabelWithSpaceBefore(getFieldEditorParent(), "Class body");
 		createClassBodySection();
 
+		preferencesUiHelper.addHeaderLabelWithSpaceBefore(getFieldEditorParent(), "Interface");
+		createInterfaceSection();
+
 		preferencesUiHelper.addHeaderLabelWithSpaceBefore(getFieldEditorParent(), "Core Data Views (CDS)");
 		createCdsHeaderSection();
+
+		preferencesUiHelper.addHeaderLabelWithSpaceBefore(getFieldEditorParent(), "Function module");
+		createFmHeaderSection();
+
+		preferencesUiHelper.addHeaderLabelWithSpaceBefore(getFieldEditorParent(), "ABAP report (program)");
+		createReportHeaderSection();
 
 		preferencesUiHelper.addHeaderLabelWithSpaceBefore(getFieldEditorParent(), "Update");
 		createUpdateSection();
@@ -60,9 +69,24 @@ public class AbapEditorCodeMiningPreferencePage extends FieldEditorPreferencePag
 
 	}
 
+	private void createInterfaceSection() {
+		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_INTERFACE_HEADER_REFERENCE_COUNT,
+				"Show reference count on interface header", getFieldEditorParent()));
+	}
+
 	private void createCdsHeaderSection() {
-		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_CDS_HEADER_REFERENCE_COUNT, 
+		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_CDS_HEADER_REFERENCE_COUNT,
 				"Show reference count on cds definition", getFieldEditorParent()));
+	}
+
+	private void createFmHeaderSection() {
+		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_FM_HEADER_REFERENCE_COUNT,
+				"Show reference count on function modules", getFieldEditorParent()));
+	}
+
+	private void createReportHeaderSection() {
+		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_REPORT_HEADER_REFERENCE_COUNT,
+				"Show reference count on reports", getFieldEditorParent()));
 	}
 
 	@Override
@@ -70,6 +94,5 @@ public class AbapEditorCodeMiningPreferencePage extends FieldEditorPreferencePag
 		setPreferenceStore(AbapCodeMiningPlugin.getDefault().getPreferenceStore());
 		setDescription("General settings for ABAP Continuous Integration");
 	}
-
 
 }
