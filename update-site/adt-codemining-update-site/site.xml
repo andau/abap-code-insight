@@ -18,5 +18,8 @@
    <feature url="features/abap-code-insight-feature_0.1.4.0.jar" id="abap-code-insight-feature" version="0.1.4.0">
       <category name="abap_code_insight"/>
    </feature>
+   <feature url="features/abap-code-insight-feature_0.1.5.0.jar" id="abap-code-insight-feature" version="0.1.5.0">
+      <category name="abap_code_insight"/>
+   </feature>
    <category-def name="abap_code_insight" label="ABAP Code Insight"/>
 </site>
