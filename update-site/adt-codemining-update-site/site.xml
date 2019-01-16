@@ -4,16 +4,19 @@
       A Continous Integration plugin for ABAP
    </description>
    <feature url="features/abap.codemining-feature_0.1.0.jar" id="abap.codemining-feature" version="0.1.0">
-      <category name="abap_codemining"/>
+      <category name="abap_code_insight"/>
    </feature>
    <feature url="features/abap.codemining-feature_0.1.1.jar" id="abap.codemining-feature" version="0.1.1">
-      <category name="abap_codemining"/>
+      <category name="abap_code_insight"/>
    </feature>
    <feature url="features/abap.codemining-feature_0.1.2.jar" id="abap.codemining-feature" version="0.1.2">
-      <category name="abap_codemining"/>
+      <category name="abap_code_insight"/>
    </feature>
    <feature url="features/abap.codemining-feature_0.1.3.0.jar" id="abap.codemining-feature" version="0.1.3.0">
-      <category name="abap_codemining"/>
+      <category name="abap_code_insight"/>
    </feature>
-   <category-def name="abap_codemining" label="ABAP Codemining"/>
+   <feature url="features/abap-code-insight-feature_0.1.4.0.jar" id="abap-code-insight-feature" version="0.1.4.0">
+      <category name="abap_code_insight"/>
+   </feature>
+   <category-def name="abap_code_insight" label="ABAP Code Insight"/>
 </site>

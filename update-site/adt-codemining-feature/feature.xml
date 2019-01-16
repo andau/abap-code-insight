@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="abap.codemining-feature"
+      id="abap-code-insight-feature"
       label="%featureName"
       version="0.1.4.0"
       provider-name="%featureProvider">
@@ -18,7 +18,7 @@
    </license>
 
    <plugin
-         id="abap.codemining"
+         id="abap-code-insight-plugin"
          download-size="0"
          install-size="0"
          version="0.0.0"
