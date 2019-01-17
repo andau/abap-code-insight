@@ -44,6 +44,7 @@ public class ReferencesEvaluator {
 		final String testlabel = testReferences == 0 ? StringUtils.EMPTY
 				: (testReferences == 1 ? " (1 test)" : " (" + testReferences + StringUtils.SPACE + "tests)");
 		final String refLabel = references == 1 ? "1 reference" : references + StringUtils.SPACE + "references";
+
 		return refLabel + testlabel;
 	}
 
