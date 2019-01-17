@@ -30,13 +30,21 @@ public class ReferencesEvaluator {
 	}
 
 	public String getReferencesResult(URI uri) throws ServiceNotAvailableException, IOException {
-		IUsageReferenceRequest var2 = IUsageReferencesFactory.eINSTANCE.createUsageReferenceRequest();
-		IUsageReferenceResult usageReferenceResult = usageReferencesSearchService.search(uri, var2,
+		final IUsageReferenceRequest var2 = IUsageReferencesFactory.eINSTANCE.createUsageReferenceRequest();
+		final IUsageReferenceResult usageReferenceResult = usageReferencesSearchService.search(uri, var2,
 				new NullProgressMonitor());
-		IUsageReferencedObjects referencedObjects = usageReferenceResult.getReferencedObjects();
-		int references = (int) referencedObjects.getReferencedObject().stream()
+		final IUsageReferencedObjects referencedObjects = usageReferenceResult.getReferencedObjects();
+
+		final int testReferences = (int) referencedObjects.getReferencedObject().stream().filter(
+				item -> item.getUsageInformation() != null && item.getUsageInformation().contains("includeTest"))
+				.count();
+		final int references = (int) referencedObjects.getReferencedObject().stream()
 				.filter(item -> item.getUsageInformation() != null).count();
-		return references == 1 ? "1 reference" : references + StringUtils.SPACE + "references";
+
+		final String testlabel = testReferences == 0 ? StringUtils.EMPTY
+				: (testReferences == 1 ? " (1 test)" : " (" + testReferences + StringUtils.SPACE + "tests)");
+		final String refLabel = references == 1 ? "1 reference" : references + StringUtils.SPACE + "references";
+		return refLabel + testlabel;
 	}
 
 }

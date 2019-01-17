@@ -10,7 +10,7 @@ import org.osgi.framework.BundleContext;
  */
 public class AbapCodeMiningPlugin extends AbstractUIPlugin {
 
-	public static final String PLUGIN_ID = "abap-code-insight-plugin"; //$NON-NLS-1$
+	public static final String PLUGIN_ID = "abap.code.insight.plugin"; //$NON-NLS-1$
 
 	private static AbapCodeMiningPlugin plugin;
 

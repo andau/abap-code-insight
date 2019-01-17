@@ -1,1 +1,1 @@
-# abap-codemining
+# ABAP Code Insight
