@@ -9,5 +9,8 @@
    <feature url="features/abap.code.insight.feature_0.1.7.0.jar" id="abap.code.insight.feature" version="0.1.7.0">
       <category name="abap.code.insight"/>
    </feature>
+   <feature url="features/abap.code.insight.feature_0.1.8.0.jar" id="abap.code.insight.feature" version="0.1.8.0">
+      <category name="abap.code.insight"/>
+   </feature>
    <category-def name="abap.code.insight" label="ABAP Code Insight"/>
 </site>
