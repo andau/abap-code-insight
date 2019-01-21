@@ -13,6 +13,7 @@ public class PreferenceConstants {
 	public static final String SHOW_CDS_HEADER_REFERENCE_COUNT = "showCdsHeaderReferenceCount";
 	public static final String SHOW_FM_HEADER_REFERENCE_COUNT = "showFmHeaderReferenceCount";
 	public static final String SHOW_REPORT_HEADER_REFERENCE_COUNT = "showReportHeaderReferenceCount";
+	public static final String SHOW_TEST_REFERENCE_COUNT_SEPARATELY = "showTestReferenceCountSeparately";
 	public static String SHOW_INTERFACE_HEADER_REFERENCE_COUNT = "showInterfaceHeaderReferenceCount";
 
 	private PreferenceConstants() {

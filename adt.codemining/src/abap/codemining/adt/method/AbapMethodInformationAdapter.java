@@ -11,17 +11,18 @@ import abap.codemining.method.MethodParam;
 public class AbapMethodInformationAdapter {
 
 	public IAbapCodeElementInformation adapt(ICodeElement codeElement) {
-		CodeElementWrapper codeElementWrapper = new CodeElementWrapper(codeElement);
-		String visibility = codeElementWrapper.getVisibility();
-		String level = codeElementWrapper.getLevel();
-		String name = codeElement.getName().toLowerCase();
+		final CodeElementWrapper codeElementWrapper = new CodeElementWrapper(codeElement);
+		final String visibility = codeElementWrapper.getVisibility();
+		final String level = codeElementWrapper.getLevel();
+		final String name = codeElement.getName().toLowerCase();
 
-		MethodParam returningParameter = codeElementWrapper.getReturningParameter();
-		List<MethodParam> impParameters = codeElementWrapper.getImportingParameters();
-		List<MethodParam> expParameters = codeElementWrapper.getExportingParameters();
+		final MethodParam returningParameter = codeElementWrapper.getReturningParameter();
+		final List<MethodParam> impParameters = codeElementWrapper.getImportingParameters();
+		final List<MethodParam> expParameters = codeElementWrapper.getExportingParameters();
+		final List<MethodParam> changeParameters = codeElementWrapper.getChangingParameters();
 
-		return new AbapMethodInformation(visibility, level, name, returningParameter, impParameters,
-				expParameters);
+		return new AbapMethodInformation(visibility, level, name, returningParameter, impParameters, expParameters,
+				changeParameters);
 	}
 
 }

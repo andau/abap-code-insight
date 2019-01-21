@@ -14,17 +14,21 @@ import com.sap.adt.ris.search.usagereferences.AdtRisUsageReferencesSearchService
 import com.sap.adt.ris.search.usagereferences.IAdtRisUsageReferencesSearchService;
 import com.sap.adt.tools.core.model.util.ServiceNotAvailableException;
 
+import abap.codemining.feature.FeatureFacade;
 import abap.codemining.utils.StringUtils;
 
 public class ReferencesEvaluator {
 
 	IAdtRisUsageReferencesSearchService usageReferencesSearchService;
+	private boolean showTestReferences;
 
 	ReferencesEvaluator() {
-
 	}
 
 	public ReferencesEvaluator(IProject project) throws ServiceNotAvailableException {
+		final FeatureFacade featureFacade = new FeatureFacade();
+		this.showTestReferences = featureFacade.getTestReferenceFeature().isActive();
+
 		usageReferencesSearchService = AdtRisUsageReferencesSearchServiceFactory
 				.createUsageReferencesSearchService(project, new NullProgressMonitor());
 	}
@@ -35,17 +39,29 @@ public class ReferencesEvaluator {
 				new NullProgressMonitor());
 		final IUsageReferencedObjects referencedObjects = usageReferenceResult.getReferencedObjects();
 
-		final int testReferences = (int) referencedObjects.getReferencedObject().stream().filter(
-				item -> item.getUsageInformation() != null && item.getUsageInformation().contains("includeTest"))
-				.count();
 		final int references = (int) referencedObjects.getReferencedObject().stream()
 				.filter(item -> item.getUsageInformation() != null).count();
 
-		final String testlabel = testReferences == 0 ? StringUtils.EMPTY
-				: (testReferences == 1 ? " (1 test)" : " (" + testReferences + StringUtils.SPACE + "tests)");
+		final String testlabel = getTestReferencesLabel(referencedObjects);
+
 		final String refLabel = references == 1 ? "1 reference" : references + StringUtils.SPACE + "references";
 
 		return refLabel + testlabel;
+	}
+
+	private String getTestReferencesLabel(final IUsageReferencedObjects referencedObjects) {
+		String testlabel;
+		if (showTestReferences) {
+			final int testReferences = (int) referencedObjects.getReferencedObject().stream().filter(
+					item -> item.getUsageInformation() != null && item.getUsageInformation().contains("includeTest"))
+					.count();
+
+			testlabel = testReferences == 0 ? StringUtils.EMPTY
+					: (testReferences == 1 ? " (1 test)" : " (" + testReferences + StringUtils.SPACE + "tests)");
+		} else {
+			testlabel = StringUtils.EMPTY;
+		}
+		return testlabel;
 	}
 
 }

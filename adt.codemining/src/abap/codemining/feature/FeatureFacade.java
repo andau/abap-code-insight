@@ -17,6 +17,8 @@ public class FeatureFacade {
 
 	private ReferenceMiningFeature interfaceMiningFeature;
 
+	private TestReferencesFeature testReferenceFeature;
+
 	public FeatureFacade() {
 		featureCreator = new FeatureCreator();
 	}
@@ -82,6 +84,13 @@ public class FeatureFacade {
 			interfaceMiningFeature = featureCreator.createInterfaceMiningFeature();
 		}
 		return interfaceMiningFeature;
+	}
+
+	public TestReferencesFeature getTestReferenceFeature() {
+		if (testReferenceFeature == null) {
+			testReferenceFeature = featureCreator.createTestReferencesFeature();
+		}
+		return testReferenceFeature;
 	}
 
 }

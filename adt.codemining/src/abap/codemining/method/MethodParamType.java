@@ -1,7 +1,5 @@
 package abap.codemining.method;
 
 public enum MethodParamType {
-     IMPORTING, 
-     EXPORTING, 
-     RETURNING, UNDEFINED
+	IMPORTING, EXPORTING, RETURNING, UNDEFINED, CHANGING
 }

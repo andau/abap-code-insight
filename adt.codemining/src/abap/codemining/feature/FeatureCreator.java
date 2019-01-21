@@ -59,4 +59,9 @@ public class FeatureCreator {
 		return new ReferenceMiningFeature(prefs.getBoolean(PreferenceConstants.SHOW_INTERFACE_HEADER_REFERENCE_COUNT));
 	}
 
+	public TestReferencesFeature createTestReferencesFeature() {
+		initPrefs();
+		return new TestReferencesFeature(prefs.getBoolean(PreferenceConstants.SHOW_TEST_REFERENCE_COUNT_SEPARATELY));
+	}
+
 }

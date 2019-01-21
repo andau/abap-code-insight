@@ -34,6 +34,7 @@ public class PreferenceInitializerTest {
 		Mockito.verify(preferenceStore).setDefault(PreferenceConstants.SHOW_CDS_HEADER_REFERENCE_COUNT, true);
 		Mockito.verify(preferenceStore).setDefault(PreferenceConstants.SHOW_FM_HEADER_REFERENCE_COUNT, true);
 		Mockito.verify(preferenceStore).setDefault(PreferenceConstants.SHOW_REPORT_HEADER_REFERENCE_COUNT, true);
+		Mockito.verify(preferenceStore).setDefault(PreferenceConstants.SHOW_TEST_REFERENCE_COUNT_SEPARATELY, true);
 	}
 
 }

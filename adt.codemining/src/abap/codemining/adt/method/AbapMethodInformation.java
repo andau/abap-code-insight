@@ -16,29 +16,44 @@ public class AbapMethodInformation implements IAbapCodeElementInformation {
 	private final MethodParam returnParameter;
 	private final Collection<MethodParam> impParameters;
 	private final Collection<MethodParam> expParameters;
+	private final Collection<MethodParam> changeParameters;
 
 	public AbapMethodInformation(String visibility, String level, String name, MethodParam returnParameter,
-			Collection<MethodParam> impParameters, Collection<MethodParam> expParameters) {
+			Collection<MethodParam> impParameters, Collection<MethodParam> expParameters,
+			Collection<MethodParam> changeParameters) {
 		this.visibility = visibility;
 		this.level = level;
 		this.name = name;
 		this.returnParameter = returnParameter;
 		this.impParameters = impParameters;
 		this.expParameters = expParameters;
+		this.changeParameters = changeParameters;
 
 	}
 
 	@Override
 	public String getSignatureLabel() {
-		String returnLabel = getReturnValue() == null ? "void" : getReturnValue().getLabel();
-		String impParameterLabel = buildParameterLabel(getImpParameters());
-		String expParameterLabel = buildParameterLabel(getExpParameters());
-		String expParameterSpace = expParameterLabel.equals(StringUtils.EMPTY) ? StringUtils.EMPTY : StringUtils.SPACE;
+		final String returnLabel = getReturnValue() == null ? "void" : getReturnValue().getLabel();
+		final String impParameterLabel = buildParameterLabel(getImpParameters());
+		final String changeParameterLabel = buildParameterLabel(getChangeParameters());
+		final String changeParameterSpace = changeParameterLabel.equals(StringUtils.EMPTY) ? StringUtils.EMPTY
+				: StringUtils.SPACE;
+		final String expParameterLabel = buildParameterLabel(getExpParameters());
+		final String expParameterSpace = expParameterLabel.equals(StringUtils.EMPTY) ? StringUtils.EMPTY
+				: StringUtils.SPACE;
 
-		String levelLabel = getLevel().equals("instance") ? StringUtils.EMPTY : getLevel() + StringUtils.SPACE;
+		final String levelLabel = getLevel().equals("instance") ? StringUtils.EMPTY : getLevel() + StringUtils.SPACE;
 
-		return getVisibility() + StringUtils.SPACE + levelLabel + returnLabel + StringUtils.SPACE + getName()
-				+ "(" + impParameterLabel + expParameterSpace + expParameterLabel + ")";
+		final String parameterLabel = "(" + impParameterLabel + changeParameterSpace + changeParameterLabel
+				+ expParameterSpace + expParameterLabel + ")";
+		if (getImpParameters().size() + getExpParameters().size() + getChangeParameters().size() > -1) {
+			return getVisibility() + StringUtils.SPACE + levelLabel + "["
+					+ (getReturnValue() == null ? StringUtils.EMPTY : getReturnValue()) + "]" + StringUtils.SPACE
+					+ parameterLabel;
+		} else {
+			return getVisibility() + StringUtils.SPACE + levelLabel + returnLabel + StringUtils.SPACE + getName()
+					+ parameterLabel;
+		}
 	}
 
 	private String getVisibility() {
@@ -65,10 +80,14 @@ public class AbapMethodInformation implements IAbapCodeElementInformation {
 		return expParameters;
 	}
 
-	private String buildParameterLabel(Collection<MethodParam> parameters) {
-		List<String> parameterLabels = new ArrayList<>();
+	private Collection<MethodParam> getChangeParameters() {
+		return changeParameters;
+	}
 
-		for (MethodParam parameter : parameters) {
+	private String buildParameterLabel(Collection<MethodParam> parameters) {
+		final List<String> parameterLabels = new ArrayList<>();
+
+		for (final MethodParam parameter : parameters) {
 			parameterLabels.add(getLabelForParameterType(parameter.getMethodParamType()) + parameter.getLabel());
 		}
 
@@ -81,6 +100,8 @@ public class AbapMethodInformation implements IAbapCodeElementInformation {
 			return "";
 		case EXPORTING:
 			return "EXP:";
+		case CHANGING:
+			return "CHA:";
 		case RETURNING:
 			return "ret";
 		default:

@@ -32,7 +32,7 @@ public class CodeElementWrapper {
 	}
 
 	public MethodParam getReturningParameter() {
-		List<MethodParam> methodParams = findParameters(codeElement.getCodeElementChildren(),
+		final List<MethodParam> methodParams = findParameters(codeElement.getCodeElementChildren(),
 				MethodParamDirection.returning);
 		return methodParams.size() == 1 ? methodParams.get(0) : null;
 	}
@@ -45,15 +45,19 @@ public class CodeElementWrapper {
 		return findParameters(codeElement.getCodeElementChildren(), MethodParamDirection.exporting);
 	}
 
+	public List<MethodParam> getChangingParameters() {
+		return findParameters(codeElement.getCodeElementChildren(), MethodParamDirection.changing);
+	}
+
 	private List<MethodParam> findParameters(List<? extends ICodeElement> childCodeElements,
 			MethodParamDirection parameterDirection) {
-		List<MethodParam> methodParameters = new ArrayList<>();
+		final List<MethodParam> methodParameters = new ArrayList<>();
 		;
 
-		for (ICodeElement childCodeElement : childCodeElements) {
+		for (final ICodeElement childCodeElement : childCodeElements) {
 
-			ICodeElementProperty elementProperty = childCodeElement.getProperty("paramType");
-			ICodeElementProperty abapTypeProperty = childCodeElement.getProperty("abapType");
+			final ICodeElementProperty elementProperty = childCodeElement.getProperty("paramType");
+			final ICodeElementProperty abapTypeProperty = childCodeElement.getProperty("abapType");
 			if (elementProperty != null
 					&& elementProperty.getValue().toLowerCase().equals(parameterDirection.toString())) {
 				methodParameters.add(new MethodParam(childCodeElement.getName(), abapTypeProperty.getValue(),
@@ -66,7 +70,7 @@ public class CodeElementWrapper {
 	}
 
 	enum MethodParamDirection {
-		importing, exporting, returning
+		importing, exporting, returning, changing
 	}
 
 	enum PropertyKey {
@@ -80,6 +84,8 @@ public class CodeElementWrapper {
 			return MethodParamType.IMPORTING;
 		case exporting:
 			return MethodParamType.EXPORTING;
+		case changing:
+			return MethodParamType.CHANGING;
 		case returning:
 			return MethodParamType.RETURNING;
 		default:

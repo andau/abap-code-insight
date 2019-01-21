@@ -27,6 +27,8 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(PreferenceConstants.SHOW_CDS_HEADER_REFERENCE_COUNT, true);
 		store.setDefault(PreferenceConstants.SHOW_FM_HEADER_REFERENCE_COUNT, true);
 		store.setDefault(PreferenceConstants.SHOW_REPORT_HEADER_REFERENCE_COUNT, true);
+		store.setDefault(PreferenceConstants.UPDATE_CHANGED_EDITORS, true);
+		store.setDefault(PreferenceConstants.SHOW_TEST_REFERENCE_COUNT_SEPARATELY, true);
 
 	}
 

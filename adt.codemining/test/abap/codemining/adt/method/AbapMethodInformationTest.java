@@ -21,17 +21,18 @@ public class AbapMethodInformationTest {
 	private final MethodParam returnParameter = null;
 	private final Collection<MethodParam> impParameters = new ArrayList<>();
 	private final Collection<MethodParam> expParameters = new ArrayList<>();
+	private final Collection<MethodParam> changeParameters = new ArrayList<>();
 
 	@Before
 	public void before() {
 		cut = new AbapMethodInformation(TEST_VISIBILITY, TEST_LEVEL, TEST_NAME, returnParameter, impParameters,
-				expParameters);
+				expParameters, changeParameters);
 	}
 
 	@Test
 	public void testGetMethods() {
-		String testLabel = TEST_VISIBILITY + StringUtils.SPACE + TEST_LEVEL + StringUtils.SPACE + "void"
-				+ StringUtils.SPACE + TEST_NAME  + "()";
+		final String testLabel = TEST_VISIBILITY + StringUtils.SPACE + TEST_LEVEL + StringUtils.SPACE + "[]"
+				+ StringUtils.SPACE + "()";
 		assertEquals(testLabel, cut.getSignatureLabel());
 	}
 
