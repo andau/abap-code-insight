@@ -8,9 +8,10 @@ The plugin shows<br>
          * **reference counts** - for ABAP classes, interfaces, reports, function modules and CDS views<br>
          * **method signature information**  -  for ABAP methods, thus the header and body definition of ABAP methods are not separated anymore<br>
          
-IMAGE 
+TODO IMAGE
 
 Each type of inline code information can be activated/deactived in the ABAP preferences, section Code Insight.
 
-The plugin can be installed over the Eclipse Marketplace, see [Eclipse Marketplace - ABAP Code Insight](https://marketplace.eclipse.org/content/abap-code-insight)   
+TODO IMAGE 
 
+The plugin can be installed over the Eclipse Marketplace, see [Eclipse Marketplace - ABAP Code Insight](https://marketplace.eclipse.org/content/abap-code-insight) or by forking this repository. 
