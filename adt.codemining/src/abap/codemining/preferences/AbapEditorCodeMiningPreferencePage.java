@@ -28,14 +28,6 @@ public class AbapEditorCodeMiningPreferencePage extends FieldEditorPreferencePag
 		preferencesUiHelper.addHeaderLabelWithSpaceBefore(getFieldEditorParent(), "Method signature");
 		createMethodSignatureSection();
 
-		preferencesUiHelper.addHeaderLabelWithSpaceBefore(getFieldEditorParent(), "Editors Update");
-		createUpdateSection();
-
-	}
-
-	private void createUpdateSection() {
-		addField(new BooleanFieldEditor(PreferenceConstants.UPDATE_CHANGED_EDITORS, "Update minings on editors change",
-				getFieldEditorParent()));
 	}
 
 	private void createReferenceCountSection() {

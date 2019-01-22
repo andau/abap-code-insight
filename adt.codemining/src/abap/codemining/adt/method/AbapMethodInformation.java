@@ -48,8 +48,8 @@ public class AbapMethodInformation implements IAbapCodeElementInformation {
 				+ expParameterSpace + expParameterLabel + ")";
 		if (getImpParameters().size() + getExpParameters().size() + getChangeParameters().size() > -1) {
 			return getVisibility() + StringUtils.SPACE + levelLabel + "["
-					+ (getReturnValue() == null ? StringUtils.EMPTY : getReturnValue()) + "]" + StringUtils.SPACE
-					+ parameterLabel;
+					+ (getReturnValue() == null ? StringUtils.EMPTY : getReturnValue().getLabel()) + "]"
+					+ StringUtils.SPACE + parameterLabel;
 		} else {
 			return getVisibility() + StringUtils.SPACE + levelLabel + returnLabel + StringUtils.SPACE + getName()
 					+ parameterLabel;
