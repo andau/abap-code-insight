@@ -8,7 +8,7 @@ The plugin shows<br>
          * **reference counts** - for ABAP classes, interfaces, reports, function modules and CDS views<br>
          * **method signature information**  -  for ABAP methods, thus the header and body definition of ABAP methods are not separated anymore<br>
          
-![abapCi Screenshot](https://github.com/andau/abapCI/blob/master/docu/unit_test_standard_ui.png)
+![Abap Code Insight Screenshot](https://github.com/andau/abap-code-insight/blob/master/docu/abap_code_insight_animated_gif_1.gif)
 
 Each type of inline code information can be activated/deactived in the ABAP preferences, section Code Insight (experimental).
 
