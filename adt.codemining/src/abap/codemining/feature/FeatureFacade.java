@@ -19,6 +19,8 @@ public class FeatureFacade {
 
 	private TestReferencesFeature testReferenceFeature;
 
+	private UpdateFeature updateFeature;
+
 	public FeatureFacade() {
 		featureCreator = new FeatureCreator();
 	}
@@ -48,14 +50,6 @@ public class FeatureFacade {
 
 		return classBodyMiningFeature;
 
-	}
-
-	public ReconcilerFeature getReconcilerFeature() {
-		if (reconcilerFeature == null) {
-			reconcilerFeature = featureCreator.createReconcilerFeature();
-		}
-
-		return reconcilerFeature;
 	}
 
 	public ReferenceMiningFeature getCdsMiningFeature() {
@@ -91,6 +85,13 @@ public class FeatureFacade {
 			testReferenceFeature = featureCreator.createTestReferencesFeature();
 		}
 		return testReferenceFeature;
+	}
+
+	public UpdateFeature getUpdateFeature() {
+		if (updateFeature == null) {
+			updateFeature = featureCreator.createUpdateFeature();
+		}
+		return updateFeature;
 	}
 
 }

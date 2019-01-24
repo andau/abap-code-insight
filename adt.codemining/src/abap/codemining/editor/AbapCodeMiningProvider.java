@@ -55,8 +55,11 @@ public class AbapCodeMiningProvider extends AbstractCodeMiningProvider {
 			monitor.isCanceled();
 			final ITextEditor textEditor = super.getAdapter(ITextEditor.class);
 
-			final CodeMiningReconciler codeMiningReconciler = new CodeMiningReconciler();
-			codeMiningReconciler.install(viewer);
+			if (featureFacade.getUpdateFeature().isActive()) {
+				final CodeMiningReconciler codeMiningReconciler = new CodeMiningReconciler();
+				codeMiningReconciler.setDelay(500);
+				codeMiningReconciler.install(viewer);
+			}
 
 			try {
 

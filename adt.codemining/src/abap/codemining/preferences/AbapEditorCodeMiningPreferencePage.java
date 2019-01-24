@@ -28,6 +28,9 @@ public class AbapEditorCodeMiningPreferencePage extends FieldEditorPreferencePag
 		preferencesUiHelper.addHeaderLabelWithSpaceBefore(getFieldEditorParent(), "Method signature");
 		createMethodSignatureSection();
 
+		preferencesUiHelper.addHeaderLabelWithSpaceBefore(getFieldEditorParent(), "Update behaviour");
+		createUpdateSection();
+
 	}
 
 	private void createReferenceCountSection() {
@@ -62,6 +65,12 @@ public class AbapEditorCodeMiningPreferencePage extends FieldEditorPreferencePag
 
 		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_METHOD_BODY_SIGNATURE,
 				"Show signature on method bodies", getFieldEditorParent()));
+
+	}
+
+	private void createUpdateSection() {
+		addField(new BooleanFieldEditor(PreferenceConstants.UPDATE_CHANGED_EDITORS,
+				"Refresh code insight information when editors are saved", getFieldEditorParent()));
 
 	}
 
