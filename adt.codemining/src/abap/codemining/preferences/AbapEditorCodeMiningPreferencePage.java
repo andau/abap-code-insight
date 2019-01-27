@@ -7,7 +7,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
-import abap.codemining.plugin.AbapCodeMiningPlugin;
+import abap.codemining.plugin.AbapCodeInsightPlugin;
 
 public class AbapEditorCodeMiningPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 
@@ -76,7 +76,7 @@ public class AbapEditorCodeMiningPreferencePage extends FieldEditorPreferencePag
 
 	@Override
 	public void init(IWorkbench workbench) {
-		setPreferenceStore(AbapCodeMiningPlugin.getDefault().getPreferenceStore());
+		setPreferenceStore(AbapCodeInsightPlugin.getDefault().getPreferenceStore());
 		setDescription("General settings for ABAP Code Insight");
 	}
 

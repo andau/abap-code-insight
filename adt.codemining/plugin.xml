@@ -38,15 +38,22 @@
             category="com.sap.adt.tools.core.ui.preferencePages.ABAP"
             class="abap.codemining.preferences.AbapEditorCodeMiningPreferencePage"
             id="org.eclipse.jdt.experimental.ui.preferences.AbapEditorCodeMiningPreferencePage">
-            <keywordReference id="org.eclipse.jdt.experimental.ui.codemining"/>
+            <keywordReference id="abap.codemining"/>
       </page>   
     </extension>
    <extension
          point="org.eclipse.ui.keywords">
       <keyword
-            id="org.eclipse.jdt.experimental.ui.codemining"
+            id="abap.codemining"
             label="code mining">
       </keyword>
    </extension>   
+
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="abap.codemining.preferences.PreferenceInitializer">
+      </initializer>
+   </extension>
 
 </plugin>

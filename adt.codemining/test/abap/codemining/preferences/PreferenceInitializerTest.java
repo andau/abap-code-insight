@@ -6,12 +6,12 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.powermock.reflect.Whitebox;
 
-import abap.codemining.plugin.AbapCodeMiningPluginHelper;
+import abap.codemining.plugin.AbapCodeInsightPluginHelper;
 
 public class PreferenceInitializerTest {
 
 	PreferenceInitializer cut;
-	AbapCodeMiningPluginHelper pluginHelper = Mockito.mock(AbapCodeMiningPluginHelper.class);
+	AbapCodeInsightPluginHelper pluginHelper = Mockito.mock(AbapCodeInsightPluginHelper.class);
 	private final IPreferenceStore preferenceStore = Mockito.mock(IPreferenceStore.class);
 
 	@Before

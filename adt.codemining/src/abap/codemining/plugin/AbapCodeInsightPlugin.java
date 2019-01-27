@@ -1,23 +1,19 @@
 package abap.codemining.plugin;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.text.codemining.CodeMiningReconciler;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 /**
  * The activator class controls the plug-in life cycle
  */
-public class AbapCodeMiningPlugin extends AbstractUIPlugin {
+public class AbapCodeInsightPlugin extends AbstractUIPlugin {
 
 	public static final String PLUGIN_ID = "abap.code.insight.plugin"; //$NON-NLS-1$
 
-	private static AbapCodeMiningPlugin plugin;
+	private static AbapCodeInsightPlugin plugin;
 
-	private static CodeMiningReconciler codeMiningReconciler;
-
-	public AbapCodeMiningPlugin() {
-		codeMiningReconciler = new CodeMiningReconciler();
+	public AbapCodeInsightPlugin() {
 	}
 
 	@Override
@@ -32,17 +28,12 @@ public class AbapCodeMiningPlugin extends AbstractUIPlugin {
 		super.stop(context);
 	}
 
-	public static AbapCodeMiningPlugin getDefault() {
+	public static AbapCodeInsightPlugin getDefault() {
 		return plugin;
 	}
 
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return imageDescriptorFromPlugin(PLUGIN_ID, path);
-	}
-
-	public static CodeMiningReconciler getCodeMiningReconciler() {
-		return codeMiningReconciler;
-
 	}
 
 }

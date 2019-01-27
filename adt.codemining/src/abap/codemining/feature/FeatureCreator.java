@@ -2,16 +2,16 @@ package abap.codemining.feature;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import abap.codemining.plugin.AbapCodeMiningPluginHelper;
+import abap.codemining.plugin.AbapCodeInsightPluginHelper;
 import abap.codemining.preferences.PreferenceConstants;
 
 public class FeatureCreator {
 
 	private IPreferenceStore prefs;
-	AbapCodeMiningPluginHelper abapCodeMiningPluginHelper;
+	AbapCodeInsightPluginHelper abapCodeMiningPluginHelper;
 
 	public FeatureCreator() {
-		abapCodeMiningPluginHelper = new AbapCodeMiningPluginHelper();
+		abapCodeMiningPluginHelper = new AbapCodeInsightPluginHelper();
 	}
 
 	private void initPrefs() {

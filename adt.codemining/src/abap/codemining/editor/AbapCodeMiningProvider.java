@@ -34,16 +34,16 @@ import abap.codemining.element.parser.AbapInterfaceElementParser;
 import abap.codemining.element.parser.ReportElementParser;
 import abap.codemining.feature.FeatureFacade;
 import abap.codemining.general.AbapEditorCodeMining;
-import abap.codemining.plugin.AbapCodeMiningPluginHelper;
+import abap.codemining.plugin.AbapCodeInsightPluginHelper;
 
 public class AbapCodeMiningProvider extends AbstractCodeMiningProvider {
 
-	AbapCodeMiningPluginHelper abapCodeMiningPluginHelper;
+	AbapCodeInsightPluginHelper abapCodeMiningPluginHelper;
 	private FeatureFacade featureFacade;
 	private EditorFacade textEditorFacade;
 
 	public AbapCodeMiningProvider() {
-		abapCodeMiningPluginHelper = new AbapCodeMiningPluginHelper();
+		abapCodeMiningPluginHelper = new AbapCodeInsightPluginHelper();
 		featureFacade = new FeatureFacade();
 		registerPreferencePropertyChangeListener();
 	}
