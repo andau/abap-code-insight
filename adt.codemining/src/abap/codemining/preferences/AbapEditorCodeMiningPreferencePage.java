@@ -21,6 +21,10 @@ public class AbapEditorCodeMiningPreferencePage extends FieldEditorPreferencePag
 
 	@Override
 	public void createFieldEditors() {
+		preferencesUiHelper.addBigHeaderLabelWithoutSpaceBefore(getFieldEditorParent(),
+				"if code insights are not shown after an update ");
+		preferencesUiHelper.addBigHeaderLabelWithoutSpaceBefore(getFieldEditorParent(),
+				"start eclipse onces from the command line with: eclipse.exe -clean ");
 
 		preferencesUiHelper.addHeaderLabelWithSpaceBefore(getFieldEditorParent(), "Show reference count information");
 		createReferenceCountSection();

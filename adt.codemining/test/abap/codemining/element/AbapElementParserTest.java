@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
 
-import org.eclipse.jdt.experimental.ui.javaeditor.codemining.SampleDocumentContent;
 import org.eclipse.jface.text.IDocument;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +12,7 @@ import org.mockito.Mockito;
 
 import abap.codemining.element.domain.IAbapElement;
 import abap.codemining.feature.FeatureFacade;
+import abap.codemining.sample.SampleDocumentContent;
 
 public class AbapElementParserTest {
 

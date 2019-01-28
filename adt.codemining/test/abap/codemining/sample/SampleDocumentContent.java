@@ -1,4 +1,4 @@
-package org.eclipse.jdt.experimental.ui.javaeditor.codemining;
+package abap.codemining.sample;
 
 import org.apache.tools.ant.util.StringUtils;
 
