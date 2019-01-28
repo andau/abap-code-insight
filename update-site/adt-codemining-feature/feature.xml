@@ -2,7 +2,7 @@
 <feature
       id="abap.code.insight.feature"
       label="%featureName"
-      version="0.2.0.1"
+      version="0.2.0.3"
       provider-name="%featureProvider">
 
    <description>

@@ -1,6 +1,11 @@
 package abap.codemining.plugin;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.text.ITextViewer;
+import org.eclipse.jface.text.codemining.CodeMiningReconciler;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -12,8 +17,10 @@ public class AbapCodeInsightPlugin extends AbstractUIPlugin {
 	public static final String PLUGIN_ID = "abap.code.insight.plugin"; //$NON-NLS-1$
 
 	private static AbapCodeInsightPlugin plugin;
+	private static Map<ITextViewer, CodeMiningReconciler> reconcilerMap;
 
 	public AbapCodeInsightPlugin() {
+		reconcilerMap = new HashMap<>();
 	}
 
 	@Override
@@ -34,6 +41,17 @@ public class AbapCodeInsightPlugin extends AbstractUIPlugin {
 
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return imageDescriptorFromPlugin(PLUGIN_ID, path);
+	}
+
+	public static void reinitViewInReconcilers(ITextViewer textViewer) {
+		if (reconcilerMap.containsKey(textViewer)) {
+			reconcilerMap.get(textViewer).uninstall();
+			reconcilerMap.get(textViewer).install(textViewer);
+		} else {
+			final CodeMiningReconciler codeMiningReconciler = new CodeMiningReconciler();
+			codeMiningReconciler.install(textViewer);
+			reconcilerMap.put(textViewer, codeMiningReconciler);
+		}
 	}
 
 }

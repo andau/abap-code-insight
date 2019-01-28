@@ -19,7 +19,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.codemining.AbstractCodeMiningProvider;
-import org.eclipse.jface.text.codemining.CodeMiningReconciler;
 import org.eclipse.jface.text.codemining.ICodeMining;
 import org.eclipse.ui.texteditor.ITextEditor;
 
@@ -56,9 +55,7 @@ public class AbapCodeMiningProvider extends AbstractCodeMiningProvider {
 			final ITextEditor textEditor = super.getAdapter(ITextEditor.class);
 
 			if (featureFacade.getUpdateFeature().isActive()) {
-				final CodeMiningReconciler codeMiningReconciler = new CodeMiningReconciler();
-				codeMiningReconciler.setDelay(500);
-				codeMiningReconciler.install(viewer);
+				abapCodeMiningPluginHelper.reinitViewInReconcilers(viewer);
 			}
 
 			try {
