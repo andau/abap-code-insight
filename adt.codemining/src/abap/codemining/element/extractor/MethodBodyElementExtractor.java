@@ -9,8 +9,7 @@ import abap.codemining.method.ElementMatchInformation;
 
 public class MethodBodyElementExtractor extends AbapElementExtractor implements IAbapElementExtractor {
 
-	private static final String METHOD_BODY_REGEX = "\\s*" + "method" + "\\s+" + "([\\w|~|\\/]+)" + "\\s*" + "\\."
-			+ ".*";
+	private static final String METHOD_BODY_REGEX = "\\s*" + "method" + "\\s+" + ELEMENT_NAME_REGEX + ".*";
 	private final MethodBodyMiningFeature methodBodyMiningFeature;
 
 	public MethodBodyElementExtractor(MethodBodyMiningFeature methodBodyMiningFeature) {

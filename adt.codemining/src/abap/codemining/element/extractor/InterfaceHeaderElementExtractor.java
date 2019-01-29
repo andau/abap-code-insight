@@ -8,7 +8,7 @@ import abap.codemining.label.ReferenceOnlyMiningLabelBuilder;
 import abap.codemining.method.ElementMatchInformation;
 
 public class InterfaceHeaderElementExtractor extends AbapElementExtractor implements IAbapElementExtractor {
-	private static final String INTERFACE_HEADER_REGEX = "\\s*" + "interface" + "\\s+" + "([\\w|~|\\/]+)" + ".*";
+	private static final String INTERFACE_HEADER_REGEX = "\\s*" + "interface" + "\\s+" + ELEMENT_NAME_REGEX + ".*";
 
 	private final ReferenceMiningFeature interfaceMiningFeature;
 

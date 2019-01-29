@@ -3,13 +3,13 @@ package abap.codemining.element.extractor;
 import abap.codemining.element.domain.CdsHeader;
 import abap.codemining.element.domain.IAbapElement;
 import abap.codemining.feature.ReferenceMiningFeature;
-import abap.codemining.label.ReferenceOnlyMiningLabelBuilder;
 import abap.codemining.label.IMiningLabelBuilder;
+import abap.codemining.label.ReferenceOnlyMiningLabelBuilder;
 import abap.codemining.method.ElementMatchInformation;
 
 public class CdsViewElementExtractor extends AbapElementExtractor implements IAbapElementExtractor {
 
-	private static final String CDS_HEADER_REGEX = "\\s*" + "define view" + "\\s+" + "([\\w|~]+)" + ".*";
+	private static final String CDS_HEADER_REGEX = "\\s*" + "define view" + "\\s+" + ELEMENT_NAME_REGEX + ".*";
 
 	private final ReferenceMiningFeature cdsMiningFeature;
 

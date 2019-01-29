@@ -84,6 +84,7 @@ public class AbapCodeMiningProvider extends AbstractCodeMiningProvider {
 			throws JavaModelException {
 
 		textEditorFacade = new EditorFacade(textEditor);
+
 		final IAdtObjectReference adtObject = textEditorFacade.getAdtObject();
 
 		if (textEditorFacade.getAbapProject() != null) {

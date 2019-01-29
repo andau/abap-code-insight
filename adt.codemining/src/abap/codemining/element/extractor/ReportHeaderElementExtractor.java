@@ -3,13 +3,13 @@ package abap.codemining.element.extractor;
 import abap.codemining.element.domain.CdsHeader;
 import abap.codemining.element.domain.IAbapElement;
 import abap.codemining.feature.ReferenceMiningFeature;
-import abap.codemining.label.ReferenceOnlyMiningLabelBuilder;
 import abap.codemining.label.IMiningLabelBuilder;
+import abap.codemining.label.ReferenceOnlyMiningLabelBuilder;
 import abap.codemining.method.ElementMatchInformation;
 
 public class ReportHeaderElementExtractor extends AbapElementExtractor implements IAbapElementExtractor {
 
-	private static final String REPORT_HEADER_REGEX = "\\s*" + "report" + "\\s+" + "([\\w|~]+).*";
+	private static final String REPORT_HEADER_REGEX = "\\s*" + "report" + "\\s+" + ELEMENT_NAME_REGEX + ".*";
 
 	private final ReferenceMiningFeature reportMiningFeature;
 
