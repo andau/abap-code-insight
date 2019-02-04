@@ -54,7 +54,7 @@ public class AbapCodeMiningProvider extends AbstractCodeMiningProvider {
 			monitor.isCanceled();
 			final ITextEditor textEditor = super.getAdapter(ITextEditor.class);
 
-			if (featureFacade.getUpdateFeature().isActive()) {
+			if (featureFacade.getPerformanceFeature().isActive()) {
 				abapCodeMiningPluginHelper.reinitViewInReconcilers(viewer);
 			}
 

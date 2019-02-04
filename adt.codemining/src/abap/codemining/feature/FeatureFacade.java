@@ -7,8 +7,6 @@ public class FeatureFacade {
 	private ClassMiningFeature classBodyMiningFeature;
 	private MethodBodyMiningFeature methodBodyMiningFeature;
 
-	private ReconcilerFeature reconcilerFeature;
-
 	private ReferenceMiningFeature cdsMiningFeature;
 
 	private ReferenceMiningFeature fmMiningFeature;
@@ -87,9 +85,9 @@ public class FeatureFacade {
 		return testReferenceFeature;
 	}
 
-	public UpdateFeature getUpdateFeature() {
+	public UpdateFeature getPerformanceFeature() {
 		if (updateFeature == null) {
-			updateFeature = featureCreator.createUpdateFeature();
+			updateFeature = featureCreator.createPerformanceFeature();
 		}
 		return updateFeature;
 	}

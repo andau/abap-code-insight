@@ -17,7 +17,7 @@
          point="org.eclipse.ui.workbench.texteditor.codeMiningProviders">
       <codeMiningProvider
          class="abap.codemining.editor.AbapCodeMiningProvider"
-         id="org.eclipse.jdt.ui.codemining.general"
+         id="abap.code.insight.general"
          label="%AbapElementCodeMiningProvider.label">
 	     <enabledWhen>
 	        <and>
@@ -29,7 +29,23 @@
          </enabledWhen>
       </codeMiningProvider>
    </extension>
-  
+
+<extension
+         point="org.eclipse.ui.workbench.texteditor.codeMiningProviders">
+      <codeMiningProvider
+         class=" abap.code.insight.debug.AbapDebugCodeInsightProvider"
+         id="abap.code.insight.debug"
+         label="%JavaDebugElementCodeMiningProvider.label">         
+	     <enabledWhen>
+	        <and>
+           	   <or>
+	           	   <!-- TODO: change to property="org.eclipse.jdt.ui.hasPreference" -->
+	           	   <test property="org.eclipse.jdt.codemining.hasPreference" value="dummy" forcePluginActivation="true"/>
+	           </or>
+           	</and>
+         </enabledWhen>
+      </codeMiningProvider>      
+   </extension>  
     
    <extension
          point="org.eclipse.ui.preferencePages">
@@ -48,6 +64,7 @@
             label="code mining">
       </keyword>
    </extension>   
+
 
    <extension
          point="org.eclipse.core.runtime.preferences">

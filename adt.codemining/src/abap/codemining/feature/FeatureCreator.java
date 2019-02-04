@@ -59,7 +59,7 @@ public class FeatureCreator {
 		return new TestReferencesFeature(prefs.getBoolean(PreferenceConstants.SHOW_TEST_REFERENCE_COUNT_SEPARATELY));
 	}
 
-	public UpdateFeature createUpdateFeature() {
+	public UpdateFeature createPerformanceFeature() {
 		initPrefs();
 		final boolean activated = prefs.getBoolean(PreferenceConstants.UPDATE_CHANGED_EDITORS);
 		return new UpdateFeature(activated);
