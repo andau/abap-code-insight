@@ -21,6 +21,8 @@
 			<accessrule kind="accessible" pattern="com/sap/adt/ris/model/usagereferences/IUsageReferenceRequest"/>
 			<accessrule kind="accessible" pattern="com/sap/adt/ris/model/usagereferences/IUsageReferencedObjects"/>
 			<accessrule kind="accessible" pattern="com/sap/adt/ris/model/usagereferences/IUsageReferencedObject"/>
+			<accessrule kind="accessible" pattern="com/sap/adt/debugger/IAbapStackFrame"/>
+			<accessrule kind="accessible" pattern="com/sap/adt/debugger/variable/IAbapVariable"/>
 		</accessrules>
 	</classpathentry>
 	<classpathentry kind="src" output="target/classes" path="src">

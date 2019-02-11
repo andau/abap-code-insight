@@ -59,6 +59,11 @@ public class FeatureCreator {
 		return new TestReferencesFeature(prefs.getBoolean(PreferenceConstants.SHOW_TEST_REFERENCE_COUNT_SEPARATELY));
 	}
 
+	public DebugCodeInsightFeature createDebugCodeInsightFeature() {
+		initPrefs();
+		return new DebugCodeInsightFeature(prefs.getBoolean(PreferenceConstants.SHOW_DEBUG_VARIABLE_VALUES));
+	}
+
 	public UpdateFeature createPerformanceFeature() {
 		initPrefs();
 		final boolean activated = prefs.getBoolean(PreferenceConstants.UPDATE_CHANGED_EDITORS);

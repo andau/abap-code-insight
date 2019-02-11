@@ -19,6 +19,8 @@ public class FeatureFacade {
 
 	private UpdateFeature updateFeature;
 
+	private DebugCodeInsightFeature debugCodeInsightFeature;
+
 	public FeatureFacade() {
 		featureCreator = new FeatureCreator();
 	}
@@ -83,6 +85,13 @@ public class FeatureFacade {
 			testReferenceFeature = featureCreator.createTestReferencesFeature();
 		}
 		return testReferenceFeature;
+	}
+
+	public DebugCodeInsightFeature getDebugCodeInsightFeature() {
+		if (debugCodeInsightFeature == null) {
+			debugCodeInsightFeature = featureCreator.createDebugCodeInsightFeature();
+		}
+		return debugCodeInsightFeature;
 	}
 
 	public UpdateFeature getPerformanceFeature() {

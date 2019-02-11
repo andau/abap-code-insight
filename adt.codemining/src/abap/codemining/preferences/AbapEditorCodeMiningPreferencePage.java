@@ -32,6 +32,9 @@ public class AbapEditorCodeMiningPreferencePage extends FieldEditorPreferencePag
 		preferencesUiHelper.addHeaderLabelWithSpaceBefore(getFieldEditorParent(), "Method signature");
 		createMethodSignatureSection();
 
+		preferencesUiHelper.addHeaderLabelWithSpaceBefore(getFieldEditorParent(), "Debug view");
+		createDebugSection();
+
 		preferencesUiHelper.addHeaderLabelWithSpaceBefore(getFieldEditorParent(), "Update behaviour");
 		createUpdateSection();
 
@@ -69,6 +72,12 @@ public class AbapEditorCodeMiningPreferencePage extends FieldEditorPreferencePag
 
 		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_METHOD_BODY_SIGNATURE,
 				"Show signature on method bodies", getFieldEditorParent()));
+
+	}
+
+	private void createDebugSection() {
+		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_DEBUG_VARIABLE_VALUES,
+				"Show values of variables in debug view (experimental)", getFieldEditorParent()));
 
 	}
 

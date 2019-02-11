@@ -85,8 +85,6 @@ public class AbapCodeMiningProvider extends AbstractCodeMiningProvider {
 
 		textEditorFacade = new EditorFacade(textEditor);
 
-		final IAdtObjectReference adtObject = textEditorFacade.getAdtObject();
-
 		if (textEditorFacade.getAbapProject() != null) {
 
 			IAbapElementParser abapElementParser;
