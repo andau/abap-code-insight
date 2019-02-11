@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.IRegion;
 import org.eclipse.ui.texteditor.ITextEditor;
 
 import abap.codemining.editor.EditorFacade;
@@ -22,7 +23,7 @@ public class VariableExtractor {
 	public List<VariableLineInfo> getVariableInfoForLastLines(int lastLine, int numLinesBefore) {
 		final List<VariableLineInfo> variableLineInfos = new ArrayList<>();
 
-		for (int currentLineNumber = lastLine - 10; currentLineNumber <= lastLine; currentLineNumber++) {
+		for (int currentLineNumber = lastLine - numLinesBefore; currentLineNumber <= lastLine; currentLineNumber++) {
 			if (currentLineNumber > 0) {
 				variableLineInfos.add(getVariableInfoForLine(currentLineNumber));
 			}
@@ -33,36 +34,24 @@ public class VariableExtractor {
 
 	public VariableLineInfo getVariableInfoForLine(int lineNumber) {
 
-		final int offsetStart = getOffsetLineStart(textEditor, lineNumber);
-		final int offsetEnd = getOffsetLineEnd(textEditor, lineNumber);
-		final List<String> variables = getVariables(textEditor, offsetStart, offsetEnd - offsetStart);
-
-		return new VariableLineInfo(lineNumber, offsetEnd, variables);
-
+		final IRegion region = getRegion(textEditor, lineNumber);
+		if (region != null) {
+			final List<String> variables = getVariables(textEditor, region.getOffset(), region.getLength());
+			return new VariableLineInfo(lineNumber, region.getOffset() + region.getLength(), variables);
+		}
+		return new VariableLineInfo(lineNumber, 0, new ArrayList<String>());
 	}
 
-	private int getOffsetLineStart(ITextEditor textEditor, int line) {
+	private IRegion getRegion(ITextEditor textEditor, int line) {
 		final EditorFacade editorFacade = new EditorFacade(textEditor);
 		final IDocument document = editorFacade.getDocument();
 		try {
-			return document.getLineOffset(line - 1);
+			return document.getLineInformation(line);
 		} catch (final BadLocationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return 0;
-	}
-
-	private int getOffsetLineEnd(ITextEditor textEditor, int line) {
-		final EditorFacade editorFacade = new EditorFacade(textEditor);
-		final IDocument document = editorFacade.getDocument();
-		try {
-			return document.getLineOffset(line) - 2;
-		} catch (final BadLocationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return 0;
+		return null;
 	}
 
 	private List<String> getVariables(ITextEditor textEditor, int offsetStart, int offsetEnd) {
@@ -81,7 +70,8 @@ public class VariableExtractor {
 
 	private List<String> extractVariablesOfString(String lineContent) {
 		final List<String> variableNames = new ArrayList<>();
-		final String patternString = "(\\w+)";
+		final String patternString = "([\\w|\\->]+)";
+
 		final Pattern pattern = Pattern.compile(patternString);
 		final Matcher matcher = pattern.matcher(lineContent);
 		while (matcher.find()) {
