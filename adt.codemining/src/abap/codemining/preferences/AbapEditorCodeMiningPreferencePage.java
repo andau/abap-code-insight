@@ -2,6 +2,7 @@ package abap.codemining.preferences;
 
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
+import org.eclipse.jface.preference.IntegerFieldEditor;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
@@ -36,7 +37,7 @@ public class AbapEditorCodeMiningPreferencePage extends FieldEditorPreferencePag
 		createDebugSection();
 
 		preferencesUiHelper.addHeaderLabelWithSpaceBefore(getFieldEditorParent(), "Update behaviour");
-		createUpdateSection();
+		createPerformanceSection();
 
 	}
 
@@ -81,9 +82,11 @@ public class AbapEditorCodeMiningPreferencePage extends FieldEditorPreferencePag
 
 	}
 
-	private void createUpdateSection() {
+	private void createPerformanceSection() {
 		addField(new BooleanFieldEditor(PreferenceConstants.UPDATE_CHANGED_EDITORS,
 				"Refresh code insight information when editors are saved", getFieldEditorParent()));
+		addField(new IntegerFieldEditor(PreferenceConstants.OMIT_CODE_INSIGHT_FOR_MORE_LINES_THAN,
+				"Omit code insight for editors with more lines than", getFieldEditorParent()));
 
 	}
 

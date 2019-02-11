@@ -61,7 +61,7 @@ public class AbapCodeMiningProvider extends AbstractCodeMiningProvider {
 			try {
 
 				final List<ICodeMining> minings = new ArrayList<>();
-				collectMinings(textEditor, viewer, minings);
+				collectMinings(textEditor, viewer, minings, featureFacade.getPerformanceFeature().getMaxLines());
 				return minings;
 
 			} catch (final JavaModelException e) {
@@ -80,12 +80,13 @@ public class AbapCodeMiningProvider extends AbstractCodeMiningProvider {
 
 	}
 
-	private void collectMinings(ITextEditor textEditor, ITextViewer viewer, List<ICodeMining> minings)
+	private void collectMinings(ITextEditor textEditor, ITextViewer viewer, List<ICodeMining> minings, int maxLines)
 			throws JavaModelException {
 
 		textEditorFacade = new EditorFacade(textEditor);
 
-		if (textEditorFacade.getAbapProject() != null) {
+		if (!textEditor.isDirty() && textEditorFacade.getAbapProject() != null
+				&& textEditorFacade.getDocument().getNumberOfLines() <= maxLines) {
 
 			IAbapElementParser abapElementParser;
 

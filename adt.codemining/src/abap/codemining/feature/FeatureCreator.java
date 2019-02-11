@@ -64,10 +64,11 @@ public class FeatureCreator {
 		return new DebugCodeInsightFeature(prefs.getBoolean(PreferenceConstants.SHOW_DEBUG_VARIABLE_VALUES));
 	}
 
-	public UpdateFeature createPerformanceFeature() {
+	public PerformanceFeature createPerformanceFeature() {
 		initPrefs();
 		final boolean activated = prefs.getBoolean(PreferenceConstants.UPDATE_CHANGED_EDITORS);
-		return new UpdateFeature(activated);
+		final int maxLines = prefs.getInt(PreferenceConstants.OMIT_CODE_INSIGHT_FOR_MORE_LINES_THAN);
+		return new PerformanceFeature(activated, maxLines);
 	}
 
 }

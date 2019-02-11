@@ -9,13 +9,16 @@ public class PreferenceConstants {
 	public static final String SHOW_METHOD_BODY_REFERENCE_COUNT = "showMethodHeaderReferenceCount";
 	public static final String SHOW_METHOD_BODY_SIGNATURE = "showMethodBodySignature";
 	public static final String SHOW_CLASS_BODY_REFERENCE_COUNT = "showClassBodyReferenceCount";
-	public static final String UPDATE_CHANGED_EDITORS = "updateChangedEditors";
 	public static final String SHOW_CDS_HEADER_REFERENCE_COUNT = "showCdsHeaderReferenceCount";
 	public static final String SHOW_FM_HEADER_REFERENCE_COUNT = "showFmHeaderReferenceCount";
 	public static final String SHOW_REPORT_HEADER_REFERENCE_COUNT = "showReportHeaderReferenceCount";
 	public static final String SHOW_TEST_REFERENCE_COUNT_SEPARATELY = "showTestReferenceCountSeparately";
-	public static final String SHOW_DEBUG_VARIABLE_VALUES = "showDebugVariableValues";
 	public static String SHOW_INTERFACE_HEADER_REFERENCE_COUNT = "showInterfaceHeaderReferenceCount";
+
+	public static final String SHOW_DEBUG_VARIABLE_VALUES = "showDebugVariableValues";
+
+	public static final String UPDATE_CHANGED_EDITORS = "updateChangedEditors";
+	public static final String OMIT_CODE_INSIGHT_FOR_MORE_LINES_THAN = "omitCodeInsightForMorLinesThan";
 
 	private PreferenceConstants() {
 	}
