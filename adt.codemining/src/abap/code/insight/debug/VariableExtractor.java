@@ -11,21 +11,29 @@ import org.eclipse.jface.text.IRegion;
 import org.eclipse.ui.texteditor.ITextEditor;
 
 import abap.codemining.editor.EditorFacade;
+import abap.codemining.utils.StringUtils;
 
 public class VariableExtractor {
 
-	ITextEditor textEditor;
+	final IDocument document;
 
 	public VariableExtractor(ITextEditor textEditor) {
-		this.textEditor = textEditor;
+		final EditorFacade editorFacade = new EditorFacade(textEditor);
+		document = editorFacade.getDocument();
+
 	}
 
 	public List<VariableLineInfo> getVariableInfoForLastLines(int lastLine, int numLinesBefore) {
 		final List<VariableLineInfo> variableLineInfos = new ArrayList<>();
 
-		for (int currentLineNumber = lastLine - numLinesBefore; currentLineNumber < lastLine; currentLineNumber++) {
+		for (int currentLineNumber = lastLine; currentLineNumber > lastLine - numLinesBefore; currentLineNumber--) {
 			if (currentLineNumber > 0) {
-				variableLineInfos.add(getVariableInfoForLine(currentLineNumber));
+				final VariableLineInfo variableLineInfo = getVariableInfoForLine(currentLineNumber);
+				if (!variableLineInfo.isMethodStart()) {
+					variableLineInfos.add(variableLineInfo);
+				} else {
+					break;
+				}
 			}
 		}
 
@@ -34,19 +42,19 @@ public class VariableExtractor {
 
 	public VariableLineInfo getVariableInfoForLine(int lineNumber) {
 
-		final IRegion region = getRegion(textEditor, lineNumber);
+		final IRegion region = getRegion(lineNumber);
 		if (region != null) {
-			final List<String> variables = getVariables(textEditor, region.getOffset(), region.getLength());
-			return new VariableLineInfo(lineNumber, region.getOffset() + region.getLength(), variables);
+			final String lineContent = getLineContent(region.getOffset(), region.getLength());
+			final List<String> variables = getVariables(lineContent);
+			return new VariableLineInfo(lineNumber, region.getOffset() + region.getLength(), variables,
+					lineContent.toLowerCase().startsWith("method"));
 		}
-		return new VariableLineInfo(lineNumber, 0, new ArrayList<String>());
+		return new VariableLineInfo(lineNumber, 0, new ArrayList<String>(), false);
 	}
 
-	private IRegion getRegion(ITextEditor textEditor, int line) {
-		final EditorFacade editorFacade = new EditorFacade(textEditor);
-		final IDocument document = editorFacade.getDocument();
+	private IRegion getRegion(int linenumber) {
 		try {
-			return document.getLineInformation(line);
+			return document.getLineInformation(linenumber);
 		} catch (final BadLocationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -54,18 +62,18 @@ public class VariableExtractor {
 		return null;
 	}
 
-	private List<String> getVariables(ITextEditor textEditor, int offsetStart, int offsetEnd) {
-		final EditorFacade editorFacade = new EditorFacade(textEditor);
-		final IDocument document = editorFacade.getDocument();
+	private String getLineContent(int offsetStart, int offsetEnd) {
 		try {
-			final String lineContent = document.get(offsetStart, offsetEnd);
-			return extractVariablesOfString(lineContent);
+			return document.get(offsetStart, offsetEnd);
 		} catch (final BadLocationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return StringUtils.EMPTY;
+	}
 
+	private List<String> getVariables(String lineContent) {
+		return extractVariablesOfString(lineContent);
 	}
 
 	private List<String> extractVariablesOfString(String lineContent) {

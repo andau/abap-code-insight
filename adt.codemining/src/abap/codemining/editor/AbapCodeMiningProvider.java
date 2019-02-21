@@ -91,31 +91,32 @@ public class AbapCodeMiningProvider extends AbstractCodeMiningProvider {
 			IAbapElementParser abapElementParser;
 
 			final IAdtObjectReference adtObjectReference = textEditorFacade.getAdtObject();
-			switch (adtObjectReference.getType()) {
-			case "CLAS/I":
-				abapElementParser = new AbapClassElementParser(featureFacade);
-				break;
-			case "INTF/OI":
-				abapElementParser = new AbapInterfaceElementParser(featureFacade);
-				break;
-			case "DDLS/DF":
-				abapElementParser = new CdsViewElementParser(featureFacade);
-				break;
-			case "FUGR/FF":
-				abapElementParser = new FunctionModuleElementParser(featureFacade);
-				break;
-			case "PROG/P":
-				abapElementParser = new ReportElementParser(featureFacade);
-				break;
-			default:
-				abapElementParser = new NotSupportedElementParser(featureFacade);
-				break;
+			if (adtObjectReference != null) {
+				switch (adtObjectReference.getType()) {
+				case "CLAS/I":
+					abapElementParser = new AbapClassElementParser(featureFacade);
+					break;
+				case "INTF/OI":
+					abapElementParser = new AbapInterfaceElementParser(featureFacade);
+					break;
+				case "DDLS/DF":
+					abapElementParser = new CdsViewElementParser(featureFacade);
+					break;
+				case "FUGR/FF":
+					abapElementParser = new FunctionModuleElementParser(featureFacade);
+					break;
+				case "PROG/P":
+					abapElementParser = new ReportElementParser(featureFacade);
+					break;
+				default:
+					abapElementParser = new NotSupportedElementParser(featureFacade);
+					break;
+				}
+
+				final AbapEditorCodeMining abapClassCodeMining = new AbapEditorCodeMining(textEditor, viewer,
+						abapElementParser);
+				abapClassCodeMining.evaluateCodeMinings(minings, this);
 			}
-
-			final AbapEditorCodeMining abapClassCodeMining = new AbapEditorCodeMining(textEditor, viewer,
-					abapElementParser);
-			abapClassCodeMining.evaluateCodeMinings(minings, this);
-
 		}
 	}
 }
