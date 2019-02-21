@@ -18,6 +18,7 @@ public class AbapCodeInsightPlugin extends AbstractUIPlugin {
 
 	private static AbapCodeInsightPlugin plugin;
 	private static Map<ITextViewer, CodeMiningReconciler> reconcilerMap;
+	private static int linenumber;
 
 	public AbapCodeInsightPlugin() {
 		reconcilerMap = new HashMap<>();
@@ -52,6 +53,14 @@ public class AbapCodeInsightPlugin extends AbstractUIPlugin {
 			codeMiningReconciler.install(textViewer);
 			reconcilerMap.put(textViewer, codeMiningReconciler);
 		}
+	}
+
+	public static int getLinenumber() {
+		return linenumber;
+	}
+
+	public static void setCurrentLinenumber(int linenumber2) {
+		linenumber = linenumber;
 	}
 
 }

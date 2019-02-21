@@ -23,7 +23,7 @@ public class VariableExtractor {
 	public List<VariableLineInfo> getVariableInfoForLastLines(int lastLine, int numLinesBefore) {
 		final List<VariableLineInfo> variableLineInfos = new ArrayList<>();
 
-		for (int currentLineNumber = lastLine - numLinesBefore; currentLineNumber <= lastLine; currentLineNumber++) {
+		for (int currentLineNumber = lastLine - numLinesBefore; currentLineNumber < lastLine; currentLineNumber++) {
 			if (currentLineNumber > 0) {
 				variableLineInfos.add(getVariableInfoForLine(currentLineNumber));
 			}

@@ -30,7 +30,7 @@ public class AbapDebugCodeInsightProvider extends AbstractDebugVariableCodeInsig
 	@Override
 	protected List<ICodeMining> provideCodeMinings(ITextViewer viewer, IAbapStackFrame frame,
 			IProgressMonitor monitor) {
-		if (featureFacade.getDebugCodeInsightFeature().isActive() && frame != null) {
+		if (featureFacade.getDebugCodeInsightFeature().isActive()) {
 
 			final ITextEditor textEditor = super.getAdapter(ITextEditor.class);
 
@@ -40,6 +40,7 @@ public class AbapDebugCodeInsightProvider extends AbstractDebugVariableCodeInsig
 		} else {
 			return new ArrayList<>();
 		}
+
 	}
 
 	@SuppressWarnings("restriction")
@@ -77,11 +78,12 @@ public class AbapDebugCodeInsightProvider extends AbstractDebugVariableCodeInsig
 								final AbstractDebugVariableCodeMining<IAbapStackFrame> m = new JavaDebugElementCodeMining(
 										codeMiningText, variableLineInfo.getOffsetEnd(), frame, viewer, this);
 								minings.add(m);
-
 							}
 						}
 					}
 				}
+
+				// textEditor.setFocus();
 			}
 		} catch (final DebugException e) {
 			// TODO Auto-generated catch block

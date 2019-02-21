@@ -12,7 +12,6 @@
 		</propertyTester>
   </extension>
 
-  <!-- ABAP code mining providers contributed by org.eclipse.jdt.ui -->
   <extension
          point="org.eclipse.ui.workbench.texteditor.codeMiningProviders">
       <codeMiningProvider
@@ -22,7 +21,6 @@
 	     <enabledWhen>
 	        <and>
 	           	<or>
-	           	   <!-- TODO: change to property="org.eclipse.jdt.ui.hasPreference" -->
 	           	   <test property="org.eclipse.jdt.codemining.hasPreference" value="dummy" forcePluginActivation="true"/>
 	           	</or>
            	</and>

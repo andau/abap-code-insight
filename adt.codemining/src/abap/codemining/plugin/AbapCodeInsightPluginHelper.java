@@ -18,4 +18,12 @@ public class AbapCodeInsightPluginHelper {
 		AbapCodeInsightPlugin.reinitViewInReconcilers(viewer);
 	}
 
+	public int getCurrentLinenumber() {
+		return AbapCodeInsightPlugin.getLinenumber();
+	}
+
+	public void setCurrentLinenumber(int linenumber) {
+		AbapCodeInsightPlugin.setCurrentLinenumber(linenumber);
+	}
+
 }

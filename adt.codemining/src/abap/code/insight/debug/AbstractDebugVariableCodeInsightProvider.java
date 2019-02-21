@@ -1,12 +1,14 @@
 
 package abap.code.insight.debug;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.ui.DebugUITools;
 import org.eclipse.debug.ui.contexts.DebugContextEvent;
@@ -19,6 +21,8 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.texteditor.ITextEditor;
+
+import abap.codemining.plugin.AbapCodeInsightPluginHelper;
 
 /**
  * Abstract class mining provider to display debug variable value in a given
@@ -33,9 +37,12 @@ public abstract class AbstractDebugVariableCodeInsightProvider<T extends IStackF
 	private IDebugContextListener fContextListener;
 
 	private final Map<RGB, Color> fColorTable;
+	private final AbapCodeInsightPluginHelper abapCodeInsightPluginHelper;
 
 	public AbstractDebugVariableCodeInsightProvider() {
 		fColorTable = new HashMap<>();
+		abapCodeInsightPluginHelper = new AbapCodeInsightPluginHelper();
+
 	}
 
 	@Override
@@ -43,31 +50,45 @@ public abstract class AbstractDebugVariableCodeInsightProvider<T extends IStackF
 			IProgressMonitor monitor) {
 		return CompletableFuture.supplyAsync(() -> {
 			monitor.isCanceled();
-			addDebugListener(viewer);
 			final ITextEditor textEditor = super.getAdapter(ITextEditor.class);
 			final T stackFrame = getStackFrame(viewer, textEditor);
-			return provideCodeMinings(viewer, stackFrame, monitor);
+			if (stackFrame == null) {
+				return Collections.emptyList();
+			} else {
+				try {
+					addDebugListener(viewer, stackFrame.getLineNumber());
+					return provideCodeMinings(viewer, stackFrame, monitor);
+				} catch (final DebugException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return Collections.emptyList();
+				}
+
+			}
 		});
 	}
 
-	private void addDebugListener(ITextViewer viewer) {
+	private void addDebugListener(ITextViewer viewer, int currentLinenumber) {
 		if (fContextListener == null) {
-			addSynchronizedDebugListener(viewer);
+			addSynchronizedDebugListener(viewer, currentLinenumber);
 		}
 	}
 
-	private synchronized void addSynchronizedDebugListener(ITextViewer viewer) {
+	private synchronized void addSynchronizedDebugListener(ITextViewer viewer, int currentLinenumber) {
 		if (fContextListener != null) {
 			return;
 		}
-		// When debug context changed, debug variable minings of the current stack frame
-		// must be updated.
-		fContextListener = event -> {
-			if ((event.getFlags() & DebugContextEvent.ACTIVATED) > 0 && viewer != null) {
-				((ISourceViewerExtension5) viewer).updateCodeMinings();
-			}
-		};
-		DebugUITools.addPartDebugContextListener(getSite(), fContextListener);
+
+		if (abapCodeInsightPluginHelper.getCurrentLinenumber() != currentLinenumber) {
+			abapCodeInsightPluginHelper.setCurrentLinenumber(currentLinenumber);
+			fContextListener = event -> {
+				if ((event.getFlags() & DebugContextEvent.ACTIVATED) > 0 && viewer != null) {
+					((ISourceViewerExtension5) viewer).updateCodeMinings();
+				}
+			};
+			DebugUITools.addPartDebugContextListener(getSite(), fContextListener);
+
+		}
 	}
 
 	private void removeDebugListener() {
