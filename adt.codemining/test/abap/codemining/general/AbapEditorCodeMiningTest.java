@@ -73,7 +73,7 @@ public class AbapEditorCodeMiningTest {
 		Mockito.when(methodBodyMiningFeature.isReferenceCountActive()).thenReturn(false);
 		Mockito.when(methodBodyMiningFeature.isSignatureActive()).thenReturn(true);
 
-		cut = new AbapEditorCodeMining(textEditor, null, new AbapClassElementParser(featureFacade));
+		cut = new AbapEditorCodeMining(textEditor, null, new AbapClassElementParser(featureFacade, null, null));
 		Whitebox.setInternalState(cut, "textEditorFacade", textEditorFacade);
 		Whitebox.setInternalState(cut, "abapCodeMiningCreator", abapCodeMiningCreator);
 		// Whitebox.setInternalState(cut, "miningLabelBuilder", miningLabelBuilder);
@@ -85,8 +85,8 @@ public class AbapEditorCodeMiningTest {
 
 		Mockito.when(doc.get()).thenReturn(StringUtils.EMPTY);
 
-		List<ICodeMining> expectedMinings = new ArrayList<>();
-		List<ICodeMining> minings = new ArrayList<>();
+		final List<ICodeMining> expectedMinings = new ArrayList<>();
+		final List<ICodeMining> minings = new ArrayList<>();
 		cut.evaluateCodeMinings(minings, provider);
 		assertEquals(expectedMinings, minings);
 	}
@@ -96,7 +96,7 @@ public class AbapEditorCodeMiningTest {
 
 		Mockito.when(doc.get()).thenReturn("method testmethod.");
 
-		List<ICodeMining> minings = new ArrayList<>();
+		final List<ICodeMining> minings = new ArrayList<>();
 		cut.evaluateCodeMinings(minings, provider);
 
 		assertEquals(2, minings.size());

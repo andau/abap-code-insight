@@ -20,9 +20,7 @@ import com.sap.adt.tools.core.project.IAbapProject;
 import abap.codemining.editor.EditorFacade;
 import abap.codemining.element.AbapElementInformation;
 import abap.codemining.element.IAbapElementParser;
-import abap.codemining.element.AbapClassElementParser;
 import abap.codemining.element.domain.IAbapElement;
-import abap.codemining.feature.FeatureFacade;
 import abap.codemining.label.MiningLabelBuildingException;
 import abap.codemining.utils.AdtObjectUriCreator;
 
@@ -31,28 +29,29 @@ public class AbapEditorCodeMining {
 	private final EditorFacade textEditorFacade;
 	private final AbapCodeMiningCreator abapCodeMiningCreator;
 	private final IAbapElementParser abapElementParser;
-	private ITextViewer viewer;
+	private final ITextViewer viewer;
 
 	public AbapEditorCodeMining(ITextEditor textEditor, ITextViewer viewer, IAbapElementParser abapElementParser) {
-		this.viewer = viewer; 
+		this.viewer = viewer;
 		textEditorFacade = new EditorFacade(textEditor);
-		this.abapElementParser =abapElementParser;
+
+		this.abapElementParser = abapElementParser;
 
 		abapCodeMiningCreator = new AbapCodeMiningCreator();
 	}
 
 	public void evaluateCodeMinings(List<ICodeMining> minings, ICodeMiningProvider provider) {
 
-		IDocument doc = viewer.getDocument();
-		AbapElementInformation methodInformation = abapElementParser.getElementInformation(doc);
+		final IDocument doc = viewer.getDocument();
+		final AbapElementInformation methodInformation = abapElementParser.getElementInformation(doc);
 
-		IAbapProject abapProject = textEditorFacade.getAbapProject();
-		IAdtObjectReference adtObject = textEditorFacade.getAdtObject();
+		final IAbapProject abapProject = textEditorFacade.getAbapProject();
+		final IAdtObjectReference adtObject = textEditorFacade.getAdtObject();
 
-		for (IAbapElement abapElement : methodInformation.getAbapElements()) {
+		for (final IAbapElement abapElement : methodInformation.getAbapElements()) {
 			try {
 
-				URI uri = createUriForMethodBody(adtObject, abapElement);
+				final URI uri = createUriForMethodBody(adtObject, abapElement);
 
 				addReferenceMiningIfActivated(minings, provider, doc, abapProject, abapElement, uri);
 				addSignatureMiningIfActivated(minings, provider, doc, abapProject, abapElement, uri);
@@ -70,7 +69,7 @@ public class AbapEditorCodeMining {
 			throws MiningLabelBuildingException, BadLocationException {
 
 		if (abapElement.getMiningLabelBuilder().showSignature()) {
-			String signatureLabel = abapElement.getMiningLabelBuilder().buildSignatureLabel(abapProject, uri,
+			final String signatureLabel = abapElement.getMiningLabelBuilder().buildSignatureLabel(abapProject, uri,
 					doc.get());
 			minings.add(abapCodeMiningCreator.create(abapElement.getLinenumber() - 1, doc, provider, signatureLabel));
 		}
@@ -83,10 +82,10 @@ public class AbapEditorCodeMining {
 
 		if (abapElement.getMiningLabelBuilder().showRef()) {
 
-			String referencesLabel = abapElement.getMiningLabelBuilder().buildReferencesLabel(abapProject, uri,
+			final String referencesLabel = abapElement.getMiningLabelBuilder().buildReferencesLabel(abapProject, uri,
 					doc.get());
-			ISearchQuery usageReferencesQuery = abapCodeMiningCreator.createUsageReferencQuery(abapProject.getProject(),
-					uri);
+			final ISearchQuery usageReferencesQuery = abapCodeMiningCreator
+					.createUsageReferencQuery(abapProject.getProject(), uri);
 
 			minings.add(abapCodeMiningCreator.createRef(abapElement.getLinenumber() - 1, doc, provider, referencesLabel,
 					usageReferencesQuery));
@@ -96,7 +95,7 @@ public class AbapEditorCodeMining {
 
 	private URI createUriForMethodBody(IAdtObjectReference adtObject, IAbapElement abapElement)
 			throws URISyntaxException {
-		AdtObjectUriCreator adtObjectUriCreator = new AdtObjectUriCreator(adtObject);
+		final AdtObjectUriCreator adtObjectUriCreator = new AdtObjectUriCreator(adtObject);
 		return adtObjectUriCreator.createUriForLine(abapElement.getLinenumber(), abapElement.getStartindex());
 
 	}

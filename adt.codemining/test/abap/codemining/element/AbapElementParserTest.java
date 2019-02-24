@@ -24,7 +24,7 @@ public class AbapElementParserTest {
 
 	@Before
 	public void before() {
-		cut = new AbapClassElementParser(featureFacade);
+		cut = new AbapClassElementParser(featureFacade, null, null);
 		sampleDocumentContents = new SampleDocumentContent();
 
 	}

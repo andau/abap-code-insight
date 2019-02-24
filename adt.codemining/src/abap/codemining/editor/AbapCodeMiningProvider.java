@@ -94,7 +94,8 @@ public class AbapCodeMiningProvider extends AbstractCodeMiningProvider {
 			if (adtObjectReference != null) {
 				switch (adtObjectReference.getType()) {
 				case "CLAS/I":
-					abapElementParser = new AbapClassElementParser(featureFacade);
+					abapElementParser = new AbapClassElementParser(featureFacade, adtObjectReference.getUri(),
+							textEditorFacade.getAbapProject());
 					break;
 				case "INTF/OI":
 					abapElementParser = new AbapInterfaceElementParser(featureFacade);
