@@ -25,7 +25,7 @@ import org.eclipse.ui.texteditor.ITextEditor;
 import com.sap.adt.tools.core.IAdtObjectReference;
 
 import abap.codemining.element.AbapClassElementParser;
-import abap.codemining.element.CdsViewElementParser;
+import abap.codemining.element.CdsElementParser;
 import abap.codemining.element.FunctionModuleElementParser;
 import abap.codemining.element.IAbapElementParser;
 import abap.codemining.element.NotSupportedElementParser;
@@ -101,7 +101,7 @@ public class AbapCodeMiningProvider extends AbstractCodeMiningProvider {
 					abapElementParser = new AbapInterfaceElementParser(featureFacade);
 					break;
 				case "DDLS/DF":
-					abapElementParser = new CdsViewElementParser(featureFacade);
+					abapElementParser = new CdsElementParser(featureFacade);
 					break;
 				case "FUGR/FF":
 					abapElementParser = new FunctionModuleElementParser(featureFacade);

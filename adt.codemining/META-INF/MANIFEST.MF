@@ -44,7 +44,8 @@ Require-Bundle: org.eclipse.jdt.junit;bundle-version="3.11.0",
  com.sap.adt.logging;bundle-version="2.102.0",
  org.eclipse.search;bundle-version="3.11.200",
  com.sap.adt.debugger;bundle-version="2.102.0",
- com.sap.adt.debugger.ui;bundle-version="2.102.0"
+ com.sap.adt.debugger.ui;bundle-version="2.102.0",
+ com.sap.adt.tools.abapsource.ui;bundle-version="2.106.2"
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: abap.codemining.plugin.AbapCodeInsightPlugin
 Automatic-Module-Name: abap.code.insight.plugin

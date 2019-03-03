@@ -13,6 +13,7 @@ import org.eclipse.jface.text.codemining.ICodeMiningProvider;
 import org.eclipse.search.ui.ISearchQuery;
 import org.eclipse.ui.texteditor.ITextEditor;
 
+import com.sap.adt.communication.resources.ResourceException;
 import com.sap.adt.tools.core.IAdtObjectReference;
 import com.sap.adt.tools.core.model.util.ServiceNotAvailableException;
 import com.sap.adt.tools.core.project.IAbapProject;
@@ -57,7 +58,7 @@ public class AbapEditorCodeMining {
 				addSignatureMiningIfActivated(minings, provider, doc, abapProject, abapElement, uri);
 
 			} catch (BadLocationException | URISyntaxException | ServiceNotAvailableException | IOException
-					| MiningLabelBuildingException e) {
+					| MiningLabelBuildingException | ResourceException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
