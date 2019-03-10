@@ -5,6 +5,8 @@ import com.sap.adt.tools.abapsource.sources.AdtSourceServicesFactory;
 import com.sap.adt.tools.abapsource.sources.IAdtSourceServicesFactory;
 import com.sap.adt.tools.abapsource.sources.codeelementinformation.ICodeElementInformationBackendService;
 import com.sap.adt.tools.abapsource.sources.objectstructure.IObjectStructureService;
+import com.sap.adt.tools.abapsource.ui.internal.sources.outline.AdtStructuralInfoService;
+import com.sap.adt.tools.abapsource.ui.sources.outline.IAdtStructuralInfoService;
 
 import abap.codemining.adt.method.AbapMethodInformationService;
 
@@ -23,6 +25,10 @@ public class AbapCodeServiceFactory {
 		final IObjectStructureService codeElementInformationService = adtSourceServicesFactory
 				.createObjectStructureService(destination);
 		return codeElementInformationService;
+	}
+
+	public IAdtStructuralInfoService createAdtStructureService() throws OutOfSessionsException {
+		return new AdtStructuralInfoService();
 	}
 
 }

@@ -19,7 +19,7 @@ public class ReportModuleElementExtractor extends AbapElementExtractor implement
 
 	@Override
 	protected IAbapElement createAbapElement(ElementMatchInformation elementMatchInformation) {
-		return new CdsHeader(elementMatchInformation.getClassname(), elementMatchInformation.getLinenumber(),
+		return new CdsHeader(elementMatchInformation.getClassname(), elementMatchInformation.getLinenumber(), -1,
 				elementMatchInformation.getStartindex(), getMiningLabelBuilder());
 	}
 

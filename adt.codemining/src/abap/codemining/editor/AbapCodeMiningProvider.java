@@ -20,16 +20,16 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.codemining.AbstractCodeMiningProvider;
 import org.eclipse.jface.text.codemining.ICodeMining;
+import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.texteditor.ITextEditor;
 
 import com.sap.adt.tools.core.IAdtObjectReference;
 
 import abap.codemining.element.AbapClassElementParser;
-import abap.codemining.element.CdsElementParser;
+import abap.codemining.element.Cds1ElementParser;
 import abap.codemining.element.FunctionModuleElementParser;
 import abap.codemining.element.IAbapElementParser;
 import abap.codemining.element.NotSupportedElementParser;
-import abap.codemining.element.parser.AbapInterfaceElementParser;
 import abap.codemining.element.parser.ReportElementParser;
 import abap.codemining.feature.FeatureFacade;
 import abap.codemining.general.AbapEditorCodeMining;
@@ -98,10 +98,19 @@ public class AbapCodeMiningProvider extends AbstractCodeMiningProvider {
 							textEditorFacade.getAbapProject());
 					break;
 				case "INTF/OI":
-					abapElementParser = new AbapInterfaceElementParser(featureFacade);
+					abapElementParser = new AbapClassElementParser(featureFacade, adtObjectReference.getUri(),
+							textEditorFacade.getAbapProject());
 					break;
 				case "DDLS/DF":
-					abapElementParser = new CdsElementParser(featureFacade);
+					abapElementParser = new Cds1ElementParser(featureFacade, adtObjectReference,
+							((IFileEditorInput) textEditor.getEditorInput()).getFile());
+
+					/**
+					 * if (textEditor.getEditorInput() instanceof IFileEditorInput) {
+					 * abapElementParser = new Cds1ElementParser(featureFacade, adtObjectReference,
+					 * ((IFileEditorInput) textEditor.getEditorInput()).getFile(),
+					 * viewer.getDocument()); } else { abapElementParser = null; }
+					 **/
 					break;
 				case "FUGR/FF":
 					abapElementParser = new FunctionModuleElementParser(featureFacade);

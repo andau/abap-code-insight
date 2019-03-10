@@ -6,13 +6,16 @@ public abstract class AbapElement implements IAbapElement {
 
 	private final String methodname;
 	private final int linenumber;
-	private final int startindex;
+	private final int elementStartindex;
+	private final int miningStartindex;
 	private final IMiningLabelBuilder miningLabelBuilder;
 
-	public AbapElement(String methodname, int linenumber, int startindex, IMiningLabelBuilder miningLabelBuilder) {
+	public AbapElement(String methodname, int linenumber, int elementStartindex, int miningStartindex,
+			IMiningLabelBuilder miningLabelBuilder) {
 		this.methodname = methodname;
 		this.linenumber = linenumber;
-		this.startindex = startindex;
+		this.elementStartindex = elementStartindex;
+		this.miningStartindex = miningStartindex;
 		this.miningLabelBuilder = miningLabelBuilder;
 	}
 
@@ -22,15 +25,21 @@ public abstract class AbapElement implements IAbapElement {
 	}
 
 	@Override
+	public int getElementPosition() {
+		return elementStartindex;
+	}
+
+	@Override
 	public String getElementname() {
 		return methodname;
 	}
 
 	@Override
-	public int getStartindex() {
-		return startindex;
+	public int getMiningStartindex() {
+		return miningStartindex;
 	}
 
+	@Override
 	public IMiningLabelBuilder getMiningLabelBuilder() {
 		return miningLabelBuilder;
 	}

@@ -6,7 +6,9 @@ public interface IAbapElement {
 
 	int getLinenumber();
 
-	int getStartindex();
+	int getElementPosition();
+
+	int getMiningStartindex();
 
 	String getElementname();
 

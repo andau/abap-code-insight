@@ -58,7 +58,7 @@ public class AbapEditorCodeMining {
 				addSignatureMiningIfActivated(minings, provider, doc, abapProject, abapElement, uri);
 
 			} catch (BadLocationException | URISyntaxException | ServiceNotAvailableException | IOException
-					| MiningLabelBuildingException | ResourceException e) {
+					| MiningLabelBuildingException | ResourceException | NullPointerException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -97,7 +97,7 @@ public class AbapEditorCodeMining {
 	private URI createUriForMethodBody(IAdtObjectReference adtObject, IAbapElement abapElement)
 			throws URISyntaxException {
 		final AdtObjectUriCreator adtObjectUriCreator = new AdtObjectUriCreator(adtObject);
-		return adtObjectUriCreator.createUriForLine(abapElement.getLinenumber(), abapElement.getStartindex());
+		return adtObjectUriCreator.createUriForLine(abapElement.getLinenumber(), abapElement.getElementPosition());
 
 	}
 

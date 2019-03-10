@@ -4,8 +4,9 @@ import abap.codemining.label.IMiningLabelBuilder;
 
 public class AbapClassBody extends AbapElement {
 
-	public AbapClassBody(String methodname, int linenumber, int startindex, IMiningLabelBuilder miningLabelBuilder) {
-		super(methodname, linenumber, startindex, miningLabelBuilder);
+	public AbapClassBody(String methodname, int linenumber, int elementStartindex, int miningStartindex,
+			IMiningLabelBuilder miningLabelBuilder) {
+		super(methodname, linenumber, elementStartindex, miningStartindex, miningLabelBuilder);
 	}
 
 }
