@@ -9,19 +9,15 @@ import java.util.Set;
 import org.eclipse.jface.text.IDocument;
 
 import abap.codemining.element.domain.IAbapElement;
-import abap.codemining.element.extractor.ClassBodyElementExtractor;
-import abap.codemining.element.extractor.ClassHeaderElementExtractor;
+import abap.codemining.element.extractor.CdsViewElementExtractor;
 import abap.codemining.element.extractor.IAbapElementExtractor;
-import abap.codemining.element.extractor.MethodBodyElementExtractor;
 import abap.codemining.feature.FeatureFacade;
 
-@Deprecated
-public class DeprecatedAbapClassElementParser implements IAbapElementParser {
+public class CdsElementParser implements IAbapElementParser {
 
-	boolean publicSector = false;
 	FeatureFacade featureFacade;
 
-	public DeprecatedAbapClassElementParser(FeatureFacade featureFacade) {
+	public CdsElementParser(FeatureFacade featureFacade) {
 		this.featureFacade = featureFacade;
 	}
 
@@ -30,19 +26,17 @@ public class DeprecatedAbapClassElementParser implements IAbapElementParser {
 
 		final String content = setContentToLower(doc);
 
-		final Set<IAbapElement> abapElements = getClassElements(content);
+		final Set<IAbapElement> abapElements = getCdsViewElements(content);
 		return new AbapElementInformation(abapElements);
 	}
 
-	Set<IAbapElement> getClassElements(String content) {
+	Set<IAbapElement> getCdsViewElements(String content) {
 		final Set<IAbapElement> abapElements = new HashSet<>();
 
 		final Scanner scanner = new Scanner(content);
 
 		final List<IAbapElementExtractor> elementExtractors = new ArrayList<>();
-		elementExtractors.add(new ClassHeaderElementExtractor(featureFacade.getClassHeaderMiningFeature()));
-		elementExtractors.add(new ClassBodyElementExtractor(featureFacade.getClassBodyMiningFeature()));
-		elementExtractors.add(new MethodBodyElementExtractor(featureFacade.getMethodBodyMiningFeature()));
+		elementExtractors.add(new CdsViewElementExtractor(featureFacade.getCdsMiningFeature()));
 
 		int linenumber = 0;
 		while (scanner.hasNextLine()) {
