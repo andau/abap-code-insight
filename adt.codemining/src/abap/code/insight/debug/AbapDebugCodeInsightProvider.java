@@ -51,7 +51,7 @@ public class AbapDebugCodeInsightProvider extends AbstractDebugVariableCodeInsig
 
 			final URI frameUri = frame.getUri();
 			final EditorFacade editorFacade = new EditorFacade(textEditor);
-			final URI editorUri = editorFacade.getAdtObject().getUri();
+			final URI editorUri = editorFacade.getAdtObjectReference().getUri();
 
 			if (frameUri.toString().startsWith(editorUri.toString())) {
 

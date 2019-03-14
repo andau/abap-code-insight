@@ -20,13 +20,13 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.codemining.AbstractCodeMiningProvider;
 import org.eclipse.jface.text.codemining.ICodeMining;
-import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.texteditor.ITextEditor;
 
 import com.sap.adt.tools.core.IAdtObjectReference;
+import com.sap.adt.tools.core.model.adtcore.IAdtObject;
 
 import abap.codemining.element.AbapClassElementParser;
-import abap.codemining.element.Cds1ElementParser;
+import abap.codemining.element.CdsElementParser;
 import abap.codemining.element.FunctionModuleElementParser;
 import abap.codemining.element.IAbapElementParser;
 import abap.codemining.element.NotSupportedElementParser;
@@ -90,7 +90,8 @@ public class AbapCodeMiningProvider extends AbstractCodeMiningProvider {
 
 			IAbapElementParser abapElementParser;
 
-			final IAdtObjectReference adtObjectReference = textEditorFacade.getAdtObject();
+			final IAdtObjectReference adtObjectReference = textEditorFacade.getAdtObjectReference();
+			final IAdtObject adtObject = textEditorFacade.getAdtObject();
 			if (adtObjectReference != null) {
 				switch (adtObjectReference.getType()) {
 				case "CLAS/I":
@@ -102,15 +103,7 @@ public class AbapCodeMiningProvider extends AbstractCodeMiningProvider {
 							textEditorFacade.getAbapProject());
 					break;
 				case "DDLS/DF":
-					abapElementParser = new Cds1ElementParser(featureFacade, adtObjectReference,
-							((IFileEditorInput) textEditor.getEditorInput()).getFile());
-
-					/**
-					 * if (textEditor.getEditorInput() instanceof IFileEditorInput) {
-					 * abapElementParser = new Cds1ElementParser(featureFacade, adtObjectReference,
-					 * ((IFileEditorInput) textEditor.getEditorInput()).getFile(),
-					 * viewer.getDocument()); } else { abapElementParser = null; }
-					 **/
+					abapElementParser = new CdsElementParser(featureFacade);
 					break;
 				case "FUGR/FF":
 					abapElementParser = new FunctionModuleElementParser(featureFacade);

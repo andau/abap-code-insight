@@ -56,7 +56,7 @@ public class AbapEditorCodeMiningTest {
 	public void before() throws MiningLabelBuildingException {
 
 		Mockito.when(textEditorFacade.getAbapProject()).thenReturn(abapProject);
-		Mockito.when(textEditorFacade.getAdtObject()).thenReturn(adtObject);
+		Mockito.when(textEditorFacade.getAdtObjectReference()).thenReturn(adtObject);
 		Mockito.when(adtObject.getUri()).thenReturn(TEST_URI);
 		Mockito.when(textEditorFacade.getDocument()).thenReturn(doc);
 		Mockito.when(textEditorFacade.getProject()).thenReturn(project);

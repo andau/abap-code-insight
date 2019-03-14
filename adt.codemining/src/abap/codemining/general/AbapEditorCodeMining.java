@@ -47,7 +47,7 @@ public class AbapEditorCodeMining {
 		final AbapElementInformation methodInformation = abapElementParser.getElementInformation(doc);
 
 		final IAbapProject abapProject = textEditorFacade.getAbapProject();
-		final IAdtObjectReference adtObject = textEditorFacade.getAdtObject();
+		final IAdtObjectReference adtObject = textEditorFacade.getAdtObjectReference();
 
 		for (final IAbapElement abapElement : methodInformation.getAbapElements()) {
 			try {
