@@ -2,7 +2,6 @@ package abap.code.insight.debug;
 
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
@@ -22,9 +21,11 @@ import abap.codemining.feature.FeatureFacade;
 public class AbapDebugCodeInsightProvider extends AbstractDebugVariableCodeInsightProvider<IAbapStackFrame> {
 
 	private final FeatureFacade featureFacade;
+	private final VariableValueExtractor variableValueExtractor = new VariableValueExtractor();
 
 	public AbapDebugCodeInsightProvider() {
 		featureFacade = new FeatureFacade();
+
 	}
 
 	@Override
@@ -43,7 +44,6 @@ public class AbapDebugCodeInsightProvider extends AbstractDebugVariableCodeInsig
 
 	}
 
-	@SuppressWarnings("restriction")
 	private void collectMinings(ITextEditor textEditor, ITextViewer viewer, List<ICodeMining> minings,
 			IAbapStackFrame frame) {
 
@@ -60,22 +60,17 @@ public class AbapDebugCodeInsightProvider extends AbstractDebugVariableCodeInsig
 						.getVariableInfoForLastLines(frame.getLineNumber() - 1, 10);
 
 				final IAbapVariable[] variables = frame.getVariables();
-				final List<IAbapVariable> variableValues = new ArrayList<>();
 
-				for (final IAbapVariable variable : variables) {
-					if (variable.getName().equals("Locals") || variable.getName().contentEquals("ME")) {
-						variableValues.addAll(Arrays.asList(variable.getValue().getVariables()));
-					} else if (variable.getName().equals("Parameters")) {
-						variableValues.addAll(Arrays.asList(variable.getValue().getStackFrame().getVariables()));
-					}
-				}
+				final List<IAbapVariable> variableValues = variableValueExtractor.extract(variables);
+
+				minings.clear();
 
 				for (final VariableLineInfo variableLineInfo : variableLineInfos) {
 					for (final String variableName : variableLineInfo.getVariableNames()) {
 						for (final IAbapVariable abapVariable : variableValues) {
 							if (abapVariable.getName().toLowerCase().equals(variableName.toLowerCase())) {
 								final String codeMiningText = "  " + abapVariable.getValue().toString();
-								final AbstractDebugVariableCodeMining<IAbapStackFrame> m = new JavaDebugElementCodeMining(
+								final AbstractDebugVariableCodeMining<IAbapStackFrame> m = new AbapDebugElementCodeMining(
 										codeMiningText, variableLineInfo.getOffsetEnd(), frame, viewer, this);
 								minings.add(m);
 							}
@@ -83,7 +78,6 @@ public class AbapDebugCodeInsightProvider extends AbstractDebugVariableCodeInsig
 					}
 				}
 
-				// textEditor.setFocus();
 			}
 		} catch (final DebugException e) {
 			// TODO Auto-generated catch block

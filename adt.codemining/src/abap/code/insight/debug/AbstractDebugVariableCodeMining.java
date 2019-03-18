@@ -1,8 +1,6 @@
 package abap.code.insight.debug;
 
-import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IStackFrame;
-import org.eclipse.debug.core.model.IVariable;
 import org.eclipse.jface.text.Position;
 import org.eclipse.jface.text.codemining.LineContentCodeMining;
 
@@ -33,7 +31,5 @@ public abstract class AbstractDebugVariableCodeMining<T extends IStackFrame> ext
 	private void updateLabel(String variableName) {
 		super.setLabel(variableName); // $NON-NLS-1$
 	}
-
-	protected abstract IVariable findVariable(String variableName) throws DebugException;
 
 }

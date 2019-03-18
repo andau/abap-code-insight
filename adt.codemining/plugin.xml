@@ -33,7 +33,7 @@
       <codeMiningProvider
          class=" abap.code.insight.debug.AbapDebugCodeInsightProvider"
          id="abap.code.insight.debug"
-         label="%JavaDebugElementCodeMiningProvider.label">         
+         label="%AbapDebugElementCodeMiningProvider.label">         
 	     <enabledWhen>
 	        <and>
            	   <or>
