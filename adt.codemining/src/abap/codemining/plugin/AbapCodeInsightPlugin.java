@@ -9,6 +9,8 @@ import org.eclipse.jface.text.codemining.CodeMiningReconciler;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
+import abap.codemining.editor.TextEditorMiningsProxy;
+
 /**
  * The activator class controls the plug-in life cycle
  */
@@ -18,10 +20,13 @@ public class AbapCodeInsightPlugin extends AbstractUIPlugin {
 
 	private static AbapCodeInsightPlugin plugin;
 	private static Map<ITextViewer, CodeMiningReconciler> reconcilerMap;
+
+	private static TextEditorMiningsProxy textEditorMiningsProxy;
 	private static int linenumber;
 
 	public AbapCodeInsightPlugin() {
 		reconcilerMap = new HashMap<>();
+		textEditorMiningsProxy = new TextEditorMiningsProxy();
 	}
 
 	@Override
@@ -61,6 +66,10 @@ public class AbapCodeInsightPlugin extends AbstractUIPlugin {
 
 	public static void setCurrentLinenumber(int linenumber2) {
 		linenumber = linenumber;
+	}
+
+	public static TextEditorMiningsProxy getTextEditorMiningsProxy() {
+		return textEditorMiningsProxy;
 	}
 
 }

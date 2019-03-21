@@ -101,7 +101,7 @@ public class AbapEditorCodeMiningTest {
 
 		assertEquals(2, minings.size());
 
-		Mockito.verify(abapCodeMiningCreator).create(Mockito.eq(0), Mockito.any(), Mockito.any(),
+		Mockito.verify(abapCodeMiningCreator).create(Mockito.eq(0), Mockito.anyString(), Mockito.any(), Mockito.any(),
 				Mockito.eq(TEST_LABEL));
 	}
 

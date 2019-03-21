@@ -13,12 +13,14 @@ import org.eclipse.swt.events.MouseEvent;
 
 public class AbapHeaderCodeMining extends LineHeaderCodeMining {
 
-	private String label;
+	private final String label;
+	private final String lineText;
 
-	public AbapHeaderCodeMining(int beforeLineNumber, IDocument document, ICodeMiningProvider provider,
-			String label, Consumer<MouseEvent> action) throws BadLocationException {
+	public AbapHeaderCodeMining(int beforeLineNumber, IDocument document, ICodeMiningProvider provider, String label,
+			String lineText, Consumer<MouseEvent> action) throws BadLocationException {
 		super(beforeLineNumber, document, provider, action);
 		this.label = label;
+		this.lineText = lineText;
 	}
 
 	@Override
@@ -27,5 +29,9 @@ public class AbapHeaderCodeMining extends LineHeaderCodeMining {
 			monitor.isCanceled();
 			super.setLabel(label);
 		});
+	}
+
+	public String getLineText() {
+		return lineText;
 	}
 }

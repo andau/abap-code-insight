@@ -19,19 +19,21 @@ import com.sap.adt.tools.core.model.util.ServiceNotAvailableException;
 public class AbapCodeMiningCreator {
 
 	public ICodeMining createRef(int linenumber, IDocument document, ICodeMiningProvider provider, String miningLabel,
-			ISearchQuery usageReferencesQuery) throws BadLocationException {
-		return new AbapHeaderCodeMining(linenumber, document, provider, miningLabel,
+			String linetext, ISearchQuery usageReferencesQuery) throws BadLocationException {
+		return new AbapHeaderCodeMining(linenumber, document, provider, miningLabel, linetext,
 				e -> NewSearchUI.runQueryInBackground(usageReferencesQuery));
 	}
-	public ICodeMining create(int linenumber, IDocument document, ICodeMiningProvider provider, String label) throws BadLocationException {
-		return new AbapHeaderCodeMining(linenumber, document, provider, label, null);
+
+	public ICodeMining create(int linenumber, String linetext, IDocument document, ICodeMiningProvider provider,
+			String label) throws BadLocationException {
+		return new AbapHeaderCodeMining(linenumber, document, provider, label, linetext, null);
 	}
 
 	public ISearchQuery createUsageReferencQuery(IProject project, URI uri) throws ServiceNotAvailableException {
 		AdtRisUsageReferencesSearchServiceFactory.createUsageReferencesSearchService(project,
 				new NullProgressMonitor());
-		AdtRisUsageReferencesSearchQueryParameters parameters = new AdtRisUsageReferencesSearchQueryParameters(project,
-				uri);
+		final AdtRisUsageReferencesSearchQueryParameters parameters = new AdtRisUsageReferencesSearchQueryParameters(
+				project, uri);
 		return new AdtRisUsageReferencesSearchQuery(parameters);
 	}
 

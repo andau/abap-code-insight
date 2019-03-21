@@ -70,7 +70,7 @@ public class AbapDebugCodeInsightProvider extends AbstractDebugVariableCodeInsig
 						for (final IAbapVariable abapVariable : variableValues) {
 							if (abapVariable.getName().toLowerCase().equals(variableName.toLowerCase())) {
 								final String codeMiningText = "  " + abapVariable.getValue().toString();
-								final AbstractDebugVariableCodeMining<IAbapStackFrame> m = new AbapDebugElementCodeMining(
+								final AbstractDebugVariableCodeMining<IAbapStackFrame> m = new JavaDebugElementCodeMining(
 										codeMiningText, variableLineInfo.getOffsetEnd(), frame, viewer, this);
 								minings.add(m);
 							}

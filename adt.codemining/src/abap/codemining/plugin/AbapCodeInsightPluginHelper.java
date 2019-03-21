@@ -4,6 +4,8 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.text.ITextViewer;
 
+import abap.codemining.editor.TextEditorMiningsProxy;
+
 public class AbapCodeInsightPluginHelper {
 
 	public IPreferenceStore getPreferenceStore() {
@@ -24,6 +26,10 @@ public class AbapCodeInsightPluginHelper {
 
 	public void setCurrentLinenumber(int linenumber) {
 		AbapCodeInsightPlugin.setCurrentLinenumber(linenumber);
+	}
+
+	public TextEditorMiningsProxy getTextEditorMiningsProxy() {
+		return AbapCodeInsightPlugin.getTextEditorMiningsProxy();
 	}
 
 }

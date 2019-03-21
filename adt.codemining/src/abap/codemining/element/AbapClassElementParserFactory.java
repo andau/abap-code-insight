@@ -70,13 +70,17 @@ public class AbapClassElementParserFactory {
 				final int elementStartindex = elementLinkInfo.getElementStartposition();
 				if (elementLinkInfo.getType().equals("CLAS/OM")
 						&& elementLinkInfo.getRelation().contentEquals("implementationIdentifier")) {
-					abapElements.add(new AbapClassBody(childObjectStructureElement.getName(),
-							elementLinkInfo.getLinenumber(), elementStartindex, miningStartindex,
-							new MethodBodyMiningLabelBuilder(featureFacade.getMethodBodyMiningFeature())));
+					abapElements.add(
+							new AbapClassBody(childObjectStructureElement.getName(), elementLinkInfo.getLinenumber(),
+									doc.get(elementStartindex, doc.getLineLength(elementLinkInfo.getLinenumber())),
+									elementStartindex, miningStartindex,
+									new MethodBodyMiningLabelBuilder(featureFacade.getMethodBodyMiningFeature())));
 				} else {
-					abapElements.add(new AbapClassBody(childObjectStructureElement.getName(),
-							elementLinkInfo.getLinenumber(), elementStartindex, miningStartindex,
-							new ClassMiningLabelBuilder(featureFacade.getClassHeaderMiningFeature())));
+					abapElements.add(
+							new AbapClassBody(childObjectStructureElement.getName(), elementLinkInfo.getLinenumber(),
+									doc.get(elementStartindex, doc.getLineLength(elementLinkInfo.getLinenumber())),
+									elementStartindex, miningStartindex,
+									new ClassMiningLabelBuilder(featureFacade.getClassHeaderMiningFeature())));
 				}
 			} catch (final InvalidElementLinkException e) {
 				// TODO Auto-generated catch block

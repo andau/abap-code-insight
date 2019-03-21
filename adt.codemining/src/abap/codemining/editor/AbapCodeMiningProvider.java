@@ -23,7 +23,6 @@ import org.eclipse.jface.text.codemining.ICodeMining;
 import org.eclipse.ui.texteditor.ITextEditor;
 
 import com.sap.adt.tools.core.IAdtObjectReference;
-import com.sap.adt.tools.core.model.adtcore.IAdtObject;
 
 import abap.codemining.element.AbapClassElementParser;
 import abap.codemining.element.CdsElementParser;
@@ -40,10 +39,13 @@ public class AbapCodeMiningProvider extends AbstractCodeMiningProvider {
 	AbapCodeInsightPluginHelper abapCodeMiningPluginHelper;
 	private FeatureFacade featureFacade;
 	private EditorFacade textEditorFacade;
+	private final TextEditorMiningsProxy textEditorMiningsProxy;
 
 	public AbapCodeMiningProvider() {
 		abapCodeMiningPluginHelper = new AbapCodeInsightPluginHelper();
 		featureFacade = new FeatureFacade();
+		textEditorMiningsProxy = abapCodeMiningPluginHelper.getTextEditorMiningsProxy();
+
 		registerPreferencePropertyChangeListener();
 	}
 
@@ -85,41 +87,55 @@ public class AbapCodeMiningProvider extends AbstractCodeMiningProvider {
 
 		textEditorFacade = new EditorFacade(textEditor);
 
-		if (!textEditor.isDirty() && textEditorFacade.getAbapProject() != null
+		if (textEditorFacade.getAbapProject() != null
 				&& textEditorFacade.getDocument().getNumberOfLines() <= maxLines) {
 
-			IAbapElementParser abapElementParser;
+			if (textEditor.isDirty()) {
+				minings.addAll(textEditorMiningsProxy
+						.get(new TextEditorMiningEntryKey(textEditorFacade.getAbapProject().getProject().getName(),
+								textEditor.getTitle()))
+						.calculateEditedMinings(textEditorFacade.getDocument()));
+			} else {
+				IAbapElementParser abapElementParser;
 
-			final IAdtObjectReference adtObjectReference = textEditorFacade.getAdtObjectReference();
-			final IAdtObject adtObject = textEditorFacade.getAdtObject();
-			if (adtObjectReference != null) {
-				switch (adtObjectReference.getType()) {
-				case "CLAS/I":
-					abapElementParser = new AbapClassElementParser(featureFacade, adtObjectReference.getUri(),
-							textEditorFacade.getAbapProject());
-					break;
-				case "INTF/OI":
-					abapElementParser = new AbapClassElementParser(featureFacade, adtObjectReference.getUri(),
-							textEditorFacade.getAbapProject());
-					break;
-				case "DDLS/DF":
-					abapElementParser = new CdsElementParser(featureFacade);
-					break;
-				case "FUGR/FF":
-					abapElementParser = new FunctionModuleElementParser(featureFacade);
-					break;
-				case "PROG/P":
-					abapElementParser = new ReportElementParser(featureFacade);
-					break;
-				default:
-					abapElementParser = new NotSupportedElementParser(featureFacade);
-					break;
+				final IAdtObjectReference adtObjectReference = textEditorFacade.getAdtObjectReference();
+				if (adtObjectReference != null) {
+					switch (adtObjectReference.getType()) {
+					case "CLAS/I":
+						abapElementParser = new AbapClassElementParser(featureFacade, adtObjectReference.getUri(),
+								textEditorFacade.getAbapProject());
+						break;
+					case "INTF/OI":
+						abapElementParser = new AbapClassElementParser(featureFacade, adtObjectReference.getUri(),
+								textEditorFacade.getAbapProject());
+						break;
+					case "DDLS/DF":
+						abapElementParser = new CdsElementParser(featureFacade);
+						break;
+					case "FUGR/FF":
+						abapElementParser = new FunctionModuleElementParser(featureFacade);
+						break;
+					case "PROG/P":
+						abapElementParser = new ReportElementParser(featureFacade);
+						break;
+					default:
+						abapElementParser = new NotSupportedElementParser(featureFacade);
+						break;
+					}
+
+					final AbapEditorCodeMining abapClassCodeMining = new AbapEditorCodeMining(textEditor, viewer,
+							abapElementParser);
+					abapClassCodeMining.evaluateCodeMinings(minings, this);
+
+					textEditorMiningsProxy.addOrUpdate(textEditorFacade.getAbapProject(), textEditor.getTitle(),
+							minings);
 				}
-
-				final AbapEditorCodeMining abapClassCodeMining = new AbapEditorCodeMining(textEditor, viewer,
-						abapElementParser);
-				abapClassCodeMining.evaluateCodeMinings(minings, this);
 			}
 		}
+	}
+
+	private void reuseSavedCodeMinings() {
+		// TODO Auto-generated method stub
+
 	}
 }

@@ -72,7 +72,8 @@ public class AbapEditorCodeMining {
 		if (abapElement.getMiningLabelBuilder().showSignature()) {
 			final String signatureLabel = abapElement.getMiningLabelBuilder().buildSignatureLabel(abapProject, uri,
 					doc.get());
-			minings.add(abapCodeMiningCreator.create(abapElement.getLinenumber() - 1, doc, provider, signatureLabel));
+			minings.add(abapCodeMiningCreator.create(abapElement.getLinenumber() - 1,
+					DocumentHelper.getLinetext(doc, abapElement.getLinenumber()), doc, provider, signatureLabel));
 		}
 
 	}
@@ -89,7 +90,7 @@ public class AbapEditorCodeMining {
 					.createUsageReferencQuery(abapProject.getProject(), uri);
 
 			minings.add(abapCodeMiningCreator.createRef(abapElement.getLinenumber() - 1, doc, provider, referencesLabel,
-					usageReferencesQuery));
+					DocumentHelper.getLinetext(doc, abapElement.getLinenumber() - 1), usageReferencesQuery));
 		}
 
 	}
