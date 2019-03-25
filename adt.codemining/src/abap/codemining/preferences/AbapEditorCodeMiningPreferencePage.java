@@ -43,14 +43,17 @@ public class AbapEditorCodeMiningPreferencePage extends FieldEditorPreferencePag
 
 	private void createReferenceCountSection() {
 
-		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_CLASS_HEADER_REFERENCE_COUNT, "Class headers",
+		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_CLASS_DEFINITION_REFERENCE_ENABLED, "Class definition",
 				getFieldEditorParent()));
 
-		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_CLASS_BODY_REFERENCE_COUNT, "Class bodies",
-				getFieldEditorParent()));
+		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_CLASS_IMPLEMENTATION_REFERENCE_ENABLED,
+				"Class implemenation", getFieldEditorParent()));
 
-		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_METHOD_BODY_REFERENCE_COUNT, "Method bodies",
-				getFieldEditorParent()));
+		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_CLASS_METHOD_DEFINITION_REFERENCE_ENABLED,
+				"Method definition", getFieldEditorParent()));
+
+		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_CLASS_METHOD_IMPLEMENTATION_REFERENCE_ENABLED,
+				"Method implementation", getFieldEditorParent()));
 
 		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_INTERFACE_HEADER_REFERENCE_COUNT, "Interfaces",
 				getFieldEditorParent()));
@@ -71,7 +74,7 @@ public class AbapEditorCodeMiningPreferencePage extends FieldEditorPreferencePag
 
 	private void createMethodSignatureSection() {
 
-		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_METHOD_BODY_SIGNATURE,
+		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_CLASS_METHOD_IMPLEMENTATION_SIGNATURE,
 				"Show signature on method bodies", getFieldEditorParent()));
 
 	}

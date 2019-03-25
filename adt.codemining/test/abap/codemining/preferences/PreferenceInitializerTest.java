@@ -24,12 +24,13 @@ public class PreferenceInitializerTest {
 	@Test
 	public void test() {
 		cut.initializeDefaultPreferences();
-		Mockito.verify(preferenceStore).setDefault(PreferenceConstants.SHOW_CLASS_BODY_REFERENCE_COUNT, true);
-		Mockito.verify(preferenceStore).setDefault(PreferenceConstants.SHOW_CLASS_HEADER_REFERENCE_COUNT, true);
+		Mockito.verify(preferenceStore).setDefault(PreferenceConstants.SHOW_CLASS_DEFINITION_REFERENCE_ENABLED, true);
+		Mockito.verify(preferenceStore).setDefault(PreferenceConstants.SHOW_CLASS_IMPLEMENTATION_REFERENCE_ENABLED,
+				true);
 		Mockito.verify(preferenceStore).setDefault(PreferenceConstants.SHOW_INTERFACE_HEADER_REFERENCE_COUNT, true);
 
-		Mockito.verify(preferenceStore).setDefault(PreferenceConstants.SHOW_METHOD_BODY_REFERENCE_COUNT, true);
-		Mockito.verify(preferenceStore).setDefault(PreferenceConstants.SHOW_METHOD_BODY_SIGNATURE, true);
+		Mockito.verify(preferenceStore).setDefault(PreferenceConstants.SHOW_CLASS_METHOD_IMPLEMENTATION_SIGNATURE,
+				true);
 
 		Mockito.verify(preferenceStore).setDefault(PreferenceConstants.SHOW_CDS_HEADER_REFERENCE_COUNT, true);
 		Mockito.verify(preferenceStore).setDefault(PreferenceConstants.SHOW_FM_HEADER_REFERENCE_COUNT, true);

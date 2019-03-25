@@ -66,8 +66,7 @@ public class AbapEditorCodeMiningTest {
 		Mockito.when(miningLabelBuilder.buildSignatureLabel(Mockito.eq(abapProject), Mockito.any(), Mockito.any()))
 				.thenReturn(TEST_LABEL);
 
-		Mockito.when(featureFacade.getClassHeaderMiningFeature()).thenReturn(classHeaderMiningFeature);
-		Mockito.when(featureFacade.getMethodBodyMiningFeature()).thenReturn(methodBodyMiningFeature);
+		Mockito.when(featureFacade.getClassMiningFeature()).thenReturn(classHeaderMiningFeature);
 
 		Mockito.when(classHeaderMiningFeature.isReferenceCountActive()).thenReturn(false);
 		Mockito.when(methodBodyMiningFeature.isReferenceCountActive()).thenReturn(false);

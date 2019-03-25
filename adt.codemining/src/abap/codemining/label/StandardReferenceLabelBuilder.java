@@ -8,16 +8,15 @@ import com.sap.adt.tools.core.project.IAbapProject;
 import abap.codemining.adt.AbapCodeServiceFactory;
 import abap.codemining.adt.IAbapCodeElementInformation;
 import abap.codemining.adt.ICodeElementInformationService;
-import abap.codemining.feature.ClassMiningFeature;
 
-public class ClassMiningLabelBuilder extends ReferenceMiningLabelBuilder implements IMiningLabelBuilder {
+public class StandardReferenceLabelBuilder extends ReferenceMiningLabelBuilder implements IMiningLabelBuilder {
 
 	private final AbapCodeServiceFactory abapCodeServiceFactory;
-	private final ClassMiningFeature classMiningFeature;
+	private final boolean isReferenceCountActive;
 
-	public ClassMiningLabelBuilder(ClassMiningFeature classMiningFeature) {
+	public StandardReferenceLabelBuilder(boolean isReferenceCountActive) {
 		this.abapCodeServiceFactory = new AbapCodeServiceFactory();
-		this.classMiningFeature = classMiningFeature;
+		this.isReferenceCountActive = isReferenceCountActive;
 	}
 
 	@Override
@@ -40,7 +39,7 @@ public class ClassMiningLabelBuilder extends ReferenceMiningLabelBuilder impleme
 
 	@Override
 	public boolean showRef() {
-		return classMiningFeature.isReferenceCountActive();
+		return isReferenceCountActive;
 	}
 
 	@Override

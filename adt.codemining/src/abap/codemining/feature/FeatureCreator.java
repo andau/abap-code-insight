@@ -18,20 +18,24 @@ public class FeatureCreator {
 		prefs = (prefs == null) ? abapCodeMiningPluginHelper.getPreferenceStore() : prefs;
 	}
 
-	public ClassMiningFeature createClassHeaderMiningFeature() {
+	public ClassMiningFeature createClassMiningFeature() {
 		initPrefs();
-		return new ClassMiningFeature(prefs.getBoolean(PreferenceConstants.SHOW_CLASS_HEADER_REFERENCE_COUNT));
-	}
+		final ClassMiningFeature classMiningFeature = new ClassMiningFeature();
+		classMiningFeature.setClassDefinitionReferenceEnabled(
+				prefs.getBoolean(PreferenceConstants.SHOW_CLASS_DEFINITION_REFERENCE_ENABLED));
+		classMiningFeature.setClassImplemenationReferenceEnabled(
+				prefs.getBoolean(PreferenceConstants.SHOW_CLASS_IMPLEMENTATION_REFERENCE_ENABLED));
+		classMiningFeature.setMethodDefinitionReferenceEnabled(
+				prefs.getBoolean(PreferenceConstants.SHOW_CLASS_METHOD_DEFINITION_REFERENCE_ENABLED));
+		classMiningFeature.setMethodImplemenationReferenceEnabled(
+				prefs.getBoolean(PreferenceConstants.SHOW_CLASS_METHOD_IMPLEMENTATION_REFERENCE_ENABLED));
+		classMiningFeature.setMethodImplmenationSignatureEnabled(
+				prefs.getBoolean(PreferenceConstants.SHOW_CLASS_METHOD_IMPLEMENTATION_SIGNATURE));
 
-	public MethodBodyMiningFeature createMethodBodyMiningFeature() {
-		initPrefs();
-		return new MethodBodyMiningFeature(prefs.getBoolean(PreferenceConstants.SHOW_METHOD_BODY_REFERENCE_COUNT),
-				prefs.getBoolean(PreferenceConstants.SHOW_METHOD_BODY_SIGNATURE));
-	}
+		classMiningFeature.setClassUnknownElementEnabled(
+				prefs.getBoolean(PreferenceConstants.SHOW_CLASS_UNKNOWN_REFERENCE_ENABLED));
 
-	public ClassMiningFeature createClassBodyMiningFeature() {
-		initPrefs();
-		return new ClassMiningFeature(prefs.getBoolean(PreferenceConstants.SHOW_CLASS_BODY_REFERENCE_COUNT));
+		return classMiningFeature;
 	}
 
 	public ReferenceMiningFeature createCdsMiningFeature() {

@@ -3,9 +3,7 @@ package abap.codemining.feature;
 public class FeatureFacade {
 	private final FeatureCreator featureCreator;
 
-	private ClassMiningFeature classHeaderMiningFeature;
-	private ClassMiningFeature classBodyMiningFeature;
-	private MethodBodyMiningFeature methodBodyMiningFeature;
+	private ClassMiningFeature classMiningFeature;
 
 	private ReferenceMiningFeature cdsMiningFeature;
 
@@ -25,31 +23,11 @@ public class FeatureFacade {
 		featureCreator = new FeatureCreator();
 	}
 
-	public ClassMiningFeature getClassHeaderMiningFeature() {
-		if (classHeaderMiningFeature == null) {
-			classHeaderMiningFeature = featureCreator.createClassHeaderMiningFeature();
+	public ClassMiningFeature getClassMiningFeature() {
+		if (classMiningFeature == null) {
+			classMiningFeature = featureCreator.createClassMiningFeature();
 		}
-		return classHeaderMiningFeature;
-	}
-
-	public MethodBodyMiningFeature getMethodBodyMiningFeature() {
-
-		if (methodBodyMiningFeature == null) {
-			methodBodyMiningFeature = featureCreator.createMethodBodyMiningFeature();
-		}
-
-		return methodBodyMiningFeature;
-
-	}
-
-	public ClassMiningFeature getClassBodyMiningFeature() {
-
-		if (classBodyMiningFeature == null) {
-			classBodyMiningFeature = featureCreator.createClassBodyMiningFeature();
-		}
-
-		return classBodyMiningFeature;
-
+		return classMiningFeature;
 	}
 
 	public ReferenceMiningFeature getCdsMiningFeature() {

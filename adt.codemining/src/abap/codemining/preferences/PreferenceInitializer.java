@@ -17,12 +17,14 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 	public void initializeDefaultPreferences() {
 
 		final IPreferenceStore store = abapCodeMiningPluginHelper.getPreferenceStore();
-		store.setDefault(PreferenceConstants.SHOW_CLASS_HEADER_REFERENCE_COUNT, true);
-		store.setDefault(PreferenceConstants.SHOW_CLASS_BODY_REFERENCE_COUNT, true);
-		store.setDefault(PreferenceConstants.SHOW_INTERFACE_HEADER_REFERENCE_COUNT, true);
+		store.setDefault(PreferenceConstants.SHOW_CLASS_DEFINITION_REFERENCE_ENABLED, true);
+		store.setDefault(PreferenceConstants.SHOW_CLASS_IMPLEMENTATION_REFERENCE_ENABLED, true);
+		store.setDefault(PreferenceConstants.SHOW_CLASS_METHOD_DEFINITION_REFERENCE_ENABLED, true);
+		store.setDefault(PreferenceConstants.SHOW_CLASS_METHOD_IMPLEMENTATION_REFERENCE_ENABLED, true);
 
-		store.setDefault(PreferenceConstants.SHOW_METHOD_BODY_SIGNATURE, true);
-		store.setDefault(PreferenceConstants.SHOW_METHOD_BODY_REFERENCE_COUNT, true);
+		store.setDefault(PreferenceConstants.SHOW_CLASS_METHOD_IMPLEMENTATION_SIGNATURE, true);
+
+		store.setDefault(PreferenceConstants.SHOW_INTERFACE_HEADER_REFERENCE_COUNT, true);
 
 		store.setDefault(PreferenceConstants.SHOW_CDS_HEADER_REFERENCE_COUNT, true);
 		store.setDefault(PreferenceConstants.SHOW_FM_HEADER_REFERENCE_COUNT, true);
