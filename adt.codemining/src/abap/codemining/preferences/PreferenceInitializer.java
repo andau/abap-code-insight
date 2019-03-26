@@ -21,6 +21,9 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(PreferenceConstants.SHOW_CLASS_IMPLEMENTATION_REFERENCE_ENABLED, true);
 		store.setDefault(PreferenceConstants.SHOW_CLASS_METHOD_DEFINITION_REFERENCE_ENABLED, true);
 		store.setDefault(PreferenceConstants.SHOW_CLASS_METHOD_IMPLEMENTATION_REFERENCE_ENABLED, true);
+		store.setDefault(PreferenceConstants.SHOW_CLASS_PROPERTIES_REFERENCE_ENABLED, true);
+		store.setDefault(PreferenceConstants.SHOW_CLASS_TYPE_REFERENCE_ENABLED, true);
+		store.setDefault(PreferenceConstants.SHOW_CLASS_UNKNOWN_REFERENCE_ENABLED, true);
 
 		store.setDefault(PreferenceConstants.SHOW_CLASS_METHOD_IMPLEMENTATION_SIGNATURE, true);
 

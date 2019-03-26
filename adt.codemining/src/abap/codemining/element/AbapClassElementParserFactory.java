@@ -54,8 +54,7 @@ public class AbapClassElementParserFactory {
 				}
 
 			} catch (final InvalidElementLinkException | BadLocationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				// lets move on to the next element
 			}
 		}
 

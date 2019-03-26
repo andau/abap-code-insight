@@ -30,6 +30,7 @@ import abap.codemining.element.FunctionModuleElementParser;
 import abap.codemining.element.IAbapElementParser;
 import abap.codemining.element.NotSupportedElementParser;
 import abap.codemining.element.parser.ReportElementParser;
+import abap.codemining.element.parser.StructureElementParser;
 import abap.codemining.feature.FeatureFacade;
 import abap.codemining.general.AbapEditorCodeMining;
 import abap.codemining.plugin.AbapCodeInsightPluginHelper;
@@ -102,9 +103,6 @@ public class AbapCodeMiningProvider extends AbstractCodeMiningProvider {
 				if (adtObjectReference != null) {
 					switch (adtObjectReference.getType()) {
 					case "CLAS/I":
-						abapElementParser = new AbapClassElementParser(featureFacade, adtObjectReference.getUri(),
-								textEditorFacade.getAbapProject());
-						break;
 					case "INTF/OI":
 						abapElementParser = new AbapClassElementParser(featureFacade, adtObjectReference.getUri(),
 								textEditorFacade.getAbapProject());
@@ -117,6 +115,9 @@ public class AbapCodeMiningProvider extends AbstractCodeMiningProvider {
 						break;
 					case "PROG/P":
 						abapElementParser = new ReportElementParser(featureFacade);
+						break;
+					case "TABL/DS":
+						abapElementParser = new StructureElementParser(featureFacade);
 						break;
 					default:
 						abapElementParser = new NotSupportedElementParser(featureFacade);

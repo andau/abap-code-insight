@@ -29,13 +29,22 @@ public class FeatureCreator {
 				prefs.getBoolean(PreferenceConstants.SHOW_CLASS_METHOD_DEFINITION_REFERENCE_ENABLED));
 		classMiningFeature.setMethodImplemenationReferenceEnabled(
 				prefs.getBoolean(PreferenceConstants.SHOW_CLASS_METHOD_IMPLEMENTATION_REFERENCE_ENABLED));
-		classMiningFeature.setMethodImplmenationSignatureEnabled(
+		classMiningFeature.setMethodImplemenationSignatureEnabled(
 				prefs.getBoolean(PreferenceConstants.SHOW_CLASS_METHOD_IMPLEMENTATION_SIGNATURE));
+		classMiningFeature.setClassAttributeReferenceEnabled(
+				prefs.getBoolean(PreferenceConstants.SHOW_CLASS_PROPERTIES_REFERENCE_ENABLED));
+		classMiningFeature
+				.setClassTypeElementEnabled(prefs.getBoolean(PreferenceConstants.SHOW_CLASS_TYPE_REFERENCE_ENABLED));
 
 		classMiningFeature.setClassUnknownElementEnabled(
 				prefs.getBoolean(PreferenceConstants.SHOW_CLASS_UNKNOWN_REFERENCE_ENABLED));
 
 		return classMiningFeature;
+	}
+
+	public ReferenceMiningFeature createStructureMiningFeature() {
+		initPrefs();
+		return new ReferenceMiningFeature(prefs.getBoolean(PreferenceConstants.SHOW_STRUCTURE_HEADER_REFERENCE_COUNT));
 	}
 
 	public ReferenceMiningFeature createCdsMiningFeature() {

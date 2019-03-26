@@ -20,13 +20,13 @@ public class CodeElementWrapper {
 	}
 
 	public String getVisibility() {
-		return codeElement.getProperty(PropertyKey.visibility.toString()) != null
+		return codeElement != null && codeElement.getProperty(PropertyKey.visibility.toString()) != null
 				? codeElement.getProperty(PropertyKey.visibility.toString()).getValue()
 				: StringUtils.EMPTY;
 	}
 
 	public String getLevel() {
-		return codeElement.getProperty(PropertyKey.level.toString()) != null
+		return codeElement != null && codeElement.getProperty(PropertyKey.level.toString()) != null
 				? codeElement.getProperty("level").getValue()
 				: StringUtils.EMPTY;
 	}

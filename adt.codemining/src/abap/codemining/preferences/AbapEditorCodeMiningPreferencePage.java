@@ -55,6 +55,14 @@ public class AbapEditorCodeMiningPreferencePage extends FieldEditorPreferencePag
 		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_CLASS_METHOD_IMPLEMENTATION_REFERENCE_ENABLED,
 				"Method implementation", getFieldEditorParent()));
 
+		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_CLASS_PROPERTIES_REFERENCE_ENABLED, "Class attributes",
+				getFieldEditorParent()));
+
+		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_CLASS_TYPE_REFERENCE_ENABLED, "Type definitions",
+				getFieldEditorParent()));
+		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_CLASS_UNKNOWN_REFERENCE_ENABLED,
+				"Other class elements", getFieldEditorParent()));
+
 		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_INTERFACE_HEADER_REFERENCE_COUNT, "Interfaces",
 				getFieldEditorParent()));
 
@@ -65,6 +73,8 @@ public class AbapEditorCodeMiningPreferencePage extends FieldEditorPreferencePag
 				getFieldEditorParent()));
 
 		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_REPORT_HEADER_REFERENCE_COUNT, "Reports",
+				getFieldEditorParent()));
+		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_STRUCTURE_HEADER_REFERENCE_COUNT, "Structures",
 				getFieldEditorParent()));
 
 		addField(new BooleanFieldEditor(PreferenceConstants.SHOW_TEST_REFERENCE_COUNT_SEPARATELY,
