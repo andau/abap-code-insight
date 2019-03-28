@@ -73,7 +73,7 @@ public class AbapEditorCodeMining {
 			final String signatureLabel = abapElement.getMiningLabelBuilder().buildSignatureLabel(abapProject, uri,
 					doc.get());
 			minings.add(abapCodeMiningCreator.create(abapElement.getLinenumber() - 1,
-					DocumentHelper.getLinetext(doc, abapElement.getLinenumber()), doc, provider, signatureLabel));
+					DocumentHelper.getLinetext(doc, abapElement.getLinenumber() - 1), doc, provider, signatureLabel));
 		}
 
 	}

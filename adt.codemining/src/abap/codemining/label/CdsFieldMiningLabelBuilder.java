@@ -22,12 +22,12 @@ public class CdsFieldMiningLabelBuilder extends ReferenceMiningLabelBuilder impl
 
 	@Override
 	public boolean showRef() {
-		return false;
+		return referenceMiningFeature.isReferenceCountActive();
 	}
 
 	@Override
 	public boolean showSignature() {
-		return true;
+		return false;
 	}
 
 	@Override

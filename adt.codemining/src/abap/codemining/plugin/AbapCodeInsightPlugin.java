@@ -65,7 +65,7 @@ public class AbapCodeInsightPlugin extends AbstractUIPlugin {
 	}
 
 	public static void setCurrentLinenumber(int linenumber2) {
-		linenumber = linenumber;
+		linenumber = linenumber2;
 	}
 
 	public static TextEditorMiningsProxy getTextEditorMiningsProxy() {

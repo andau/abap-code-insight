@@ -12,6 +12,7 @@ import abap.codemining.element.domain.IAbapElement;
 import abap.codemining.element.extractor.CdsViewElementExtractor;
 import abap.codemining.element.extractor.IAbapElementExtractor;
 import abap.codemining.feature.FeatureFacade;
+import abap.codemining.plugin.AbapCodeInsightPluginHelper;
 
 public class CdsElementParser implements IAbapElementParser {
 
@@ -19,6 +20,14 @@ public class CdsElementParser implements IAbapElementParser {
 
 	public CdsElementParser(FeatureFacade featureFacade) {
 		this.featureFacade = featureFacade;
+		registerPreferencePropertyChangeListener();
+	}
+
+	private void registerPreferencePropertyChangeListener() {
+		final AbapCodeInsightPluginHelper abapCodeInsightHelper = new AbapCodeInsightPluginHelper();
+		abapCodeInsightHelper.getPreferenceStore().addPropertyChangeListener(event -> {
+			featureFacade = new FeatureFacade();
+		});
 	}
 
 	@Override

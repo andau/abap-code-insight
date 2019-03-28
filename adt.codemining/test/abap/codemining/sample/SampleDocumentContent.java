@@ -4,8 +4,9 @@ import org.apache.tools.ant.util.StringUtils;
 
 public class SampleDocumentContent {
 
+	@SuppressWarnings("deprecation")
 	public String getOneSimpleMethodContent() {
-		StringBuilder stringBuilder = new StringBuilder();
+		final StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("class sampleClass." + StringUtils.LINE_SEP);
 		stringBuilder.append("public section." + StringUtils.LINE_SEP);
 		stringBuilder.append("methods: sampleMethod1." + StringUtils.LINE_SEP);

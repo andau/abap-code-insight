@@ -13,6 +13,8 @@ public class FeatureFacade {
 
 	private ReferenceMiningFeature interfaceMiningFeature;
 
+	private ReferenceMiningFeature structureMiningFeature;
+
 	private TestReferencesFeature testReferenceFeature;
 
 	private PerformanceFeature performanceFeature;
@@ -49,6 +51,13 @@ public class FeatureFacade {
 			reportMiningFeature = featureCreator.createReportMiningFeature();
 		}
 		return reportMiningFeature;
+	}
+
+	public ReferenceMiningFeature getStructureFeature() {
+		if (structureMiningFeature == null) {
+			structureMiningFeature = featureCreator.createStructureMiningFeature();
+		}
+		return structureMiningFeature;
 	}
 
 	public ReferenceMiningFeature getInterfaceMiningFeature() {

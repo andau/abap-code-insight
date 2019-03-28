@@ -24,6 +24,7 @@ import com.sap.adt.tools.core.model.adtcore.IAdtObject;
 import abap.codemining.element.domain.IAbapElement;
 import abap.codemining.feature.FeatureFacade;
 
+@SuppressWarnings("restriction")
 public class Cds1ElementParser implements IAbapElementParser {
 
 	FeatureFacade featureFacade;

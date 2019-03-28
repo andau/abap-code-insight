@@ -27,6 +27,8 @@
 			<accessrule kind="accessible" pattern="com/sap/adt/tools/abapsource/sources/objectstructure/IObjectStructureService"/>
 			<accessrule kind="accessible" pattern="com/sap/adt/debugger/variables/IAbapVariable"/>
 			<accessrule kind="accessible" pattern="com/sap/adt/debugger/variables/IAbapVariableValue"/>
+			<accessrule kind="accessible" pattern="com/sap/adt/ris/search/ui/usagereferences/AdtRisUsageReferencesSearchQuery"/>
+			<accessrule kind="accessible" pattern="com/sap/adt/ris/search/ui/usagereferences/AdtRisUsageReferencesSearchQueryParameters"/>
 		</accessrules>
 	</classpathentry>
 	<classpathentry kind="src" output="target/classes" path="src">
