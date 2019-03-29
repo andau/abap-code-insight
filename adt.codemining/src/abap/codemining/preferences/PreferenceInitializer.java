@@ -35,7 +35,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(PreferenceConstants.SHOW_TEST_REFERENCE_COUNT_SEPARATELY, true);
 		store.setDefault(PreferenceConstants.UPDATE_CHANGED_EDITORS, true);
 		store.setDefault(PreferenceConstants.OMIT_CODE_INSIGHT_FOR_MORE_LINES_THAN, 5000);
-		store.setDefault(PreferenceConstants.SHOW_DEBUG_VARIABLE_VALUES, true);
+		store.setDefault(PreferenceConstants.SHOW_DEBUG_VARIABLE_VALUES, false);
 
 	}
 
