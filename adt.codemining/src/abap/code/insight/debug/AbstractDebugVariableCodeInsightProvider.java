@@ -49,7 +49,7 @@ public abstract class AbstractDebugVariableCodeInsightProvider<T extends IStackF
 	public final CompletableFuture<List<? extends ICodeMining>> provideCodeMinings(ITextViewer viewer,
 			IProgressMonitor monitor) {
 		return CompletableFuture.supplyAsync(() -> {
-			monitor.isCanceled();
+			//monitor.isCanceled();
 			final ITextEditor textEditor = super.getAdapter(ITextEditor.class);
 			final T stackFrame = getStackFrame(viewer, textEditor);
 			if (stackFrame == null) {

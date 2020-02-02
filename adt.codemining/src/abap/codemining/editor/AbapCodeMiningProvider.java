@@ -54,7 +54,7 @@ public class AbapCodeMiningProvider extends AbstractCodeMiningProvider {
 	public CompletableFuture<List<? extends ICodeMining>> provideCodeMinings(ITextViewer viewer,
 			IProgressMonitor monitor) {
 		return CompletableFuture.supplyAsync(() -> {
-			monitor.isCanceled();
+			//monitor.isCanceled();
 			final ITextEditor textEditor = super.getAdapter(ITextEditor.class);
 
 			if (featureFacade.getPerformanceFeature().isActive()) {

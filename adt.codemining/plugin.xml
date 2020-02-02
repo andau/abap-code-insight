@@ -21,7 +21,7 @@
 	     <enabledWhen>
 	        <and>
 	           	<or>
-	           	   <test property="org.eclipse.jdt.codemining.hasPreference" value="showClassHeaderReferenceCount" forcePluginActivation="true"/>
+	           	   <test property="org.eclipse.jdt.codemining.hasPreference" value="showClassDefinitionReferenceCount" forcePluginActivation="true"/>
 	           	</or>
            	</and>
          </enabledWhen>
